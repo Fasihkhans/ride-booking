@@ -18,10 +18,16 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
-        'email',
-        'password',
-    ];
+        'role_id', 
+        'first_name',
+        'last_name',
+        'email', 
+        'phone_number',
+        'dob', 
+        'gender', 
+        'password', 
+        'profile_photo_path'];
+
 
     /**
      * The attributes that should be hidden for serialization.
@@ -41,5 +47,11 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
+        'dob' => 'date',
+        'gender' => 'boolean',
     ];
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
+    }
 }
