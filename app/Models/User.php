@@ -7,10 +7,15 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
+use Spatie\Permission\Traits\HasRoles;
+
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens; 
+    use HasFactory;
+    use Notifiable; 
+    use HasRoles;
 
     /**
      * The attributes that are mass assignable.
@@ -23,9 +28,9 @@ class User extends Authenticatable
         'last_name',
         'email', 
         'phone_number',
-        'dob', 
-        'gender', 
+        'verified',
         'password', 
+        'status',
         'profile_photo_path'];
 
 
@@ -36,7 +41,8 @@ class User extends Authenticatable
      */
     protected $hidden = [
         'password',
-        'remember_token',
+        'verified'
+        // 'remember_token',
     ];
 
     /**
@@ -50,8 +56,12 @@ class User extends Authenticatable
         'dob' => 'date',
         'gender' => 'boolean',
     ];
-    public function role()
+    public function Role()
     {
-        return $this->belongsTo(Role::class);
+        return $this->belongsTo(Role::class,'role_id', 'id');
+    }
+
+    public function IsVerified(){
+        return $this->verified;
     }
 }
