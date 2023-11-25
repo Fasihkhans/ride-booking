@@ -16,6 +16,7 @@ use Exception;
 use Illuminate\Http\Request;
 use App\Interfaces\IUserRepository;
 use Illuminate\Support\Facades\Auth;
+use Spatie\Permission\Models\Role;
 
 class AuthController extends Controller
 {
@@ -32,10 +33,12 @@ class AuthController extends Controller
     {
         try {
             $user = $this->userRepository->create($request->all());
+            // return json_decode($this->userRepository->hasRole($user, 'user'));
             if (!$user)
-                return APIResponse::UnknownInternalServerError('User account not created');
-            if (Configuration::Get('require_email_verification') == '1')
-                $this->verificationCodeRepository->generate($user->id, $request->verification_purpose_id);    
+            return APIResponse::UnknownInternalServerError('User account not created');
+            $user->assignRole(Role::findById($user->role_id, 'api'));
+            if (Configuration::Get('require_email_verification') == '1' && $this->userRepository->hasRole($user, 'user'))
+                $this->verificationCodeRepository->generate($user->id, $request->verification_purpose_id);
             return APIResponse::ResourceCreated('Account created successfully');
         } catch (Exception $ex) {
             return APIResponse::InternalServerError($ex);
@@ -52,7 +55,7 @@ class AuthController extends Controller
                         'You tried signing in via Email, which is not the authentication method you used during sign up. Try again using the authentication method you used during sign up' :
                         'Incorrect email or password'
                 );
-            if ($this->userRepository->hasRole($user, 'user'))
+            if (!$this->userRepository->hasRole($user, 'user'))
                 return APIResponse::Forbidden('Account restricted');
             if (!$this->userRepository->allowedLogin($user))
                 return APIResponse::Forbidden('Account ' . $this->userRepository->getStatus($user));
@@ -78,6 +81,7 @@ class AuthController extends Controller
             if (!$this->verificationCodeRepository->verify($verificationCode))
                 return APIResponse::UnknownInternalServerError('Could not verify code');
             $this->verificationCodeRepository->use($verificationCode);
+            $this->userRepository->updateStatus($user,1);
             return APIResponse::Success('Account verified successfully');
         } catch (Exception $ex) {
             return APIResponse::InternalServerError($ex);

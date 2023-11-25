@@ -105,4 +105,10 @@ class UserRepository implements IUserRepository
     {
         return Hash::check($password, $user->password);
     }
+    public function updateStatus(User $user, bool $status)
+    {
+        $user->status = $status;
+        return $user->save();
+
+    }
 }

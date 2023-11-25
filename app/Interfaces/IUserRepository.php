@@ -21,4 +21,5 @@ interface IUserRepository
     public function logout(User $user, bool $fromEverywhere);
     public function allowedLogin(User $user);
     public function validatePassword(User $user, string $password);
+    public function updateStatus(User $user, bool $status);
 }

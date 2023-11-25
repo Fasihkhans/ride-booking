@@ -38,19 +38,6 @@ class Configuration
             return $names;
         return Helper::formatArrayToString($names);
     }
-    public static function MediaCategory(string $name)
-    {
-        $name = str_replace('-', ' ', $name);
-
-        if($name == 'DivineMusic')
-            $name = 'Divine Music';
-        if($name == 'Break & Groove')
-            $name  = 'Break and Groove';
-        $cat = MediaCategory::where('name', $name)->first();
-        if ($cat)
-            return $cat->id;
-        return null;
-    }
     
     public static function OAuthServiceProviders(bool $csvString)
     {

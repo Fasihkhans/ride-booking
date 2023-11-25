@@ -7,14 +7,15 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
+use Spatie\Permission\Models\Role;
 use Spatie\Permission\Traits\HasRoles;
 
 
 class User extends Authenticatable
 {
-    use HasApiTokens; 
+    use HasApiTokens;
     use HasFactory;
-    use Notifiable; 
+    use Notifiable;
     use HasRoles;
 
     /**
@@ -23,13 +24,13 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'role_id', 
+        'role_id',
         'first_name',
         'last_name',
-        'email', 
+        'email',
         'phone_number',
         'verified',
-        'password', 
+        'password',
         'status',
         'profile_photo_path'];
 
