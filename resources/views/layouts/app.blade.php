@@ -12,25 +12,36 @@
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
         <!-- Scripts -->
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
+        @vite([
+                'resources/css/app.css',
+                'resources/css/dart-cars.css',
+                'resources/css/dart-cars.min.css',
+                '/assets/vendor/nucleo/css/nucleo.css',
+                '/assets/vendor/@fortawesome/fontawesome-free/css/all.min.css',
+                'resources/js/app.js'
+            ])
     </head>
-    <body class="font-sans antialiased">
-        <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
-            <livewire:layout.navigation />
-
-            <!-- Page Heading -->
-            @if (isset($header))
-                <header class="bg-white dark:bg-gray-800 shadow">
-                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                        {{ $header }}
-                    </div>
-                </header>
-            @endif
-
-            <!-- Page Content -->
-            <main>
-                {{ $slot }}
-            </main>
-        </div>
+    <body class="antialiased">
+        {{-- <div class="min-h-screen bg-gray-100 dark:bg-gray-900"> --}}
+            <div class="row overflow-hidden">
+                <div class="col-2 p-0 m-0">
+                    <livewire:layout.navigation />
+                </div>
+                <div class="col-10 p-0 m-0">
+                    <!-- Page Heading -->
+                        @if (isset($header))
+                            {{-- <header class="bg-white dark:bg-gray-700 shadow">
+                                <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+                                    {{ $header }}
+                                </div>
+                            </header> --}}
+                        @endif
+                        <!-- Page Content -->
+                        <main>
+                            {{ $slot }}
+                        </main>
+                </div>
+            </div>
+        {{-- </div> --}}
     </body>
 </html>

@@ -17,9 +17,42 @@ new class extends Component
     }
 }; ?>
 
-<nav x-data="{ open: false }" class="bg-white dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700">
+<nav x-data="{ open: false }" class="sidenav navbar navbar-vertical align-items-center fixed-left navbar-expand-xs navbar-light bg-white ">
+    <div class="scroll-wrapper scrollbar-inner" style="position: relative;">
+        <div class="scrollbar-inner scroll-content align-items-center scroll-scrolly_visible" style="height: auto; margin-bottom: 0px; margin-right: 0px; max-height: 335px;">
+             <!-- Brand -->
+            <div class="sidenav-header d-flex align-items-center p-3 m-4">
+                <div class="shrink-0 flex items-center">
+                    <a href="{{ route('dashboard') }}" wire:navigate>
+                        <x-application-logo class="block h-9 w-auto fill-current text-gray-800 dark:text-gray-200" />
+                    </a>
+                </div>
+            </div>
+            <!-- Divider -->
+            <hr class="my-3">
+            <div class="navbar-inner">
+                <!-- Nav items -->
+                <ul class="navbar-nav align-items-center">
+                    <li class="nav-item">
+                        <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" wire:navigate>
+                            {{ __('Dashboard') }}
+                        </x-nav-link>
+                    </li>
+                    <li class="nav-item">
+                        <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" wire:navigate>
+                            {{ __('Dashboard') }}
+                        </x-nav-link>
+                    </li>
+                </ul>
+                <!-- Divider -->
+                <hr class="my-3">
+            </div>
+        </div>
+
+    </div>
+
     <!-- Primary Navigation Menu -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    {{-- <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
             <div class="flex">
                 <!-- Logo -->
@@ -107,5 +140,5 @@ new class extends Component
                 </button>
             </div>
         </div>
-    </div>
+    </div> --}}
 </nav>
