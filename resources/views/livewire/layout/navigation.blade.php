@@ -17,7 +17,7 @@ new class extends Component
     }
 }; ?>
 
-<nav x-data="{ open: false }" class="sidenav navbar navbar-vertical align-items-center fixed-left navbar-expand-xs navbar-light bg-white ">
+<nav x-data="{ open: false }" class="sidenav navbar navbar-vertical align-items-center fixed-left navbar-expand-xs navbar bg-gray-100 ">
     <div class="scroll-wrapper scrollbar-inner" style="position: relative;">
         <div class="scrollbar-inner scroll-content align-items-center scroll-scrolly_visible" style="height: auto; margin-bottom: 0px; margin-right: 0px; max-height: 335px;">
              <!-- Brand -->
@@ -33,14 +33,14 @@ new class extends Component
             <div class="navbar-inner">
                 <!-- Nav items -->
                 <ul class="navbar-nav align-items-center">
-                    <li class="nav-item">
+                    <li class="nav-item m-2">
                         <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" wire:navigate>
                             {{ __('Dashboard') }}
                         </x-nav-link>
                     </li>
-                    <li class="nav-item">
-                        <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" wire:navigate>
-                            {{ __('Dashboard') }}
+                    <li class="nav-item m-2">
+                        <x-nav-link :href="route('driver.index')" :active="request()->routeIs('driver.*')" wire:navigate>
+                            {{ __('Manage Drivers') }}
                         </x-nav-link>
                     </li>
                 </ul>
