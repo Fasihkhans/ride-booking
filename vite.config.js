@@ -6,7 +6,10 @@ export default defineConfig({
         laravel({
             input: [
                 'resources/css/app.css',
-                'resources/js/app.js',
+                'resources/css/dartcars.css',
+                'resources/css/assets/vendor/nucleo/css/nucleo.css',
+                'resources/css/assets/vendor/@fortawesome/fontawesome-free/css/all.min.css',
+                'resources/js/app.js'
             ],
             refresh: true,
         }),

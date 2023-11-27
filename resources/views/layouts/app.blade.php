@@ -14,10 +14,9 @@
         <!-- Scripts -->
         @vite([
                 'resources/css/app.css',
-                'resources/css/dart-cars.css',
-                'resources/css/dart-cars.min.css',
-                '/assets/vendor/nucleo/css/nucleo.css',
-                '/assets/vendor/@fortawesome/fontawesome-free/css/all.min.css',
+                'resources/css/dartcars.css',
+                'resources/css/assets/vendor/nucleo/css/nucleo.css',
+                'resources/css/assets/vendor/@fortawesome/fontawesome-free/css/all.min.css',
                 'resources/js/app.js'
             ])
     </head>
