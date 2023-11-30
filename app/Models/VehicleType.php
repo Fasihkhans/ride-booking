@@ -14,4 +14,9 @@ class VehicleType extends Model
         'fare',
         'upload_url',
     ];
+
+    public function vehicles()
+    {
+        return $this->hasMany(Vehicles::class);
+    }
 }

@@ -20,6 +20,15 @@ class Driver extends Model
         'license_expiry' => 'date',
     ];
 
+    public function driverVehicles()
+    {
+        return $this->hasMany(DriveVehicles::class);
+    }
+
+    public function booking()
+    {
+        return $this->hasMany(Booking::class);
+    }
 
 
 }

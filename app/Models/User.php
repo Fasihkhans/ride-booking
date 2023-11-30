@@ -62,6 +62,21 @@ class User extends Authenticatable
         return $this->belongsTo(Role::class,'role_id', 'id');
     }
 
+    public function customerPaymentMethods()
+    {
+        return $this->hasMany(CustomerPaymentMethods::class);
+    }
+
+    public function driver()
+    {
+        return $this->hasOne(Driver::class);
+    }
+
+    public function booking()
+    {
+        return $this->hasMany(Booking::class);
+    }
+
     public function IsVerified(){
         return $this->verified;
     }

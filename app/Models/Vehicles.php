@@ -19,4 +19,24 @@ class Vehicles extends Model
         'max_capacity',
         'status',
     ];
+
+    public function vehicleType()
+    {
+        return $this->belongsTo(VehicleType::class,'vehicle_type_id');
+    }
+
+    public function vehicleUploads()
+    {
+        return $this->hasMany(VehicleUploads::class);
+    }
+
+    public function vehicleBookings()
+    {
+        return $this->hasMany(Booking::class);
+    }
+
+    public function driverVehicles()
+    {
+        return $this->hasMany(DriveVehicles::class);
+    }
 }
