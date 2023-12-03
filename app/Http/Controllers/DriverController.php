@@ -11,7 +11,7 @@ class DriverController extends Controller
      */
     public function index()
     {
-        return view("livewire.drviers.index");
+        return view("livewire.drivers.index");
     }
 
     /**
@@ -19,15 +19,15 @@ class DriverController extends Controller
      */
     public function create()
     {
-        return view("livewire.drviers.create");
+        return view("drivers.create");
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store()
     {
-        //
+        return view("livewire.drivers.index");
     }
 
     /**

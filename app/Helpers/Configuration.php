@@ -38,7 +38,7 @@ class Configuration
             return $names;
         return Helper::formatArrayToString($names);
     }
-    
+
     public static function OAuthServiceProviders(bool $csvString)
     {
         $names = OAuthServiceProvider::pluck('name')->all();

@@ -7,7 +7,7 @@ use App\Interfaces\IDriverRepository;
 
 class DriverRepository implements IDriverRepository
 {
-    public function create(array $data)
+    static public function create(array $data)
     {
         return Driver::create($data);
     }

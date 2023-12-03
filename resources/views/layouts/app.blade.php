@@ -20,27 +20,21 @@
                 'resources/js/app.js'
             ])
     </head>
-    <body class="antialiased">
-        {{-- <div class="min-h-screen bg-gray-100 dark:bg-gray-900"> --}}
-            <div class="row overflow-hidden">
-                <div class="col-2 p-0 m-0">
-                    <livewire:layout.navigation />
-                </div>
-                <div class="col-10 p-0 m-0">
-                    <!-- Page Heading -->
-                        @if (isset($header))
-                            <header class="bg-white dark:bg-gray-700 shadow">
-                                <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                                    {{ $header }}
-                                </div>
-                            </header>
-                        @endif
-                        <!-- Page Content -->
-                        <main>
-                            {{ $slot }}
-                        </main>
-                </div>
+    <body class="antialiased g-sidenav-show g-sidenav-pinned">
+            <livewire:layout.navigation />
+            <div class=" main-content">
+                <!-- Page Heading -->
+                @if (isset($header))
+                    <header class="bg-white shadow row col-12 dark:bg-gray-700">
+                        <div class="px-4 py-6 mx-auto max-w-7xl sm:px-6 lg:px-8">
+                            {{ $header }}
+                        </div>
+                    </header>
+                @endif
+                <!-- Page Content -->
+                <main class="main-content">
+                    {{ $slot }}
+                </main>
             </div>
-        {{-- </div> --}}
     </body>
 </html>

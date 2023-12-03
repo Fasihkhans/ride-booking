@@ -33,7 +33,6 @@ class AuthController extends Controller
     {
         try {
             $user = $this->userRepository->create($request->all());
-            // return json_decode($this->userRepository->hasRole($user, 'user'));
             if (!$user)
             return APIResponse::UnknownInternalServerError('User account not created');
             $user->assignRole(Role::findById($user->role_id, 'api'));
