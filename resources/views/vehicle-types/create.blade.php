@@ -1,15 +1,15 @@
 <div>
     <x-app-layout>
         <div class="bg-white">
-            <x-page-header name="Add a New Driver">
-                <a href="{{ route('driver.index') }}">
+
+            <x-page-header name="Add a Vehicle Type">
+                <a href="{{ route('vehicle-types.index') }}">
                     <x-primary-button>
                         {{__('Go Back')}}
                     </x-primary-button>
                 </a>
             </x-page-header>
-
-            <livewire:drivers.create/>
+            <livewire:vehicle-types.create-form />
         </div>
     </x-app-layout>
 </div>

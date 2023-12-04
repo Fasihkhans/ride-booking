@@ -13,7 +13,7 @@ class VehiclesController extends Controller
      */
     public function index()
     {
-        //
+        return view("vehicles.index");
     }
 
     /**
@@ -21,7 +21,7 @@ class VehiclesController extends Controller
      */
     public function create()
     {
-        //
+        return view("vehicles.create");
     }
 
     /**

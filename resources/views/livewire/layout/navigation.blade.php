@@ -19,7 +19,7 @@ new class extends Component
 
 <nav x-data="{ open: false }" class="overflow-hidden bg-gray-100 sidenav navbar navbar-vertical align-items-center fixed-left navbar-expand-xs ">
     <div class="scroll-wrapper scrollbar-inner" style="position: relative;">
-        <div class="scrollbar-inner scroll-content align-items-center scroll-scrolly_visible" style="height: auto; margin-bottom: 0px; margin-right: 0px; max-height: 335px;">
+        <div class="scrollbar-inner scroll-content align-items-center scroll-scrolly_visible" style="height: auto; margin-bottom: 0px; margin-right: 0px; min-height: 500vh;">
              <!-- Brand -->
             <div class="p-3 m-4 sidenav-header d-flex align-items-center">
                 <div class="flex items-center shrink-0">
@@ -44,7 +44,22 @@ new class extends Component
                         </x-nav-link>
                     </li>
                     <li class="m-2 nav-item">
-                        <x-nav-link  wire:click="logout"  :active="request()->routeIs('logout')" wire:navigate>
+                        <x-nav-link :href="route('vehicles.index')" :active="request()->routeIs('vehicles.*')" wire:navigate>
+                            {{ __('Manage Vehicles') }}
+                        </x-nav-link>
+                    </li>
+                    <li class="m-2 nav-item">
+                        <x-nav-link :href="route('vehicle-types.index')" :active="request()->routeIs('vehicle-types.*')" wire:navigate>
+                            {{ __('Manage Vehicle Types ') }}
+                        </x-nav-link>
+                    </li>
+                    <li class="m-2 nav-item">
+                        <x-nav-link :href="route('driver.index')" :active="request()->routeIs('driver.*')" wire:navigate>
+                            {{ __('Manage Assignments') }}
+                        </x-nav-link>
+                    </li>
+                    <li class="m-2 nav-item">
+                        <x-nav-link   wire:click="logout"  :active="request()->routeIs('logout')">
                             {{ __('Log Out') }}
                         </x-nav-link>
                     </li>
