@@ -45,20 +45,23 @@ $save = function(){
 
 
     $vehicle = VehiclesRepository::create($validated);
-    foreach($this->uploadVehiclePhotos as $uploadVehiclePhoto) {
-        $vehicleUpload['vehicle_id'] = $vehicle->id;
-        $vehicleUpload['upload_url'] =  $uploadVehiclePhoto->store('vehicles');
-        $vehicleUpload['upload_type'] = "VehiclePhotos";
-        VehicleUploadsRepository::create($vehicleUpload);
-        $vehicleUpload = null;
+    if($this->uploadVehiclePhotos){
+        foreach($this->uploadVehiclePhotos as $uploadVehiclePhoto) {
+            $vehicleUpload['vehicle_id'] = $vehicle->id;
+            $vehicleUpload['upload_url'] =  $uploadVehiclePhoto->store('vehicles');
+            $vehicleUpload['upload_type'] = "VehiclePhotos";
+            VehicleUploadsRepository::create($vehicleUpload);
+            $vehicleUpload = null;
+        }
     }
-
-    foreach($this->uploadVehicleLicensePhotos as $uploadVehicleLicensePhoto) {
-        $vehicleUpload['vehicle_id'] = $vehicle->id;
-        $vehicleUpload['upload_url'] =  $uploadVehicleLicensePhoto->store('vehicles');
-        $vehicleUpload['upload_type'] = "VehicleLicensePhotos";
-        VehicleUploadsRepository::create($vehicleUpload);
-        $vehicleUpload = null;
+    if ($this->uploadVehicleLicensePhotos) {
+        foreach($this->uploadVehicleLicensePhotos as $uploadVehicleLicensePhoto) {
+            $vehicleUpload['vehicle_id'] = $vehicle->id;
+            $vehicleUpload['upload_url'] =  $uploadVehicleLicensePhoto->store('vehicles');
+            $vehicleUpload['upload_type'] = "VehicleLicensePhotos";
+            VehicleUploadsRepository::create($vehicleUpload);
+            $vehicleUpload = null;
+        }
     }
 
 
