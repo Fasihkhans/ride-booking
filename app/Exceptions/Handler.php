@@ -2,7 +2,9 @@
 
 namespace App\Exceptions;
 
+use App\Helpers\APIResponse;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Http\Exceptions\ThrottleRequestsException;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -25,6 +27,14 @@ class Handler extends ExceptionHandler
     {
         $this->reportable(function (Throwable $e) {
             //
+        });
+
+        $this->renderable(function (ThrottleRequestsException $e) {
+            return APIResponse::TooManyRequests('Too many requests. Please try again later');
+        });
+
+        $this->renderable(function (\Spatie\Permission\Exceptions\UnauthorizedException $e, $request) {
+            return APIResponse::Unauthorized('You do not have the required authorization');
         });
     }
 }

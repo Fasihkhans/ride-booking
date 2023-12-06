@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Models\VehicleType;
 use App\Interfaces\IVehicleTypesRepository;
+use Illuminate\Support\Facades\DB;
 
 class VehicleTypesRepository implements IVehicleTypesRepository
 {
@@ -23,5 +24,10 @@ class VehicleTypesRepository implements IVehicleTypesRepository
     static public function getAll()
     {
         return VehicleType::all();
+    }
+
+    static public function list()
+    {
+        return VehicleType::orderBy('created_at', 'desc');
     }
 }

@@ -11,4 +11,6 @@ interface IVehicleTypesRepository
     public function update(VehicleType $type,array $data);
 
     static public function getAll();
+
+    static public function list();
 }

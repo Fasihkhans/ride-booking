@@ -27,6 +27,11 @@ class APIResponse
         return response()->json(['status'    => $status, 'success'   => $success, 'message'     => $message, 'data' => $data], $status);
     }
 
+    private static function responseWithDataAndPagination(int $status, bool $success, string $message, $data, $paginate)
+    {
+        return response()->json(['status'    => $status, 'success'   => $success, 'message'     => $message, 'data' => $data, 'paginate' =>$paginate], $status);
+    }
+
     public static function NotFound(string $message)
     {
         return self::response(Response::HTTP_NOT_FOUND, false, $message);
@@ -75,6 +80,11 @@ class APIResponse
     public static function SuccessWithData(string $message, $data)
     {
         return self::responseWithData(Response::HTTP_OK, true, $message, $data);
+    }
+
+    public static function SuccessWithDataAndPagination(string $message, $data, $paginate)
+    {
+        return self::responseWithDataAndPagination (Response::HTTP_OK, true, $message, $data, $paginate);
     }
 
     public static function Conflict(string $message)

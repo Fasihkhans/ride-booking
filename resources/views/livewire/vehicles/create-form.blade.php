@@ -108,7 +108,7 @@ $save = function(){
                             <input type="file" class="custom-file-input" id="customFileLang" lang="en" wire:model="uploadVehiclePhotos" multiple>
                             <label class="custom-file-label" for="customFileLang">Vehicle Photos</label>
                             <x-input-error :messages="$errors->get('uploadVehiclePhotos')" class="mt-2" />
-                          </div>
+                        </div>
                     </div>
                 </div>
             </div>
