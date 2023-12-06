@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Casts\BookingStatusCast;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -13,9 +14,13 @@ class Booking extends Model
         "customer_id",
         "driver_id",
         "vehicle_id",
+        "type",
         "status",
     ];
 
+    protected $cast = [
+        'status' => BookingStatusCast::class
+    ];
     public function customer()
     {
         return $this->belongsTo(User::class, "customer_id");

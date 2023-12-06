@@ -15,7 +15,6 @@ class BookingStops extends Model
         "latitude",
         "longitude",
         "sequence_no",
-        "type",
         "status"
     ];
 

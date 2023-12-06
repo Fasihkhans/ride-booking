@@ -10,7 +10,7 @@ use App\Http\Resources\PaginateResource;
 use Illuminate\Http\Request;
 use App\Interfaces\IVehicleTypesRepository;
 use Exception;
-use Illuminate\Http\Resources\Json\PaginatedResourceResponse;
+
 
 class VehicleTypesController extends Controller
 {
