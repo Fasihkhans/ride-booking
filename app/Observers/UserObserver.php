@@ -16,17 +16,10 @@ class UserObserver
     {
         if($user->role_id == Configuration::UserRole('driver'))
         {
-            // if($user->create())
-            // {
-                $user->assignRole(Role::findById($user->role_id, 'api'));
-                SendMail::dispatch($user->email,new DriverAccountCreatationMail($user->temp_password));
-                $user->update(['temp_password' => null]);
-            // }
-            // else
-            // {
-            //     SendMail::dispatchSync($user->email,new DriverAccountCreatationMail($user->temp_password));
-            //     $user->update(['temp_password' => null]);
-            // }
+            $user->assignRole(Role::findById($user->role_id, 'api'));
+            SendMail::dispatch($user->email,new DriverAccountCreatationMail($user->temp_password));
+            $user->temp_password = null;
+            $user->update();
         }
     }
 
