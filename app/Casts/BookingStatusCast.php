@@ -15,33 +15,16 @@ class BookingStatusCast implements CastsAttributes
      */
     public function get(Model $model, string $key, mixed $value, array $attributes): mixed
     {
-        switch ($value) {
-            case Constants::BOOKING_WAITING:
-                $status = 'waiting';
-                break;
-
-            case Constants::BOOKING_ACCEPTED:
-                $status = 'accepted';
-                break;
-
-            case Constants::BOOKING_DECLINED:
-                $status = 'declined';
-                break;
-
-            case Constants::BOOKING_COMPLETED:
-                $status = 'completed';
-                break;
-
-            case Constants::BOOKING_IN_PROGRESS:
-                $status = 'inProgress';
-                break;
-            default:
-                $status = $value;
-                break;
-        }
-
-        return $status;
+        return match ($value) {
+            Constants::BOOKING_WAITING => 'waiting',
+            Constants::BOOKING_ACCEPTED => 'accepted',
+            Constants::BOOKING_DECLINED => 'declined',
+            Constants::BOOKING_COMPLETED => 'completed',
+            Constants::BOOKING_IN_PROGRESS => 'inProgress',
+            default => 'unknownStatus',
+        };
     }
+
 
     /**
      * Prepare the given value for storage.
@@ -52,4 +35,5 @@ class BookingStatusCast implements CastsAttributes
     {
         return $value;
     }
+
 }

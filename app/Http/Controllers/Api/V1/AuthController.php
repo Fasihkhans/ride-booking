@@ -54,7 +54,7 @@ class AuthController extends Controller
                         'You tried signing in via Email, which is not the authentication method you used during sign up. Try again using the authentication method you used during sign up' :
                         'Incorrect email or password'
                 );
-            if (!$this->userRepository->hasRole($user, 'user'))
+            if (!($this->userRepository->hasRole($user, 'user')|| $this->userRepository->hasRole($user, 'driver')))
                 return APIResponse::Forbidden('Account restricted');
             if (!$this->userRepository->allowedLogin($user))
                 return APIResponse::Forbidden('Account ' . $this->userRepository->getStatus($user));

@@ -5,8 +5,11 @@ namespace App\Http\Controllers\Api\V1;
 use App\Constants\Constants;
 use App\Helpers\APIResponse;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CommonPaginatedRequest;
 use App\Http\Requests\StoreBookingRequest;
+use App\Http\Resources\BookingStopsResource;
 use App\Http\Resources\BookingWithStopsResource;
+use App\Http\Resources\PaginateResource;
 use App\Interfaces\IBookingRepository;
 use App\Interfaces\IBookingStopsRepository;
 use Exception;
@@ -25,6 +28,11 @@ class BookingController extends Controller
         $this->bookingStopsRepository = $bookingStopsRepository;
     }
 
+    /**
+     * Action for store booking of logged-in user with multiple stops.
+     *
+     * @return APIResponse in json format
+     */
     public function store(StoreBookingRequest $request)
     {
         try {
@@ -51,4 +59,24 @@ class BookingController extends Controller
         }
     }
 
+    /**
+     * Action for getting latest stops for logged-in user.
+     *
+     * @return APIResponse in json format
+     */
+    public function latestStops(CommonPaginatedRequest $request)
+    {
+        try {
+            $latestStops = $this->bookingStopsRepository::findLatestStops(Auth::user()->id)->paginate($request->perPage)->appends(['sort'=>$request->sortBy]);
+            if (!$latestStops)
+                APIResponse::NotFound('No result found');
+            $latestStops = BookingStopsResource::collection($latestStops);
+            $paginate = PaginateResource::make($latestStops);
+            return APIResponse::SuccessWithDataAndPagination('Success', $latestStops, $paginate);
+
+
+        } catch (Exception $ex) {
+            return APIResponse::InternalServerError($ex);
+        }
+    }
 }

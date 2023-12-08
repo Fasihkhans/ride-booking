@@ -22,9 +22,9 @@ use Illuminate\Support\Facades\Route;
     // });
     Route::middleware('auth:api')->group(function () {
         Route::post('user/logout', [AuthController::class, 'logout']);
-        // Route::get('user/pricing/list',[VehicleTypesController::class, 'list']);
         Route::get('pricing/list',[VehicleTypesController::class, 'list']);
         Route::post('user/booking',[BookingController::class, 'store']);
+        Route::get('user/latest/stops', [BookingController::class, 'latestStops']);
 
     });
 
