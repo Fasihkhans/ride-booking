@@ -22,7 +22,7 @@ class Driver extends Model
 
     public function driverVehicles()
     {
-        return $this->hasMany(DriveVehicles::class);
+        return $this->hasMany(DriverVehicles::class);
     }
 
     public function booking()

@@ -15,6 +15,7 @@ class BookingStops extends Model
         "latitude",
         "longitude",
         "sequence_no",
+        "is_favourite",
         "status"
     ];
 
@@ -22,7 +23,8 @@ class BookingStops extends Model
         "stop"=> "string",
         "latitude"=> "integer",
         "longitude" => "integer",
-        "sequence_no" => "interger"
+        "sequence_no" => "interger",
+        "is_favourite" => 'boolean'
     ];
 
     public function booking()

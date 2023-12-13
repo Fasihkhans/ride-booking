@@ -7,6 +7,7 @@ use App\Helpers\APIResponse;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CommonPaginatedRequest;
 use App\Http\Requests\StoreBookingRequest;
+use App\Http\Requests\UpdateBookingStatusRequest;
 use App\Http\Resources\BookingStopsResource;
 use App\Http\Resources\BookingWithStopsResource;
 use App\Http\Resources\PaginateResource;
@@ -77,6 +78,76 @@ class BookingController extends Controller
 
         } catch (Exception $ex) {
             return APIResponse::InternalServerError($ex);
+        }
+    }
+
+    /**
+     * Action for update is favourite stops for logged-in user.
+     *
+     * @return APIResponse in json format
+     */
+    public function favouriteStop(Request $request)
+    {
+        try {
+            $updatedStop = $this->bookingStopsRepository::updateIsFav($request->isFavourite,$request->id);
+            if (!$updatedStop)
+                APIResponse::UnknownInternalServerError('Error while updating');
+            return APIResponse::Success('Resource updated');
+        } catch (Exception $ex) {
+            return APIResponse::UnknownInternalServerError($ex);
+        }
+    }
+
+    /**
+     * Action for getting current booking for logged-in driver or user.
+     *
+     * @return APIResponse in json format
+     */
+    public function currentBooking()
+    {
+        try
+        {
+            if(Auth::guard('driver')->check()){
+                $booking = $this->bookingRepository::findDriverCurrentBooking(Auth::user()->id);
+            }else{
+                $booking = $this->bookingRepository::findCurrentBooking(Auth::user()->id);
+            }
+            if(!$booking)
+                return APIResponse::NotFound('No result found');
+            $bookingWithStops = BookingWithStopsResource::make($booking);
+            return APIResponse::SuccessWithData('Success', $bookingWithStops);
+        } catch (Exception $ex) {
+            return APIResponse::UnknownInternalServerError($ex);
+        }
+    }
+
+    /**
+     * Action for updating booking status for logged-in drivers or users.
+     *
+     * @return APIResponse in json format
+     */
+    public function currentBookingStatus(UpdateBookingStatusRequest $request)
+    {
+        try
+        {
+            if (Auth::guard('driver')->check()) {
+                $booking = $this->bookingRepository::findDriverCurrentBooking(Auth::user()->id);
+            } else {
+                $booking = $this->bookingRepository::findCurrentBooking(Auth::user()->id);
+            }
+
+            if (!$booking)
+                return APIResponse::NotFound('No result found');
+
+            $bookingUpdated = $this->bookingRepository::updateBookingStatus($request->status, $booking->id);
+
+            if (!$bookingUpdated)
+                return APIResponse::NotFound('No result found');
+
+            $bookingWithStops = BookingWithStopsResource::make($bookingUpdated);
+            return APIResponse::SuccessWithData('Success', $bookingWithStops);
+        } catch (Exception $ex) {
+            return APIResponse::UnknownInternalServerError($ex);
         }
     }
 }

@@ -27,7 +27,7 @@ class CommonPaginatedRequest extends FormRequest
         return [
             'per_page' => ['numeric', 'gte:0', 'lte:50'],
             'page' => ['numeric', 'gte:1'],
-            'sort_by' => ['string'],
+            'sort_by' => ['string','nullable'],
             'sort_order' => ['in:asc,desc'],
             'search' => ['string'],
             // Add more rules for additional attributes if needed

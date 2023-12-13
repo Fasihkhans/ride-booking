@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class DriveVehicles extends Model
+class DriverVehicles extends Model
 {
     use HasFactory;
 
@@ -14,6 +14,8 @@ class DriveVehicles extends Model
         "vehicle_id",
         "start_time",
         "end_time",
+        "start_date",
+        "end_date",
         "status",
     ];
 

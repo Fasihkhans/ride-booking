@@ -17,6 +17,7 @@ class LoggedInUserResource extends JsonResource
     {
         $roleName = Role::find($this->role_id)->name;
         return [
+            'id' => $this->id,
             'firstName' => $this->first_name,
             'lastName' => $this->last_name,
             'email' => $this->email,

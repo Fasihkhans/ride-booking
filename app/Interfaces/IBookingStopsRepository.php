@@ -10,6 +10,8 @@ interface IBookingStopsRepository
 
     static public function findLatestStops(int $userId);
 
+    static public function updateIsFav(bool $isFav,int $id);
+
     public function update(BookingStops $bookig,array $data);
 
 }

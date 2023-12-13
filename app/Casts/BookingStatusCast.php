@@ -21,6 +21,8 @@ class BookingStatusCast implements CastsAttributes
             Constants::BOOKING_DECLINED => 'declined',
             Constants::BOOKING_COMPLETED => 'completed',
             Constants::BOOKING_IN_PROGRESS => 'inProgress',
+            Constants::BOOKING_NO_DRIVER_FOUND => 'noDriverFound',
+            Constants::BOOKING_CANCEL_BY_USER => 'cancelByUser',
             default => 'unknownStatus',
         };
     }
@@ -33,7 +35,16 @@ class BookingStatusCast implements CastsAttributes
      */
     public function set(Model $model, string $key, mixed $value, array $attributes): mixed
     {
-        return $value;
+        return match ($value) {
+            'waiting' => Constants::BOOKING_WAITING,
+            'accepted' => Constants::BOOKING_ACCEPTED,
+            'declined' => Constants::BOOKING_DECLINED,
+            'completed' => Constants::BOOKING_COMPLETED,
+            'inProgress' => Constants::BOOKING_IN_PROGRESS,
+            'noDriverFound' => Constants::BOOKING_NO_DRIVER_FOUND,
+            'cancelByUser' => Constants::BOOKING_CANCEL_BY_USER,
+            default => 00, // Assuming you have a constant for 'unknownStatus'
+        };
     }
 
 }

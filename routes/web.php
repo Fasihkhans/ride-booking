@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\DriverController;
+use App\Http\Controllers\VehicleAssignmentController;
 use App\Http\Controllers\VehiclesController;
 use App\Http\Controllers\VehicleTypeController;
 use Illuminate\Support\Facades\Route;
@@ -31,6 +32,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('vehicles', VehiclesController::class);
     Route::resource('vehicle-types', VehicleTypeController::class);
     Route::resource('Booking', BookingController::class);
+    Route::resource('vehicle-assignment', VehicleAssignmentController::class);
 });
 
 require __DIR__.'/auth.php';
