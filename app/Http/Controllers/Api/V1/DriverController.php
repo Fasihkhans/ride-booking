@@ -6,17 +6,20 @@ use App\Helpers\APIResponse;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UpdateDriverStatusRequest;
 use App\Interfaces\IDriverRepository;
+use App\Interfaces\IUserRepository;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class DriverController extends Controller
 {
-    private IDriverRepository $iDriverRepository;
+    private IDriverRepository $driverRepository;
 
-    public function __construct(IDriverRepository $iDriverRepository)
+    private IUserRepository $userRepository;
+    public function __construct(IDriverRepository $driverRepository, IUserRepository $userRepository)
     {
-        $this->iDriverRepository = $iDriverRepository;
+        $this->driverRepository = $driverRepository;
+        $this->userRepository = $userRepository;
     }
 
     /**
@@ -28,7 +31,7 @@ class DriverController extends Controller
     {
         try
         {
-            $driver =   $this->iDriverRepository::UpdateStatus($request->status,Auth::user()->id);
+            $driver =   $this->userRepository->UpdateStatus(Auth::user()->id,$request->status);
             if (!$driver)
                 APIResponse::UnknownInternalServerError('Error while updating');
             return APIResponse::Success('Resource updated');
