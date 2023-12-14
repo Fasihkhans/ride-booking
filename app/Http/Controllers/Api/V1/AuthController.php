@@ -80,7 +80,7 @@ class AuthController extends Controller
             if (!$this->verificationCodeRepository->verify($verificationCode))
                 return APIResponse::UnknownInternalServerError('Could not verify code');
             $this->verificationCodeRepository->use($verificationCode);
-            $this->userRepository->updateStatus($user,1);
+            $this->userRepository->updateStatus($user->id,1);
             return APIResponse::Success('Account verified successfully');
         } catch (Exception $ex) {
             return APIResponse::InternalServerError($ex);
