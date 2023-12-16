@@ -39,7 +39,7 @@ use Illuminate\Support\Facades\Route;
 
             Route::get('{id}/booking/{bookingId}',[BookingController::class, 'get']);
 
-            Route::patch('{id}booking/{bookingId}/status',[BookingController::class, 'bookingStatus']);
+            Route::patch('{id}/booking/{bookingId}/status',[BookingController::class, 'bookingStatus']);
 
             Route::get('{id}/currentbooking',[BookingController::class, 'currentBooking']);
 

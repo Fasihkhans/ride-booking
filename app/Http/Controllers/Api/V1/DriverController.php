@@ -31,6 +31,7 @@ class DriverController extends Controller
     {
         try
         {
+
             $driver =   $this->driverRepository->onlineStatus($request->isOnline, $request->id);
             if (!$driver)
                 APIResponse::UnknownInternalServerError('Error while updating');

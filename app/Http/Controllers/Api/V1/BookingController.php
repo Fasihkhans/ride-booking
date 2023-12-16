@@ -16,6 +16,7 @@ use App\Interfaces\IBookingStopsRepository;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class BookingController extends Controller
 {
@@ -132,6 +133,12 @@ class BookingController extends Controller
     {
         try
         {
+            $validator = Validator::make($request->route()->parameters(), [
+                'id' => ['required','numeric'],
+                'bookingId' => ['required','numeric','exists:bookings,id'],
+            ]);
+            if ($validator->fails())
+                return APIResponse::BadRequest($validator->errors()->first());
             $booking = $this->bookingRepository::findBooking($request->bookingId);
             if(!$booking)
                 return APIResponse::NotFound('No result found');
@@ -151,11 +158,15 @@ class BookingController extends Controller
     {
         try
         {
+            $validator = Validator::make($request->route()->parameters(), [
+                'id' => ['required','numeric'],
+                'bookingId' => ['required','numeric','exists:bookings,id'],
+            ]);
+            if ($validator->fails())
+                return APIResponse::BadRequest($validator->errors()->first());
             $bookingUpdated = $this->bookingRepository::updateBookingStatus($request->status, $request->bookingId);
-
             if (!$bookingUpdated)
                 return APIResponse::NotFound('No result found');
-
             $bookingWithStops = BookingWithStopsResource::make($bookingUpdated);
             return APIResponse::SuccessWithData('Success', $bookingWithStops);
         } catch (Exception $ex) {
@@ -168,10 +179,16 @@ class BookingController extends Controller
      *
      * @return APIResponse in json format
      */
-    public function currentBooking(CommonPaginatedRequest $request)
+    public function currentBooking(Request $request)
     {
         try
         {
+            $validator = Validator::make($request->route()->parameters(), [
+                'id' => ['required','numeric'],
+            ]);
+            if ($validator->fails())
+                return APIResponse::BadRequest($validator->errors()->first());
+
             if(Auth::user()->roles->first()->name == 'driver'){
                 $booking = $this->bookingRepository::findDriverActiveBookings($request->id);
             }else{
