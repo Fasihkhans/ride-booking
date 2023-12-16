@@ -20,10 +20,14 @@ class DriverRepository implements IDriverRepository
         })->with('user')->get();
     }
 
-    static public function updateStatus(string $status, int $id)
+    static public function findByUserID(int $userId)
+    {
+        return Driver::where('user_id', $userId)->first();
+    }
+    static public function onlineStatus(bool $status, int $id)
     {
         $model = Driver::find($id);
-        $model->status = $status;
+        $model->is_online = $status;
         $model->update();
         return $model;
     }

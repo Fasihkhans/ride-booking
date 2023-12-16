@@ -14,10 +14,12 @@ class Driver extends Model
         'license_no',
         'license_expiry',
         'license_img_url',
+        'is_online',
     ];
 
     protected $casts = [
         'license_expiry' => 'date',
+        'is_online' => 'boolean',
     ];
 
     public function driverVehicles()

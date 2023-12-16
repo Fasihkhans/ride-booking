@@ -16,7 +16,8 @@ class LoggedInUserResource extends JsonResource
     public function toArray(Request $request): array
     {
         $roleName = Role::find($this->role_id)->name;
-        return [
+
+        $response = [
             'id' => $this->id,
             'firstName' => $this->first_name,
             'lastName' => $this->last_name,
@@ -26,5 +27,11 @@ class LoggedInUserResource extends JsonResource
             'userRole' => $roleName,
             'token' => $this->secret,
         ];
+
+        if ($roleName == 'driver') {
+            $response['driverDetails'] = DriverResource::make($this->driverDetails);
+        }
+
+        return $response;
     }
 }

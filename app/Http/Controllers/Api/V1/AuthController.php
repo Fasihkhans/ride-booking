@@ -11,6 +11,7 @@ use App\Http\Requests\UserLogoutRequest;
 use App\Http\Requests\UserSignupRequest;
 use App\Http\Requests\VerificationCodeRequest;
 use App\Http\Resources\LoggedInUserResource;
+use App\Interfaces\IDriverRepository;
 use App\Interfaces\IVerificationCodeRepository;
 use Exception;
 use Illuminate\Http\Request;
@@ -22,11 +23,13 @@ class AuthController extends Controller
 {
     private IUserRepository $userRepository;
     private IVerificationCodeRepository $verificationCodeRepository;
+    private IDriverRepository $driverRepository;
 
-    public function __construct(IUserRepository $userRepository, IVerificationCodeRepository $verificationCodeRepository)
+    public function __construct(IUserRepository $userRepository, IVerificationCodeRepository $verificationCodeRepository, IDriverRepository $driverRepository)
     {
         $this->userRepository = $userRepository;
         $this->verificationCodeRepository = $verificationCodeRepository;
+        $this->driverRepository = $driverRepository;
     }
 
     public function signup(UserSignupRequest $request)
@@ -61,6 +64,10 @@ class AuthController extends Controller
             if (!$this->userRepository->isVerified($user))
                 return APIResponse::BadRequest('Account not verified');
             $user->secret = $this->userRepository->generateBearerToken($user, !Configuration::Get('allow_multi_device_login'));
+            if ($user->role_id == 3)
+                    $user->driverDetails = $this->driverRepository->findByUserID($user->id);
+            // dd($user->driverDetails );
+                    // return APIResponse::SuccessWithData('Driver Logged in successfully', new LoggedInUserResource($user));
             return APIResponse::SuccessWithData('Logged in successfully', new LoggedInUserResource($user));
         } catch (Exception $ex) {
             return APIResponse::InternalServerError($ex);

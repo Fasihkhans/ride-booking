@@ -44,23 +44,44 @@ class BookingRepository implements IBookingRepository
         return $model->update();
     }
 
-    static public function findDriverCurrentBooking(int $driverId)
+    static public function findDriverBookings(int $driverId)
     {
-        return Booking::whereHas('driver', function ($query) use ($driverId) {
-                    $query->where('user_id', $driverId);
-                })
-                ->whereIn('status',[Constants::BOOKING_WAITING, Constants::BOOKING_ACCEPTED,Constants::BOOKING_IN_PROGRESS])
-                ->with(['bookingStops','driver'])
+        return Booking::where('driver_id',$driverId)
+                ->with(['bookingStops','driver','vehicle'])
+                ->orderBy('updated_at', 'desc');
+    }
+    static public function findCustomerBookings(int $userId)
+    {
+        return Booking::where('customer_id',$userId)
+                ->with(['bookingStops','driver','vehicle'])
+                ->orderBy('updated_at', 'desc');
+    }
+
+    static public function findBooking(int $id)
+    {
+        return Booking::find($id)
+                ->with(['bookingStops','driver','vehicle'])
                 ->first();
     }
 
-    static public function findCurrentBooking(int $userId)
+    static public function findDriverActiveBookings(int $driverId)
+    {
+        return Booking::where('driver_id',$driverId)
+                ->whereIn('status',[Constants::BOOKING_WAITING, Constants::BOOKING_ACCEPTED,Constants::BOOKING_IN_PROGRESS])
+                ->with(['bookingStops','driver','vehicle'])
+                ->orderBy('updated_at', 'desc')
+                ->first();
+    }
+
+    static public function findCustomerActiveBookings(int $userId)
     {
         return Booking::where('customer_id',$userId)
                 ->whereIn('status',[Constants::BOOKING_WAITING, Constants::BOOKING_ACCEPTED,Constants::BOOKING_IN_PROGRESS])
-                ->with(['bookingStops'])
+                ->with(['bookingStops','driver','vehicle'])
+                ->orderBy('updated_at', 'desc')
                 ->first();
     }
+
 
     static public function updateBookingStatus(string $status,int $id)
     {

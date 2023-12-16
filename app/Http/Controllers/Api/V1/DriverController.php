@@ -27,11 +27,11 @@ class DriverController extends Controller
      *
      * @return APIResponse
      */
-    public function updateStatus(UpdateDriverStatusRequest $request)
+    public function onlineStatus(UpdateDriverStatusRequest $request)
     {
         try
         {
-            $driver =   $this->userRepository->UpdateStatus(Auth::user()->id,$request->status);
+            $driver =   $this->driverRepository->onlineStatus($request->isOnline, $request->id);
             if (!$driver)
                 APIResponse::UnknownInternalServerError('Error while updating');
             return APIResponse::Success('Resource updated');

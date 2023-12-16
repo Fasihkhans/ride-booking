@@ -17,8 +17,13 @@ interface IBookingRepository
 
     static public function assignDriver(int $driverId,int $vehicleId, int $id);
 
-    static public function findDriverCurrentBooking(int $driverId);
-    static public function findCurrentBooking(int $userId);
+    static public function findDriverBookings(int $driverId);
+    static public function findCustomerBookings(int $userId);
+
+    static public function findBooking(int $id);
+    static public function findDriverActiveBookings(int $driverId);
+
+    static public function findCustomerActiveBookings(int $userId);
 
     static public function updateBookingStatus(string $status,int $id);
     public function update(Booking $bookig,array $data);

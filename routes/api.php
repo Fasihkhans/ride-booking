@@ -29,25 +29,32 @@ use Illuminate\Support\Facades\Route;
 
         Route::middleware('role:user')->prefix('user')->group(function(){
 
-
             Route::post('booking',[BookingController::class, 'store']);
 
             Route::get('latest/stops', [BookingController::class, 'latestStops']);
 
             Route::patch('stop/{id}', [BookingController::class, 'favouriteStop']);
 
-            Route::get('booking',[BookingController::class, 'currentBooking']);
+            Route::get('{id}/bookings',[BookingController::class, 'list']);
 
-            Route::patch('booking/status',[BookingController::class, 'currentBookingStatus']);
+            Route::get('{id}/booking/{bookingId}',[BookingController::class, 'get']);
+
+            Route::patch('{id}booking/{bookingId}/status',[BookingController::class, 'bookingStatus']);
+
+            Route::get('{id}/currentbooking',[BookingController::class, 'currentBooking']);
 
         });
         Route::middleware('role:driver')->prefix('driver')->group(function () {
 
-            Route::get('booking',[BookingController::class, 'currentBooking']);
+            Route::get('{id}/currentbooking',[BookingController::class, 'currentBooking']);
 
-            Route::patch('booking/status',[BookingController::class, 'currentBookingStatus']);
+            Route::get('{id}/bookings',[BookingController::class, 'list']);
 
-            Route::patch('status',[DriverController::class, 'updateStatus']);
+            Route::get('{id}/booking/{bookingId}',[BookingController::class, 'get']);
+
+            Route::patch('{id}booking/{bookingId}/status',[BookingController::class, 'bookingStatus']);
+
+            Route::patch('{id}/online',[DriverController::class, 'onlineStatus']);
 
         });
     });

@@ -99,19 +99,40 @@ class BookingController extends Controller
     }
 
     /**
-     * Action for getting current booking for logged-in driver or user.
+     * Action for getting bookings for logged-in driver or user.
      *
      * @return APIResponse in json format
      */
-    public function currentBooking()
+    public function list(CommonPaginatedRequest $request)
     {
         try
         {
-            if(Auth::guard('driver')->check()){
-                $booking = $this->bookingRepository::findDriverCurrentBooking(Auth::user()->id);
+            if(Auth::user()->roles->first()->name == 'driver'){
+                $booking = $this->bookingRepository::findDriverBookings($request->id)->paginate($request->perPage)->appends(['sort'=>$request->sortBy]);
             }else{
-                $booking = $this->bookingRepository::findCurrentBooking(Auth::user()->id);
+                $booking = $this->bookingRepository::findCustomerBookings($request->id)->paginate($request->perPage)->appends(['sort'=>$request->sortBy]);
             }
+            if(!$booking)
+                return APIResponse::NotFound('No result found');
+            $bookingWithStops = BookingWithStopsResource::collection($booking);
+            $paginate = PaginateResource::make($bookingWithStops);
+            return APIResponse::SuccessWithDataAndPagination('Success', $bookingWithStops, $paginate);
+
+        } catch (Exception $ex) {
+            return APIResponse::UnknownInternalServerError($ex);
+        }
+    }
+
+    /**
+     * Action for getting bookings for logged-in driver or user.
+     *
+     * @return APIResponse in json format
+     */
+    public function get(Request $request)
+    {
+        try
+        {
+            $booking = $this->bookingRepository::findBooking($request->bookingId);
             if(!$booking)
                 return APIResponse::NotFound('No result found');
             $bookingWithStops = BookingWithStopsResource::make($booking);
@@ -126,26 +147,42 @@ class BookingController extends Controller
      *
      * @return APIResponse in json format
      */
-    public function currentBookingStatus(UpdateBookingStatusRequest $request)
+    public function bookingStatus(UpdateBookingStatusRequest $request)
     {
         try
         {
-            if (Auth::guard('driver')->check()) {
-                $booking = $this->bookingRepository::findDriverCurrentBooking(Auth::user()->id);
-            } else {
-                $booking = $this->bookingRepository::findCurrentBooking(Auth::user()->id);
-            }
-
-            if (!$booking)
-                return APIResponse::NotFound('No result found');
-
-            $bookingUpdated = $this->bookingRepository::updateBookingStatus($request->status, $booking->id);
+            $bookingUpdated = $this->bookingRepository::updateBookingStatus($request->status, $request->bookingId);
 
             if (!$bookingUpdated)
                 return APIResponse::NotFound('No result found');
 
             $bookingWithStops = BookingWithStopsResource::make($bookingUpdated);
             return APIResponse::SuccessWithData('Success', $bookingWithStops);
+        } catch (Exception $ex) {
+            return APIResponse::UnknownInternalServerError($ex);
+        }
+    }
+
+    /**
+     * Action for current bookings for logged-in driver or user.
+     *
+     * @return APIResponse in json format
+     */
+    public function currentBooking(CommonPaginatedRequest $request)
+    {
+        try
+        {
+            if(Auth::user()->roles->first()->name == 'driver'){
+                $booking = $this->bookingRepository::findDriverActiveBookings($request->id);
+            }else{
+                $booking = $this->bookingRepository::findCustomerActiveBookings($request->id);
+            }
+            if(!$booking)
+                return APIResponse::NotFound('No result found');
+            $bookingWithStops = BookingWithStopsResource::make($booking);
+
+            return APIResponse::SuccessWithData('Success', $bookingWithStops);
+
         } catch (Exception $ex) {
             return APIResponse::UnknownInternalServerError($ex);
         }

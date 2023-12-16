@@ -26,11 +26,7 @@ class UpdateDriverStatusRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'status' => ['required','string',
-                         Rule::in(
-                            'active',
-                            'inActive',
-                        )]
+            'isOnline' => ['required','boolean']
         ];
     }
 
