@@ -12,5 +12,13 @@ interface IVehicleTypesRepository
 
     static public function getAll();
 
+    /**
+     * Fetch data from the VehicleType model based on a search query.
+     *
+     * @param string|null $search
+     * @return
+     */
+    static public function fetchData(string $search);
+
     static public function list();
 }

@@ -35,7 +35,7 @@ class SendMail implements ShouldQueue
     {
         try {
             Mail::to($this->recipient)->send($this->mailTemplate);
-            error_log('email sent');
+           error_log('email sents');
         } catch (Exception $exception) {
             error_log(env('APP_DEBUG') ? $exception->getMessage() . $exception->getLine() . $exception->getFile() . $exception : 'Please contact developer');
         }

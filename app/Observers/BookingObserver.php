@@ -19,6 +19,6 @@ class BookingObserver
                 return BookingRepository::assignDriver($driverVehicle->driver_id,$driverVehicle->vehicle_id,$booking->id);
             }
         }
-        return BookingRepository::updateStatus(Constants::BOOKING_NO_DRIVER_FOUND,$booking->id);
+        return BookingRepository::updateStatus('noDriverFound',$booking->id);
     }
 }

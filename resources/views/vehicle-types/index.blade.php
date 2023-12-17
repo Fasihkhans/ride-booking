@@ -7,5 +7,8 @@
                 </x-primary-button>
             </a>
         </x-page-header>
+        <div class="h-full p-4 bg-white">
+            <livewire:vehicle-types.index>
+        </div>
     </x-app-layout>
 </div>

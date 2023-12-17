@@ -20,18 +20,16 @@ use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'welcome');
 
-Route::group(['middleware' => ['auth']], function () {
+Route::middleware(['auth','role:admin'])->prefix('admin')->group( function () {
     Route::view('/', 'dashboard')
-        ->middleware(['verified'])
-        ->name('dashboard');
+        ->middleware(['verified'])->name('dashboard');
 
-    Route::view('profile', 'profile')
-        ->name('profile');
+    Route::view('profile', 'profile')->name('profile');
 
     Route::resource('driver', DriverController::class);
     Route::resource('vehicles', VehiclesController::class);
     Route::resource('vehicle-types', VehicleTypeController::class);
-    Route::resource('Booking', BookingController::class);
+    Route::resource('booking', BookingController::class);
     Route::resource('vehicle-assignment', VehicleAssignmentController::class);
 });
 

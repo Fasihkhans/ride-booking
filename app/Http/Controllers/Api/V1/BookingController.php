@@ -40,7 +40,7 @@ class BookingController extends Controller
         try {
 
             $booking = $this->bookingRepository::create(['customer_id'=>Auth::user()->id,
-                                                        'status'=>Constants::BOOKING_WAITING,
+                                                        'status'=>'waiting',
                                                         'type'=>Constants::BOOKING_TYPE_ON_DEMAND
                                                     ]);
 

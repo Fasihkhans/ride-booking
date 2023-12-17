@@ -25,7 +25,11 @@ class BookingRepository implements IBookingRepository
     static public function findDriverForBooking(int $vehicleId,int $driverId)
     {
         return Booking::where(['vehicle_id'=>$vehicleId,'driver_id'=>$driverId])
+                ->whereHas('driver',function ($query) use ($driverId){
+                    $query->where(['id'=> $driverId,'is_online'=>true]);
+                })
                 ->whereNotIn('status',[Constants::BOOKING_WAITING, Constants::BOOKING_ACCEPTED,Constants::BOOKING_IN_PROGRESS])
+                ->with('driver')
                 ->get();
     }
 

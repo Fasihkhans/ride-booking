@@ -26,6 +26,28 @@ class VehicleTypesRepository implements IVehicleTypesRepository
         return VehicleType::all();
     }
 
+    /**
+     * Fetch data from the VehicleType model based on a search query.
+     *
+     * @param string|null $search
+     * @return
+     */
+    public static function fetchData(string $search = null)
+    {
+        $query = VehicleType::query();
+
+        if ($search) {
+            $query->where('name', 'LIKE', '%' . $search . '%');
+        }
+
+        return $query;
+    }
+
+    static public function fetchPaginateData(string $search, int $perPage = 10)
+    {
+        // return self::fetchData($search)->paginate($perPage);
+        return VehicleType::paginate($perPage);
+    }
     static public function list()
     {
         return VehicleType::orderBy('created_at', 'desc');

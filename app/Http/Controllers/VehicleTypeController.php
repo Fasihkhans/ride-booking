@@ -4,15 +4,23 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreVehicleTypeRequest;
 use App\Http\Requests\UpdateVehicleTypeRequest;
+use App\Interfaces\IVehicleTypesRepository;
 use App\Models\VehicleType;
 
 class VehicleTypeController extends Controller
 {
+    public function __construct(private IVehicleTypesRepository $VehicleTypesRepository)
+    {
+
+    }
+
     /**
-     * Display a listing of the resource.
+     *  Display a listing of the resource.
      */
     public function index()
     {
+        // $vehicleTypes = $this->VehicleTypesRepository::fetchData('')->paginate(10);
+        // return view('livewire.vehicle-types.index', ['vehicleTypes' => $vehicleTypes]);
         return view("vehicle-types.index");
     }
 
