@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Casts\DriverStatusCast;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 

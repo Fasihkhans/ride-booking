@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Casts\VehicleStatusCast;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -18,6 +19,15 @@ class Vehicles extends Model
         'color',
         'max_capacity',
         'status',
+    ];
+
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array<string, string>
+     */
+    protected $casts = [
+        'status' => VehicleStatusCast::class,
     ];
 
     public function vehicleType()

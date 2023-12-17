@@ -18,32 +18,29 @@
             <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
                     <th scope="col" class="p-2">
+                         Number
+                    </th>
+                    <th scope="col" class="p-2">
                         Date added
                     </th>
                     <th scope="col" class="p-2">
-                         License#
+                        Make
                     </th>
                     <th scope="col" class="p-2">
-                        Name
+                        Model
                     </th>
                     <th scope="col" class="p-2">
-                        Phone
+                        Year
                     </th>
                     <th scope="col" class="p-2">
-                        Email
-                    </th>
-                    <th scope="col" class="p-2">
-                        Car
+                        Color
                     </th>
 
                     <th scope="col" class="p-2">
-                        Trips
+                        Type
                     </th>
                     <th scope="col" class="p-2">
-                        Amt.Earned
-                    </th>
-                    <th scope="col" class="p-2">
-                        Pay Type
+                        Photo
                     </th>
                     <th scope="col" class="p-2">
                         Status
@@ -51,46 +48,41 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($data as $driver )
-                {{-- {{ $driver }} --}}
+                @foreach ($data as $vehicle )
                     <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                         <th scope="row" class="p-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            {{ $driver->created_at }}
+                            {{ $vehicle->license_no_plate }}
                         </th>
                         <td class="p-2">
-                            {{ $driver->license_no }}
-
+                            {{ $vehicle->created_at }}
+                            {{-- <img src="{{Storage::disk('public')->url($vehicleType->upload_url) }}"/> --}}
                         </td>
                         <td class="p-2">
-                            {{ $driver->user->first_name.' '.$driver->user->last_name }}
-
+                            {{ $vehicle->make }}
+                            {{-- <img src="{{Storage::disk('public')->url($vehicleType->upload_url) }}"/> --}}
                         </td>
                         <td class="p-2">
-                            {{ $driver->user->phone_number }}
+                            {{ $vehicle->model }}
                         </td>
                         <td class="p-2">
-                            {{ $driver->user->email }}
-                        </td>
-
-                        <td class="p-2">
-                            {{ optional($driver->driverVehicles->first())->vehicle?->license_no_plate??'Car Not Assign' }}
+                            {{ $vehicle->year }}
                         </td>
 
                         <td class="p-2">
-                            {{ count($driver->booking) }}
+                            {{ $vehicle->color }}
+                        </td>
+
+                        <td class="p-2">
+                            {{ $vehicle->vehicleType->name }}
                         </td>
 
                         <td class="p-2"  style="filter: invert(25%)">
-                            {{-- <img src="{{Storage::disk('public')->url($vehicle->vehicleType->upload_url) }}"/> --}}
+                            <img src="{{Storage::disk('public')->url($vehicle->vehicleType->upload_url) }}"/>
                         </td>
-                        <td class="p-2">
 
-                            {{ ucfirst('Cash') }}
-
-                        </td>
                         <td class="p-2">
-                            <span class="{{ ($driver->user->status=='active')?'bg-green-100 text-emerald-900':'bg-rose-100 text-red-800' }} p-1 rounded-md">
-                            {{ ucfirst($driver->user->status) }}
+                            <span class="{{ ($vehicle->status=='active')?'bg-green-100 text-emerald-900':'bg-rose-100 text-red-800' }} p-1 rounded-md">
+                            {{ ucfirst($vehicle->status) }}
                             </span>
                         </td>
                     </tr>

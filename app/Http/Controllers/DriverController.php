@@ -11,7 +11,7 @@ class DriverController extends Controller
      */
     public function index()
     {
-        return view("livewire.drivers.index");
+        return view("drivers.index");
     }
 
     /**

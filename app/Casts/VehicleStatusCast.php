@@ -6,7 +6,7 @@ use App\Constants\Constants;
 use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
 use Illuminate\Database\Eloquent\Model;
 
-class UserStatusCast implements CastsAttributes
+class VehicleStatusCast implements CastsAttributes
 {
     /**
      * Cast the given value.
@@ -16,8 +16,8 @@ class UserStatusCast implements CastsAttributes
     public function get(Model $model, string $key, mixed $value, array $attributes): mixed
     {
         return match ((int) $value) {
-            Constants::ACTIVE => 'active',
-            Constants::INACTIVE => 'inActive',
+            Constants::ACTIVE_VEHICLE => 'active',
+            Constants::INACTIVE_VEHICLE => 'inActive',
             default => 'unknownStatus',
         };
     }
@@ -29,10 +29,6 @@ class UserStatusCast implements CastsAttributes
      */
     public function set(Model $model, string $key, mixed $value, array $attributes): mixed
     {
-        return match ($value) {
-            'active' => Constants::ACTIVE,
-            'inActive' => Constants::ACTIVE_DRIVER_ON_BREAK,
-            default => 00, // Assuming you have a constant for 'unknownStatus'
-        };
+        return $value;
     }
 }

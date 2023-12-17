@@ -5,9 +5,12 @@ namespace App\Constants;
 class Constants
 {
     const ACTIVE = 1;
+
+    const INACTIVE = 0;
+
     const ACTIVE_VEHICLE = 1;
 
-    const ACTIVE_DRIVER = 1;
+    const INACTIVE_VEHICLE = 2;
 
     const ACTIVE_DRIVER_ON_BREAK = 2;
 

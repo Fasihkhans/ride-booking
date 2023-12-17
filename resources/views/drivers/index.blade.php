@@ -1,11 +1,14 @@
 <div>
     <x-app-layout>
-        <a href="{{ route('driver.create') }}">
-            <x-primary-button>
-                {{__('Add drvier')}}
-            </x-primary-button>
-        </a>
-        {{-- <livewire:drivers.create/> --}}
+        <x-page-header name="Drivers">
+            <a href="{{ route('driver.create') }}">
+                <x-primary-button>
+                    {{__('Add Drvier')}}
+                </x-primary-button>
+            </a>
+        </x-page-header>
+        <div class="h-full p-4 bg-white">
+            <livewire:drivers.index>
+        </div>
     </x-app-layout>
-        <!-- Simplicity is the consequence of refined emotions. - Jean D'Alembert -->
 </div>

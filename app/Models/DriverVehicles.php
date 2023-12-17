@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Casts\DriverVehicleStatusCast;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -21,7 +22,9 @@ class DriverVehicles extends Model
 
     protected $casts = [
         "start_time" => "datetime",
-        "end_time" => "datetime"
+        "end_time" => "datetime",
+        "status" => DriverVehicleStatusCast::class
+
     ];
 
     public function driver()

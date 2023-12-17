@@ -15,8 +15,8 @@ class VehicleUploads extends Model
         "upload_type"
     ];
 
-    public function vehicles()
+    public function vehicle()
     {
-        return $this->belongsTo(vehicles::class);
+        return $this->belongsTo(vehicles::class, 'vehicle_id');
     }
 }

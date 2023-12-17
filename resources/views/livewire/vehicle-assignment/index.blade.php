@@ -18,79 +18,58 @@
             <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
                     <th scope="col" class="p-2">
-                        Date added
+                        Driver
                     </th>
                     <th scope="col" class="p-2">
-                         License#
+                        Vehicle
                     </th>
                     <th scope="col" class="p-2">
-                        Name
+                        Start Date
                     </th>
                     <th scope="col" class="p-2">
-                        Phone
+                        Time
                     </th>
                     <th scope="col" class="p-2">
-                        Email
+                        End Date
                     </th>
                     <th scope="col" class="p-2">
-                        Car
+                        Time
                     </th>
 
-                    <th scope="col" class="p-2">
-                        Trips
-                    </th>
-                    <th scope="col" class="p-2">
-                        Amt.Earned
-                    </th>
-                    <th scope="col" class="p-2">
-                        Pay Type
-                    </th>
                     <th scope="col" class="p-2">
                         Status
                     </th>
                 </tr>
             </thead>
             <tbody>
-                @foreach ($data as $driver )
+                @foreach ($data as $driverVehicle )
                 {{-- {{ $driver }} --}}
                     <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                         <th scope="row" class="p-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            {{ $driver->created_at }}
+                            {{ $driverVehicle->driver->user->first_name.' '.$driverVehicle->driver->user->last_name }}
                         </th>
                         <td class="p-2">
-                            {{ $driver->license_no }}
+                            {{ $driverVehicle->vehicle->license_no_plate }}
 
                         </td>
                         <td class="p-2">
-                            {{ $driver->user->first_name.' '.$driver->user->last_name }}
+                            {{ $driverVehicle->start_date }}
 
                         </td>
                         <td class="p-2">
-                            {{ $driver->user->phone_number }}
+                            {{ $driverVehicle->start_time }}
                         </td>
                         <td class="p-2">
-                            {{ $driver->user->email }}
+                            {{ $driverVehicle->end_date }}
                         </td>
 
                         <td class="p-2">
-                            {{ optional($driver->driverVehicles->first())->vehicle?->license_no_plate??'Car Not Assign' }}
+                            {{ $driverVehicle->end_time }}
                         </td>
 
                         <td class="p-2">
-                            {{ count($driver->booking) }}
-                        </td>
-
-                        <td class="p-2"  style="filter: invert(25%)">
-                            {{-- <img src="{{Storage::disk('public')->url($vehicle->vehicleType->upload_url) }}"/> --}}
-                        </td>
-                        <td class="p-2">
-
-                            {{ ucfirst('Cash') }}
-
-                        </td>
-                        <td class="p-2">
-                            <span class="{{ ($driver->user->status=='active')?'bg-green-100 text-emerald-900':'bg-rose-100 text-red-800' }} p-1 rounded-md">
-                            {{ ucfirst($driver->user->status) }}
+                            <span class="{{ ($driverVehicle->status=='active')?'bg-green-100 text-emerald-900':'bg-rose-100 text-red-800' }} p-1 rounded-md">
+                            {{ ucfirst($driverVehicle->status) }}
                             </span>
                         </td>
                     </tr>
