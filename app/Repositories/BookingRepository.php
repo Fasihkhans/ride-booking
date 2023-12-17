@@ -30,7 +30,7 @@ class BookingRepository implements IBookingRepository
                 })
                 ->whereNotIn('status',[Constants::BOOKING_WAITING, Constants::BOOKING_ACCEPTED,Constants::BOOKING_IN_PROGRESS])
                 ->with('driver')
-                ->get();
+                ->first();
     }
 
     static public function updateStatus(int $status,int $id)
