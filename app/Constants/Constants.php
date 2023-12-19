@@ -32,4 +32,10 @@ class Constants
 
     const BOOKING_STOP_STATUS_ACTIVE = 1;
 
+    const BOOKING_STOP_TYPE_PICKUP = 'pickUp';
+
+    const BOOKING_STOP_TYPE_MID_STOP = 'middleStop';
+
+    const BOOKING_STOP_TYPE_DROP_OFF = 'dropOff';
+
 }

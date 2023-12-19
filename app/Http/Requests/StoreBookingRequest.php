@@ -2,10 +2,12 @@
 
 namespace App\Http\Requests;
 
+use App\Constants\Constants;
 use App\Helpers\APIResponse;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
+use Illuminate\Validation\Rule;
 
 class StoreBookingRequest extends FormRequest
 {
@@ -30,6 +32,11 @@ class StoreBookingRequest extends FormRequest
             'data.*.latitude' => ['required','numeric'],
             'data.*.longitude' => ['required','numeric'],
             'data.*.sequenceNo' => ['required','integer'],
+            'data.*.type' => ['required','string',Rule::in(
+                                            Constants::BOOKING_STOP_TYPE_PICKUP,
+                                            Constants::BOOKING_STOP_TYPE_MID_STOP,
+                                            Constants::BOOKING_STOP_TYPE_DROP_OFF
+                                            )],
         ];
     }
 

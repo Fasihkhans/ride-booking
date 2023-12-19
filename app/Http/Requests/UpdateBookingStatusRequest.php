@@ -7,6 +7,7 @@ use App\Helpers\APIResponse;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 
 class UpdateBookingStatusRequest extends FormRequest
@@ -26,17 +27,25 @@ class UpdateBookingStatusRequest extends FormRequest
      */
     public function rules(): array
     {
+        if(Auth::user()->roles->first()->name == 'user')
+            return ['status' => ['required','string',Rule::in('cancelByUser')]];
+        if(in_array($this->status,['inProgress','completed'])){
+            return [
+                'status' => ['required','string',
+                                Rule::in(
+                                    'completed',
+                                    'inProgress',
+                                )],
+                'driver_latitude' => ['required','numeric'],
+                'driver_longitude' => ['required','numeric'],
+            ];
+        }
         return [
             'status' => ['required','string',
-                         Rule::in(
-                            'waiting',
-                            'accepted',
-                            'declined',
-                            'completed',
-                            'inProgress',
-                            'noDriverFound',
-                            'cancelByUser'
-                        )]
+                            Rule::in(
+                                'accepted',
+                                'declined',
+                            )]
         ];
     }
 

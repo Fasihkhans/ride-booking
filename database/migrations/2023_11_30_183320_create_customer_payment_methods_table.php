@@ -15,10 +15,10 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained('users');
             $table->string('name');
-            $table->string('card_number');
-            $table->json('stripe_card_reference');
-            $table->boolean('is_default');
-            $table->string('status');
+            $table->string('card_number')->nullable();
+            $table->json('stripe_card_reference')->nullable();
+            $table->boolean('is_default')->default('1');
+            $table->string('status')->default('1');
             $table->timestamps();
 
             $table->index('user_id');

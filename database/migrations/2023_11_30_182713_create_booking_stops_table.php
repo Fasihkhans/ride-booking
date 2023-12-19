@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('booking_id')->constrained('bookings');
             $table->string('stop');
-            $table->double('latitude');
-            $table->double('longitude');
+            $table->double('latitude', 10,6);
+            $table->double('longitude', 10,6);
             $table->integer('sequence_no');
             $table->string('type');
             $table->string('status');

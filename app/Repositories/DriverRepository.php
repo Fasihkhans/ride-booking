@@ -16,7 +16,7 @@ class DriverRepository implements IDriverRepository
     static public function getAllActiveDrivers()
     {
         return Driver::whereHas('user', function ($query) {
-            $query->whereIn('status', [Constants::ACTIVE_DRIVER,Constants::ACTIVE_DRIVER_ON_BREAK]);
+            $query->whereIn('status', [Constants::ACTIVE,Constants::INACTIVE]);
         })->with('user')->get();
     }
 

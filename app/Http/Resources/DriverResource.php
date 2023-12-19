@@ -23,6 +23,7 @@ class DriverResource extends JsonResource
             'isOnline' => $this->is_online,
             'createdAt'=> $this->created_at,
             'updatedAt'=> $this->updated_at,
+            'user' => DriverUserResource::make($this->user)
         ];
     }
 }

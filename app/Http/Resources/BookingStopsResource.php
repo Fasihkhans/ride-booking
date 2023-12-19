@@ -24,6 +24,7 @@ class BookingStopsResource extends JsonResource
             'sequenceNo' => $this->sequence_no,
             'status' => $this->transformStatus($this->status),
             'is_favourite' => (bool) $this->is_favourite ,
+            'type' => $this->type,
             'createdAt' => $this->created_at,
             'updatedAt' => $this->updated_at,
         ];
