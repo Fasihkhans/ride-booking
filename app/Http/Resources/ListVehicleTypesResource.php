@@ -24,7 +24,10 @@ class ListVehicleTypesResource extends JsonResource
             "minMiles" => $this->min_miles,
             "minMinutes" => $this->min_minutes,
             "holidayRate" => $this->hoilday_rate,
-            "pearHourRate" => $this->peak_hour_rate
+            "pearHourRate" => $this->peak_hour_rate,
+            "nightBaseFare" => $this->night_base_fare,
+            "nightPerMinuteRate" => $this->night_per_minute_rate,
+            "nightPerMileRate" => $this->night_per_mile_rate,
         ];
     }
 }
