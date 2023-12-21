@@ -13,7 +13,7 @@ class BookingPayments extends Model
         "booking_id",
         "base_fare",
         "per_mile_rate",
-        "per_minutes_rate",
+        "per_minute_rate",
         "payment_method_id",
         "status",
         "peak_hour_rate",
@@ -26,7 +26,7 @@ class BookingPayments extends Model
     protected $casts = [
         'base_fare' => 'double',
         'per_mile_rate' => 'double',
-        'per_minutes_rate' => 'double',
+        'per_minute_rate' => 'double',
         'peak_hour_rate'=> 'double',
         'holiday_rate'=> 'double',
         'total_minutes'=> 'double',

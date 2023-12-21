@@ -38,4 +38,7 @@ class Constants
 
     const BOOKING_STOP_TYPE_DROP_OFF = 'dropOff';
 
+    const BOOKING_PAYMENT_PENDING = 'pending';
+
+    const BOOKING_PAYMENT_PAID = 'paid';
 }

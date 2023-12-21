@@ -79,7 +79,7 @@ class UserRepository implements IUserRepository
 
     public function hasOAuth(User $user)
     {
-        return $user->OAuthAccounts->count() > 0 ? true : false;
+        return $user->OAuthAccounts?->count() > 0 ? true : false;
     }
 
     public function createFromOAuth(array $data)

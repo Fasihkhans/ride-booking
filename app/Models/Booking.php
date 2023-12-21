@@ -36,9 +36,9 @@ class Booking extends Model
         return $this->belongsTo(Vehicles::class, "vehicle_id");
     }
 
-    public function bookingPayments()
+    public function bookingPayment()
     {
-        return $this->hasMany(BookingPayments::class);
+        return $this->hasOne(BookingPayments::class);
     }
 
     public function bookingStops()

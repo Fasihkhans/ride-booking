@@ -11,6 +11,7 @@ use App\Http\Requests\UpdateBookingStatusRequest;
 use App\Http\Resources\BookingStopsResource;
 use App\Http\Resources\BookingWithStopsResource;
 use App\Http\Resources\PaginateResource;
+use App\Interfaces\IBookingPaymentsRepository;
 use App\Interfaces\IBookingRepository;
 use App\Interfaces\IBookingStopsRepository;
 use Exception;
@@ -20,15 +21,13 @@ use Illuminate\Support\Facades\Validator;
 
 class BookingController extends Controller
 {
-    private IBookingRepository $bookingRepository;
 
-    private IBookingStopsRepository $bookingStopsRepository;
 
-    public function __construct(IBookingRepository $bookingRepository, IBookingStopsRepository $bookingStopsRepository)
-    {
-        $this->bookingRepository = $bookingRepository;
-        $this->bookingStopsRepository = $bookingStopsRepository;
-    }
+    public function __construct(
+            private IBookingRepository $bookingRepository,
+            private IBookingStopsRepository $bookingStopsRepository,
+            private IBookingPaymentsRepository $BookingPaymentsRepository
+            ){}
 
     /**
      * Action for store booking of logged-in user with multiple stops.
@@ -167,6 +166,12 @@ class BookingController extends Controller
             $bookingUpdated = $this->bookingRepository::updateBookingStatus($request->status, $request->bookingId);
             if (!$bookingUpdated)
                 return APIResponse::NotFound('No result found');
+            if($bookingUpdated->status == 'inProgress')
+                $this->bookingStopsRepository::addDriverPickUpCoordinates($request->driverLatitude,$request->driverLongitude,$bookingUpdated->id);
+            if($bookingUpdated->status == 'completed'){
+                $this->bookingStopsRepository::addDriverdropOffCoordinates($request->driverLatitude,$request->driverLongitude,$bookingUpdated->id);
+                $this->BookingPaymentsRepository::create($bookingUpdated);
+            }
             $bookingWithStops = BookingWithStopsResource::make($bookingUpdated);
             return APIResponse::SuccessWithData('Success', $bookingWithStops);
         } catch (Exception $ex) {

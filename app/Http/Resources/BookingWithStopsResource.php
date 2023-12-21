@@ -15,7 +15,6 @@ class BookingWithStopsResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        // dd($this);
         return [
             'id' => $this->id,
             'customerId' => $this->customer_id,
@@ -28,6 +27,7 @@ class BookingWithStopsResource extends JsonResource
             'bookingStops' => BookingStopsResource::collection($this->bookingStops),
             'driver' =>  DriverResource::make($this->driver),
             'vehicle' => VehicleResource::make($this->vehicle),
+            'paymentDetails' => PaymentDetailsResource::make($this->bookingPayment)
         ];
     }
 }

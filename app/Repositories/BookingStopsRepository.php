@@ -26,14 +26,59 @@ class BookingStopsRepository implements IBookingStopsRepository
             ->orderBy('updated_at', 'desc');
     }
 
-    static public function updateIsFav(bool $isFav,int $id)
+    /**
+     * mark isfavourite stop true / false
+     *
+     * @param bool $isFav
+     * @param int $id
+     * @return bool
+     */
+    static public function updateIsFav(bool $isFav,int $id):bool
     {
         $model = BookingStops::findorFail($id);
+        if (!$model)
+            return false;
         $model->is_favourite = $isFav;
         return $model->update();
     }
+
+    /**
+     * Add driver coordinates on pickup point
+     *
+     * @param float $latitude
+     * @param float $longitude
+     * @param int $id
+     * @return bool
+     */
+    static public function addDriverPickUpCoordinates(float $latitude,float $longitude,int $id): bool
+    {
+        $model = BookingStops::where(['booking_id'=>$id, 'type' => 'pickUp'])->first();
+        if (!$model)
+            return false;
+        $model->driver_latitude = $latitude;
+        $model->driver_longitude = $longitude;
+        return $model->save();
+    }
+
+    /**
+     * Add driver coordinates on dropOff point
+     *
+     * @param float $latitude
+     * @param float $longitude
+     * @param int $id
+     * @return bool
+     */
+    static public function addDriverDropOffCoordinates(float $latitude,float $longitude,int $id): bool
+    {
+        $model = BookingStops::where(['booking_id'=>$id, 'type' => 'dropOff'])->first();
+        if (!$model)
+            return false;
+        $model->driver_latitude = $latitude;
+        $model->driver_longitude = $longitude;
+        return $model->save();
+    }
     public function update(BookingStops $booking,array $data)
     {
-
+        //
     }
 }
