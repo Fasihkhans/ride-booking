@@ -33,7 +33,7 @@ class UserSignupRequest extends FormRequest
             'firstName' => ['required', 'regex:/^[\pL\s]+$/u', 'string', 'min:2', 'max:50'],
             'lastName' => ['required', 'regex:/^[\pL\s]+$/u', 'string', 'min:2', 'max:50'],
             'email' => ['required', 'string', 'email', 'regex:/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix', 'max:255', 'unique:users'],
-            'phone_number' => ['required','unique:users', 'regex:/^\+?[0-9\-\s]+$/'],
+            'phone_number' => ['required','unique:users', 'regex:/^(((\+44\s?\d{4}|\(?0\d{4}\)?)\s?\d{3}\s?\d{3})|((\+44\s?\d{3}|\(?0\d{3}\)?)\s?\d{3}\s?\d{4})|((\+44\s?\d{2}|\(?0\d{2}\)?)\s?\d{4}\s?\d{4}))(\s?\#(\d{4}|\d{3}))?$/'],
             'password' => ['required', 'string', 'min:8'],
         ];
     }
