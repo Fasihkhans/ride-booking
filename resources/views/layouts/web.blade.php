@@ -30,20 +30,20 @@
                 {{-- <button type="button" class="px-4 py-2 mx-2 text-sm font-medium text-center text-white bg-black border border-white rounded-lg hover:bg-black hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 ">Login</button>
 
                 <button type="button" class="px-4 py-2 text-sm font-medium text-center text-black bg-white rounded-lg hover:bg-black hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 ">SignUp</button> --}}
-                <button data-collapse-toggle="navbar-sticky" type="button" class="inline-flex items-center justify-center w-10 h-10 p-2 text-sm bg-white rounded-lg text-white-500 md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 " aria-controls="navbar-sticky" aria-expanded="false">
+                {{-- <button data-collapse-toggle="navbar-sticky" type="button" class="inline-flex items-center justify-center w-10 h-10 p-2 text-sm bg-white rounded-lg text-white-500 md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 " aria-controls="navbar-sticky" aria-expanded="false">
                     <span class="sr-only">Open main menu</span>
                     <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15"/>
                     </svg>
-                </button>
+                </button> --}}
             </div>
             <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1 " id="navbar-sticky">
                 <ul class="flex flex-col p-4 mt-4 font-medium border border-gray-100 rounded-lg md:p-0 bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-black ">
                     <li>
-                        <a href="#" class="block px-3 py-2 text-white bg-blue-700 rounded md:bg-transparent md:text-white-700 md:p-0 " aria-current="page">Company</a>
+                        <a href="#" class="block px-3 py-2 text-white bg-transparent rounded md:text-white-700 md:p-0 " aria-current="page">Company</a>
                     </li>
                     <li>
-                        <a href="#" class="block px-3 py-2 text-white rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 ">Safety</a>
+                        <a href="#" class="block px-3 py-2 text-white bg-transparent rounded hover:bg-gray-100 md:hover:text-blue-700 md:p-0 ">Safety</a>
                     </li>
                     <li>
                         <a href="#" class="block px-3 py-2 text-white rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 ">Help</a>
@@ -115,13 +115,13 @@
                 <div class="items-center justify-between w-full md:flex md:w-auto md:order-1" id="navbar-sticky">
                     <ul class="flex flex-col p-4 mt-4 font-medium border border-gray-100 rounded-lg md:p-0 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-black ">
                         <li>
-                            <a href="#" class="block px-3 py-2 text-white bg-blue-700 rounded md:bg-transparent md:text-white-700 md:p-0 " aria-current="page">Company</a>
+                            <a href="#" class="block px-3 py-2 text-white rounded md:bg-transparent md:text-white-700 md:p-0 " aria-current="page">Company</a>
                         </li>
                         <li>
-                            <a href="#" class="block px-3 py-2 text-white rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 ">Safety</a>
+                            <a href="#" class="block px-3 py-2 text-white rounded md:hover:bg-transparent md:hover:text-blue-700 md:p-0 ">Safety</a>
                         </li>
                         <li>
-                            <a href="#" class="block px-3 py-2 text-white rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 ">Help</a>
+                            <a href="#" class="block px-3 py-2 text-white rounded md:hover:bg-transparent md:hover:text-blue-700 md:p-0 ">Help</a>
                         </li>
                     </ul>
                 </div>
