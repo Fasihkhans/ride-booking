@@ -37,6 +37,7 @@ class StoreBookingRequest extends FormRequest
                                             Constants::BOOKING_STOP_TYPE_MID_STOP,
                                             Constants::BOOKING_STOP_TYPE_DROP_OFF
                                             )],
+            'data.*.location_obj' =>['required','json']
         ];
     }
 
@@ -48,7 +49,9 @@ class StoreBookingRequest extends FormRequest
             $transformedData = array_map(function ($item) {
                 if (isset($item['sequenceNo'])) {
                     $item['sequence_no'] = $item['sequenceNo'];
-                    // unset($item['sequence_no']);
+                }
+                if (isset($item['locationObj'])) {
+                    $item['location_obj'] = $item['locationObj'];
                 }
 
                 return $item;

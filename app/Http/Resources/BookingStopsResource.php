@@ -25,6 +25,7 @@ class BookingStopsResource extends JsonResource
             'status' => $this->transformStatus($this->status),
             'is_favourite' => (bool) $this->is_favourite ,
             'type' => $this->type,
+            'locationObj' => $this->location_obj,
             'driverLatitude' => $this->driver_latitude,
             'driverLongitude' => $this->driver_longitude,
             'createdAt' => $this->created_at,

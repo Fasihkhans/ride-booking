@@ -19,7 +19,8 @@ class BookingStops extends Model
         "status",
         "driver_latitude",
         "driver_longitude",
-        "type"
+        "type",
+        "location_obj"
     ];
 
     protected $cast = [
@@ -30,7 +31,8 @@ class BookingStops extends Model
         "is_favourite" => 'boolean',
         "driver_latitude" => "integer",
         "driver_longitude" => "integer",
-        "type" => "string"
+        "type" => "string",
+        "location_json" => "json"
     ];
 
     public function booking()
