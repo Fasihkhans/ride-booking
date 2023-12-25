@@ -169,7 +169,7 @@ class BookingController extends Controller
             if($bookingUpdated->status == 'inProgress')
                 $this->bookingStopsRepository::addDriverPickUpCoordinates($request->driverLatitude,$request->driverLongitude,$bookingUpdated->id);
             if($bookingUpdated->status == 'completed'){
-                $this->bookingStopsRepository::addDriverdropOffCoordinates($request->driverLatitude,$request->driverLongitude,$bookingUpdated->id);
+                $this->bookingStopsRepository::addDriverdropOffCoordinates($request->driver['latitude'],$request->driver['longitude'],$bookingUpdated->id);
                 $this->BookingPaymentsRepository::create($bookingUpdated);
             }
             $bookingWithStops = BookingWithStopsResource::make($bookingUpdated);

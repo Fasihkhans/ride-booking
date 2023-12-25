@@ -52,8 +52,8 @@ class UpdateBookingStatusRequest extends FormRequest
 
     protected function prepareForValidation() {
         $this->merge([
-            'driver_latitude' => $this->driverLatitude,
-            'driver_longitude' => $this->driverLongitude
+            'driver_latitude' => $this->driver['latitude'],
+            'driver_longitude' => $this->driver['longitude']
         ]);
     }
     /**
