@@ -13,7 +13,7 @@ state([
     'email' => '',
     'license_no' => '',
     'license_expiry' => '',
-    'license_img_url' => null
+    'licenseImgUrl' => null
 ]);
 
 usesFileUploads();
@@ -22,18 +22,21 @@ $save = function(){
     $validated = $this->validate([
         'first_name' => ['required', 'regex:/^[\pL\s]+$/u', 'string', 'min:2', 'max:50'],
         'last_name' => ['required', 'regex:/^[\pL\s]+$/u', 'string', 'min:2', 'max:50'],
-        'email' => ['required', 'string', 'email', 'unique:users', 'regex:/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix', 'max:255'],
+        'licenseImgUrl' => ['required', 'image','mimes:jpeg,png,jpg','max:10000'],
+        // 'licenseImgUrl' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Adjust validation rules as needed
+        'email' => ['required', 'string', 'email', 'unique:users', 'max:255'],
         'phone_number' => ['required', 'unique:users', 'regex:/^(((\+44\s?\d{4}|\(?0\d{4}\)?)\s?\d{3}\s?\d{3})|((\+44\s?\d{3}|\(?0\d{3}\)?)\s?\d{3}\s?\d{4})|((\+44\s?\d{2}|\(?0\d{2}\)?)\s?\d{4}\s?\d{4}))(\s?\#(\d{4}|\d{3}))?$/'],
         'license_no' => ['required', 'unique:drivers', 'regex:/^\+?[0-9\-\s]+$/'],
         'license_expiry' => ['required', 'date'],
-        'license_img_url' => ['required', 'file']
 
     ]);
+    // $this->licenseImgUrl->store('drivers','s3');
+    // dd($this->licenseImgUrl);
     $validated += [
-            'password' => Hash::make(Str::random(10)),
-            'role_id' => Configuration::UserRole('driver'),
-            'license_img_url' => $this->license_img_url->store('drivers')
-        ];
+        'password' => Hash::make(Str::random(10)),
+        'role_id' => Configuration::UserRole('driver'),
+        'license_img_url' => $this->licenseImgUrl->store('drivers','public')
+    ];
 
     $user = new UserRepository;
     $created = $user->create($validated);
@@ -55,7 +58,7 @@ $save = function(){
 
     <div class="col-8 h-[664px] bg-stone-50 rounded-[20px] border border-stone-300 p-4 ml-5">
         <x-auth-session-status class="mb-4" :status="session('success')" />
-        <form wire:submit="save"  class="mt-4">
+        <form wire:submit.prevent="save"  class="mt-4" enctype="multipart/form-data">
             <div class="text-xl font-bold tracking-tight text-black">Driver Details</div>
             <div class="mt-4 form-row">
                 <x-form-input :errorMessage="$errors->get('first_name')"  type="text" placeholder="First name" name="first_name" wire:model="first_name"/>
@@ -77,12 +80,25 @@ $save = function(){
             </div>
             <div class="mt-4 form-row">
                 <div class="mb-3 col-md-6">
-                <div class="form-group">
-                    <input type="file" class="form-control"  placeholder="License number" wire:model="license_img_url">
-                    <x-input-error :messages="$errors->get('license_img_url')" class="mt-2" />
+                    <div class="form-group">
+                        <input type="file" class="form-control" placeholder="License number" wire:model="licenseImgUrl">
+                        <x-input-error :messages="$errors->get('licenseImgUrl')" class="mt-2" />
+                    </div>
                 </div>
-                </div>
+                {{-- <div class="mb-3 col-md-6">
+                    <div class="form-group">
+                        <div class="custom-file">
+                            <input type="file" class="custom-file-input" id="customFileLang" lang="en" wire:model="licenseImgUrl">
+                            <label class="custom-file-label" for="customFileLang"> Registration Information</label>
+                            <x-input-error :messages="$errors->get('licenseImgUrl')" class="mt-2" />
+                          </div>
+                    </div>
+                </div> --}}
+                @if ($licenseImgUrl)
+                <img class="w-20"  src="{{ $licenseImgUrl->temporaryUrl() }}" alt="">
+                @endif
             </div>
+            {{-- <img src="https://dartscars-bucket-dev.s3.eu-west-1.amazonaws.com/image+15+(1).png" alt=""> --}}
             <x-primary-button>
                 {{__('Continue')}}
             </x-primary-button>

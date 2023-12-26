@@ -4,6 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Storage;
 
 class DriverResource extends JsonResource
 {
@@ -19,7 +20,7 @@ class DriverResource extends JsonResource
             'userId'=> $this->user_id,
             'licenseNo'=> $this->license_no,
             'licenseExpiry'=> $this->license_expiry,
-            'licenseImgUrl'=> $this->license_img_url,
+            'licenseImgUrl'=> Storage::disk('s3')->url($this->license_img_url),
             'isOnline' => $this->is_online,
             'createdAt'=> $this->created_at,
             'updatedAt'=> $this->updated_at,

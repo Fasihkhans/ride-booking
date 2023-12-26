@@ -55,7 +55,10 @@
                 {{-- {{ $driver }} --}}
                     <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                         <th scope="row" class="p-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            {{ $driver->created_at }}
+                            {{-- @if (Storage::disk(name:'s3')->exists($driver->license_img_url)) --}}
+                            <img src="{{ Storage::disk('s3')->url($driver->license_img_url) }}" alt="Driver License Image">
+
+                            {{-- @endif --}}
                         </th>
                         <td class="p-2">
                             {{ $driver->license_no }}
