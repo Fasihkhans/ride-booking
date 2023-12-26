@@ -41,4 +41,8 @@ class Constants
     const BOOKING_PAYMENT_PENDING = 'pending';
 
     const BOOKING_PAYMENT_PAID = 'paid';
+
+    const BOOKING_PAYMENT_METHOD_CASH = 'cash';
+
+    const BOOKING_PAYMENT_METHOD_CARD = 'card';
 }
