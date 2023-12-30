@@ -23,7 +23,7 @@ class BookingPaymentsRepository implements IBookingPaymentsRepository
         } else {
             $baseFare = $booking?->vehicle?->vehicleType?->base_fare;
         }
-        $perMinuteRate = $booking?->vehicle?->vehicleType?->per_mintue_rate;
+        $perMinuteRate = $booking?->vehicle?->vehicleType?->per_minute_rate;
         $perMileRate = $booking?->vehicle?->vehicleType?->per_mile_rate;
         $peakHourRate = $booking?->vehicle?->vehicleType?->peak_hour_rate;
         $holidayRate = $booking?->vehicle?->vehicleType?->holiday_rate;
