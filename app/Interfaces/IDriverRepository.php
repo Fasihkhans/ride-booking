@@ -19,4 +19,5 @@ interface IDriverRepository
     static public function isOnline(int $id);
     public function update(Driver $driver,array $data);
 
+    static public function updateDriver(int $id,array $data);
 }

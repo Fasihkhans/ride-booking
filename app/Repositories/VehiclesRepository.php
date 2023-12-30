@@ -20,11 +20,21 @@ class VehiclesRepository implements IVehiclesRepository
     static public function getAllVehicles(){
         return Vehicles::all();
     }
-    public function update(Vehicles $Vehicles,array $data)
+
+    static public function getVehicle(int $id)
     {
-        $Vehicles->name = $data['name'];
-        $Vehicles->fare = $data['fare'];
-        $Vehicles->upload_url = $data['upload_url'];
+        return Vehicles::find($id);
+    }
+    static public function update(Vehicles $Vehicles,array $data)
+    {
+        $Vehicles->make = $data['make'];
+        $Vehicles->model = $data['model'];
+        $Vehicles->year = $data['year'];
+        $Vehicles->license_no_plate = $data['license_no_plate'];
+        $Vehicles->color = $data['color'];
+        $Vehicles->max_capacity = $data['max_capacity'];
+        $Vehicles->vehicle_type_id = $data['vehicle_type_id'];
+        $Vehicles->status =  $data['status'];
         return $Vehicles->save();
     }
 }

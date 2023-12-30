@@ -37,7 +37,7 @@ class Vehicles extends Model
 
     public function vehicleUploads()
     {
-        return $this->hasMany(VehicleUploads::class);
+        return $this->hasMany(VehicleUploads::class,'vehicle_id');
     }
 
     public function vehicleBookings()

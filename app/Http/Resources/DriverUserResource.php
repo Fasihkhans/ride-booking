@@ -21,7 +21,6 @@ class DriverUserResource extends JsonResource
             'email' => $this->email,
             'phoneNumber' => $this->phone_number,
             'status' => $this->status,
-            'isOnline' => $this->is_online,
             'profilePhotoUrl' => $this->profile_photo_path,
         ];
     }

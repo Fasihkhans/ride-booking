@@ -60,7 +60,7 @@
             </thead>
             <tbody>
                 @foreach ($data as $vehicle )
-                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                    <tr class="bg-white border-b cursor-pointer dark:bg-gray-800 dark:border-gray-700" onclick="window.location.href='{{ route('vehicles.show',encrypt($vehicle->id)) }}';">
                         <th scope="row" class="p-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                             {{ $vehicle->license_no_plate }}
                         </th>

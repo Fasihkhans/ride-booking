@@ -35,9 +35,9 @@ class VehiclesController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Vehicles $vehicles)
+    public function show(string $id)
     {
-        //
+        return view("vehicles.show",['id'=>$id]);
     }
 
     /**

@@ -22,4 +22,5 @@ interface IUserRepository
     public function allowedLogin(User $user);
     public function validatePassword(User $user, string $password);
     public function updateStatus(int $userId, string $status);
+    static public function update(array $data);
 }

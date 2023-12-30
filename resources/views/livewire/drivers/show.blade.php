@@ -4,10 +4,12 @@ use App\Models\User;
 use App\Repositories\UserRepository;
 use App\Repositories\DriverRepository;
 use App\Helpers\Configuration;
+use Illuminate\Validation\Rule;
 use function Livewire\Volt\{state,usesFileUploads,rules,updated,mount};
 
 state([
     'id',
+    'driver',
     'first_name' => '',
     'last_name' => '',
     'phone_number' => '',
@@ -15,52 +17,46 @@ state([
     'license_no' => '',
     'license_expiry' => '',
     'licenseImgUrl' => null,
+    'status' => '',
     'license_img_url' => '',
 ]);
 mount(function(){
-   $driver = DriverRepository::findByIdWithUser(decrypt($this->id))->first();
-   $this->first_name = $driver->user->first_name;
-   $this->last_name = $driver->user->last_name;
-    $this->phone_number = $driver->user->phone_number;
-    $this->email = $driver->user->email;
-    $this->license_no = $driver->license_no;
-    $this->license_expiry = $driver->license_expiry;
-    $this->licenseImgUrl = Storage::disk('s3')->exists($driver->license_img_url)
-        ? Storage::disk('s3')->url($driver->license_img_url)
-        : Storage::disk('local')->url($driver->license_img_url);
-    $this->license_img_url = $driver->license_img_url;
-    // dump($this->license_expiry );
-
+    $this->driver = DriverRepository::findByIdWithUser(decrypt($this->id))->first();
+    $this->id = $this->driver->user->id;
+    $this->first_name = $this->driver->user->first_name;
+    $this->last_name = $this->driver->user->last_name;
+    $this->phone_number = $this->driver->user->phone_number;
+    $this->email = $this->driver->user->email;
+    $this->license_no = $this->driver->license_no;
+    $this->license_expiry = $this->driver->license_expiry;
+    $this->license_img_url =Storage::disk('s3')->exists($this->driver->license_img_url)
+        ? Storage::disk('s3')->url($this->driver->license_img_url)
+        : Storage::disk('local')->url($this->driver->license_img_url);
+    $this->status = $this->driver->user->status;
 });
 
 usesFileUploads();
 
 $save = function(){
     $validated = $this->validate([
+        'id' => ['required'],
         'first_name' => ['required', 'regex:/^[\pL\s]+$/u', 'string', 'min:2', 'max:50'],
         'last_name' => ['required', 'regex:/^[\pL\s]+$/u', 'string', 'min:2', 'max:50'],
         'email' => ['required', 'string', 'email', 'max:255'],
+        'licenseImgUrl' => ['nullable', 'image','mimes:jpeg,png,jpg','max:10000'],
         'phone_number' => ['required', 'regex:/^(((\+44\s?\d{4}|\(?0\d{4}\)?)\s?\d{3}\s?\d{3})|((\+44\s?\d{3}|\(?0\d{3}\)?)\s?\d{3}\s?\d{4})|((\+44\s?\d{2}|\(?0\d{2}\)?)\s?\d{4}\s?\d{4}))(\s?\#(\d{4}|\d{3}))?$/'],
         'license_no' => ['required', 'regex:/^\+?[0-9\-\s]+$/'],
         'license_expiry' => ['required', 'date'],
+        'status' => ['required',Rule::in('active','inActive')]
 
     ]);
-    // $this->licenseImgUrl->store('drivers','s3');
-    // dd($this->licenseImgUrl);
-    if($this->licenseImgUrl){
-        $validated += [
-            'license_img_url' => $this->licenseImgUrl? $this->licenseImgUrl->store('drivers','public'):$this->license_img_url,
-        ];
 
-    }
-
-    $user = new UserRepository;
-    $created = $user->save($validated);
     $validated += [
-            'user_id' => $created->id
+        'license_img_url' => $this->licenseImgUrl? $this->licenseImgUrl->store('drivers','public'):$this->driver->license_img_url,
     ];
-    $Driver = new DriverRepository;
-    $Driver->save($validated);
+
+    UserRepository::update($validated);
+    DriverRepository::updateDriver($this->driver->id,$validated);
     session()->flash('success','Driver has been created');
     $this->redirect(route('driver.index'));
 }?>
@@ -72,7 +68,7 @@ $save = function(){
         @enderror
     </div>
 
-    <div class="col-8 h-[664px] bg-stone-50 rounded-[20px] border border-stone-300 p-4 ml-5">
+    <div class="col-8 h-auto bg-stone-50 shadow-lg rounded-[20px] border border-stone-900 p-4 ml-5">
         <x-auth-session-status class="mb-4" :status="session('success')" />
         <form wire:submit.prevent="save"  class="mt-4" enctype="multipart/form-data">
             <div class="text-xl font-bold tracking-tight text-black">Driver Details</div>
@@ -86,7 +82,20 @@ $save = function(){
             <div class="form-row">
                 <x-form-input :errorMessage="$errors->get('email')"  type="email" placeholder="Email" name="email" wire:model.blur="email"/>
             </div>
+            <div class="text-xl font-bold tracking-tight text-black">Status</div>
 
+            <div class="mt-4 form-row">
+                <div class="mb-3 col-md-6">
+                    <div class="form-group">
+                        <select name="status" wire:model="status">
+                            @foreach(['active', 'inActive'] as $option)
+
+                                <option value="{{ $option }}" @if($status == $option) selected @endif>{{ strtolower($option) }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+            </div>
             <div class="text-xl font-bold tracking-tight text-black">License Details</div>
 
             <div class="mt-4 form-row">
@@ -94,14 +103,9 @@ $save = function(){
 
                 <x-form-input :errorMessage="$errors->get('license_expiry')"  type="date" placeholder="license_expiry" name="license_expiry" wire:model="license_expiry" :value="$license_expiry ? \Carbon\Carbon::parse($license_expiry)->format('m-d-Y') : null"/>
             </div>
+
             <div class="mt-4 form-row">
                 <div class="mb-3 col-md-6">
-                    <div class="form-group">
-                        <input type="file" class="form-control" placeholder="License number" wire:model="licenseImgUrl">
-                        <x-input-error :messages="$errors->get('licenseImgUrl')" class="mt-2" />
-                    </div>
-                </div>
-                {{-- <div class="mb-3 col-md-6">
                     <div class="form-group">
                         <div class="custom-file">
                             <input type="file" class="custom-file-input" id="customFileLang" lang="en" wire:model="licenseImgUrl">
@@ -109,20 +113,21 @@ $save = function(){
                             <x-input-error :messages="$errors->get('licenseImgUrl')" class="mt-2" />
                           </div>
                     </div>
-                </div> --}}
+                </div>
             </div>
             <div class="mt-4 form-row">
                 <div class="mb-3 col-md-6">
                     <div class="form-group">
 
-                        @if ($licenseImgUrl)
-                            <img class=""  src="{{ $licenseImgUrl }}" alt="">
+                        @if ($license_img_url)
+                        {{-- <div class="border rounded-md border-neutral-950 h-50 w-50"> --}}
+                        <div class="flex items-center justify-center max-w-xs align-middle bg-white border border-black rounded-lg shadow justify-items-center h-36 w-50">
+                            <img class="flex" src="{{ $license_img_url }}" alt="">
+                        </div>
                         @endif
-
                     </div>
                 </div>
             </div>
-            {{-- <img src="https://dartscars-bucket-dev.s3.eu-west-1.amazonaws.com/image+15+(1).png" alt=""> --}}
             <x-primary-button>
                 {{__('Continue')}}
             </x-primary-button>

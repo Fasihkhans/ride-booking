@@ -7,7 +7,7 @@
                 </x-primary-button>
             </a>
         </x-page-header>
-        <div class="h-full p-4 bg-white">
+        <div class="h-auto p-4 bg-white">
             @livewire('drivers.show',['id'=>$id])
         </div>
     </x-app-layout>

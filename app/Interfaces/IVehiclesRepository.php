@@ -12,6 +12,8 @@ interface IVehiclesRepository
 
     static public function getAllVehicles();
 
-    public function update(Vehicles $vehicles,array $data);
+    static public function getVehicle(int $id);
+
+    static public function update(Vehicles $vehicles,array $data);
 
 }

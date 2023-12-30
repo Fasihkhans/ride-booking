@@ -27,7 +27,7 @@ class DriverRepository implements IDriverRepository
 
     static public function findByIdWithUser(int $id)
     {
-        return Driver::find($id)->with('user');
+        return Driver::where('id',$id)->with('user');
     }
     static public function onlineStatus(bool $status, int $id)
     {
@@ -45,6 +45,15 @@ class DriverRepository implements IDriverRepository
     {
         $driver->license_no = $data['license_no'];
         $driver->license_expiry = $data['license_expiry'];
+        return $driver->save();
+    }
+
+    static public function updateDriver(int $id,array $data)
+    {
+        $driver = Driver::find($id);
+        $driver->license_no = $data['license_no'];
+        $driver->license_expiry = $data['license_expiry'];
+        $driver->license_img_url = $data['license_img_url'];
         return $driver->save();
     }
 }

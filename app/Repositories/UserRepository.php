@@ -112,4 +112,15 @@ class UserRepository implements IUserRepository
         return $user->save();
 
     }
+
+    static public function update(array $data)
+    {
+        $user = User::find($data['id']);
+        $user->first_name = $data['first_name'];
+        $user->last_name = $data['last_name'];
+        $user->phone_number = $data['phone_number'];
+        $user->email = $data['email'];
+        $user->status = $data['status'];
+        return $user->save();
+    }
 }
