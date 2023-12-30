@@ -10,6 +10,8 @@ interface IVehiclesRepository
 
     static public function getAllActiveVehicles();
 
+    static public function getAllVehicles();
+
     public function update(Vehicles $vehicles,array $data);
 
 }

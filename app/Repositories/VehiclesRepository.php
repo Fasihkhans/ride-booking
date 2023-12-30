@@ -16,6 +16,10 @@ class VehiclesRepository implements IVehiclesRepository
     static public function getAllActiveVehicles(){
         return Vehicles::where('status', Constants::ACTIVE_VEHICLE)->get();
     }
+
+    static public function getAllVehicles(){
+        return Vehicles::all();
+    }
     public function update(Vehicles $Vehicles,array $data)
     {
         $Vehicles->name = $data['name'];

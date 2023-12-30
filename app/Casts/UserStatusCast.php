@@ -31,7 +31,7 @@ class UserStatusCast implements CastsAttributes
     {
         return match ($value) {
             'active' => Constants::ACTIVE,
-            'inActive' => Constants::ACTIVE_DRIVER_ON_BREAK,
+            'inActive' => Constants::INACTIVE,
             default => 00, // Assuming you have a constant for 'unknownStatus'
         };
     }

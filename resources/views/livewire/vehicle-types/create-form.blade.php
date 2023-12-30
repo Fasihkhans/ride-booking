@@ -11,7 +11,10 @@ state([
     'min_miles' => '',
     'holiday_rate' => '',
     'peak_hour_rate' => '',
-    'upload' => null
+    'upload' => null,
+    'night_base_fare' => '',
+    'night_per_mintue_rate' => '',
+    'night_per_mile_rate' => '',
 ]);
 
 usesFileUploads();
@@ -26,7 +29,10 @@ $save = function(){
         'min_miles' => ['required', 'decimal:2'],
         'holiday_rate' => ['required', 'decimal:2'],
         'peak_hour_rate' => ['required', 'decimal:2'],
-        'upload' => ['required', 'file']
+        'upload' => ['required', 'file'],
+        'night_base_fare' => ['required', 'decimal:2'],
+        'night_per_mintue_rate' => ['required', 'decimal:2'],
+        'night_per_mile_rate' => ['required', 'decimal:2'],
 
     ]);
     $validated += [
@@ -57,18 +63,25 @@ $save = function(){
                     </div>
             </div>
             <div class="text-xl font-bold tracking-tight text-black">Set Pricing</div>
-            <div class="mt-4 form-row">
+            <div class="py-2 text-lg font-normal tracking-tight text-black">Day Rates</div>
+            <div class="mt-2 form-row">
                 <x-form-input :errorMessage="$errors->get('base_fare')"  type="text" placeholder="Base Fare" name="fare" wire:model="base_fare"/>
                 <x-form-input :errorMessage="$errors->get('per_mintue_rate')"  type="text" placeholder="per-minute Rate" name="fare" wire:model="per_mintue_rate"/>
                 <x-form-input :errorMessage="$errors->get('per_mile_rate')"  type="text" placeholder="per-mile Rate" name="fare" wire:model="per_mile_rate"/>
             </div>
+            <div class="py-2 text-lg font-normal tracking-tight text-black">Night Rates</div>
+            <div class="mt-2 form-row">
+                <x-form-input :errorMessage="$errors->get('night_base_fare')"  type="text" placeholder="Base Fare" name="fare" wire:model="night_base_fare"/>
+                <x-form-input :errorMessage="$errors->get('night_per_mintue_rate')"  type="text" placeholder="per-minute Rate" name="fare" wire:model="night_per_mintue_rate"/>
+                <x-form-input :errorMessage="$errors->get('night_per_mile_rate')"  type="text" placeholder="per-mile Rate" name="fare" wire:model="night_per_mile_rate"/>
+            </div>
             <div class="text-lg font-bold tracking-tight text-black">Additional charges</div>
 
-            <div class="mt-4 form-row">
+            <div class="mt-2 form-row">
                 <x-form-input :errorMessage="$errors->get('peak_hour_rate')"  type="text" placeholder="Peak Hour Rates" name="fare" wire:model="peak_hour_rate"/>
                 <x-form-input :errorMessage="$errors->get('holiday_rate')"  type="text" placeholder="Holidays Rates" name="fare" wire:model="holiday_rate"/>
-            </div>
-            <div class="mt-4 form-row">
+            {{-- </div>
+            <div class="mt-2 form-row"> --}}
                 <x-form-input :errorMessage="$errors->get('min_mintues')"  type="text" placeholder="Minimum Mintues" name="fare" wire:model="min_mintues"/>
                 <x-form-input :errorMessage="$errors->get('min_miles')"  type="text" placeholder="Minimum Miles" name="fare" wire:model="min_miles"/>
             </div>

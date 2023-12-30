@@ -33,6 +33,15 @@
                         Per-mile Rate
                     </th>
                     <th scope="col" class="p-2">
+                        Night Base Fare
+                    </th>
+                    <th scope="col" class="p-2">
+                        Night Per-minute Rate
+                    </th>
+                    <th scope="col" class="p-2">
+                        Night Per-mile Rate
+                    </th>
+                    <th scope="col" class="p-2">
                         Peak Hour Rate
                     </th>
                     <th scope="col" class="p-2">
@@ -64,6 +73,16 @@
 
                         <td class="p-2">
                             {{ $vehicleType->per_mile_rate }}
+                        </td>
+                        <td class="p-2">
+                            {{ $vehicleType->night_base_fare }}
+                        </td>
+                        <td class="p-2">
+                            {{ $vehicleType->night_per_mintue_rate }}
+                        </td>
+
+                        <td class="p-2">
+                            {{ $vehicleType->night_per_mile_rate }}
                         </td>
 
                         <td class="p-2">

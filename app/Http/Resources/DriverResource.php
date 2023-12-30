@@ -20,7 +20,7 @@ class DriverResource extends JsonResource
             'userId'=> $this->user_id,
             'licenseNo'=> $this->license_no,
             'licenseExpiry'=> $this->license_expiry,
-            'licenseImgUrl'=> Storage::disk('s3')->url($this->license_img_url),
+            'licenseImgUrl' => $this->license_img_url ? Storage::disk('s3')->url($this->license_img_url) : null,
             'isOnline' => $this->is_online,
             'createdAt'=> $this->created_at,
             'updatedAt'=> $this->updated_at,

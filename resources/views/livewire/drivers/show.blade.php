@@ -4,18 +4,34 @@ use App\Models\User;
 use App\Repositories\UserRepository;
 use App\Repositories\DriverRepository;
 use App\Helpers\Configuration;
-use App\Constants\Constants;
-use function Livewire\Volt\{state,usesFileUploads,rules,updated};
+use function Livewire\Volt\{state,usesFileUploads,rules,updated,mount};
 
 state([
+    'id',
     'first_name' => '',
     'last_name' => '',
     'phone_number' => '',
     'email' => '',
     'license_no' => '',
     'license_expiry' => '',
-    'licenseImgUrl' => null
+    'licenseImgUrl' => null,
+    'license_img_url' => '',
 ]);
+mount(function(){
+   $driver = DriverRepository::findByIdWithUser(decrypt($this->id))->first();
+   $this->first_name = $driver->user->first_name;
+   $this->last_name = $driver->user->last_name;
+    $this->phone_number = $driver->user->phone_number;
+    $this->email = $driver->user->email;
+    $this->license_no = $driver->license_no;
+    $this->license_expiry = $driver->license_expiry;
+    $this->licenseImgUrl = Storage::disk('s3')->exists($driver->license_img_url)
+        ? Storage::disk('s3')->url($driver->license_img_url)
+        : Storage::disk('local')->url($driver->license_img_url);
+    $this->license_img_url = $driver->license_img_url;
+    // dump($this->license_expiry );
+
+});
 
 usesFileUploads();
 
@@ -23,28 +39,28 @@ $save = function(){
     $validated = $this->validate([
         'first_name' => ['required', 'regex:/^[\pL\s]+$/u', 'string', 'min:2', 'max:50'],
         'last_name' => ['required', 'regex:/^[\pL\s]+$/u', 'string', 'min:2', 'max:50'],
-        'licenseImgUrl' => ['required', 'image','mimes:jpeg,png,jpg','max:10000'],
-        // 'licenseImgUrl' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Adjust validation rules as needed
-        'email' => ['required', 'string', 'email', 'unique:users', 'max:255'],
-        'phone_number' => ['required', 'unique:users', 'regex:/^(((\+44\s?\d{4}|\(?0\d{4}\)?)\s?\d{3}\s?\d{3})|((\+44\s?\d{3}|\(?0\d{3}\)?)\s?\d{3}\s?\d{4})|((\+44\s?\d{2}|\(?0\d{2}\)?)\s?\d{4}\s?\d{4}))(\s?\#(\d{4}|\d{3}))?$/'],
-        'license_no' => ['required', 'unique:drivers', 'regex:/^\+?[0-9\-\s]+$/'],
+        'email' => ['required', 'string', 'email', 'max:255'],
+        'phone_number' => ['required', 'regex:/^(((\+44\s?\d{4}|\(?0\d{4}\)?)\s?\d{3}\s?\d{3})|((\+44\s?\d{3}|\(?0\d{3}\)?)\s?\d{3}\s?\d{4})|((\+44\s?\d{2}|\(?0\d{2}\)?)\s?\d{4}\s?\d{4}))(\s?\#(\d{4}|\d{3}))?$/'],
+        'license_no' => ['required', 'regex:/^\+?[0-9\-\s]+$/'],
         'license_expiry' => ['required', 'date'],
 
     ]);
     // $this->licenseImgUrl->store('drivers','s3');
     // dd($this->licenseImgUrl);
-    $validated += [
-        'role_id' => Configuration::UserRole('driver'),
-        'license_img_url' => $this->licenseImgUrl->store('drivers','public'),
-    ];
+    if($this->licenseImgUrl){
+        $validated += [
+            'license_img_url' => $this->licenseImgUrl? $this->licenseImgUrl->store('drivers','public'):$this->license_img_url,
+        ];
+
+    }
 
     $user = new UserRepository;
-    $created = $user->create($validated);
+    $created = $user->save($validated);
     $validated += [
             'user_id' => $created->id
     ];
     $Driver = new DriverRepository;
-    $Driver->create($validated);
+    $Driver->save($validated);
     session()->flash('success','Driver has been created');
     $this->redirect(route('driver.index'));
 }?>
@@ -76,7 +92,7 @@ $save = function(){
             <div class="mt-4 form-row">
                 <x-form-input :errorMessage="$errors->get('license_no')"  type="number" placeholder="License number" name="license_no" wire:model="license_no"/>
 
-                <x-form-input :errorMessage="$errors->get('license_expiry')"  type="date" placeholder="license_expiry" name="license_expiry" wire:model="license_expiry"/>
+                <x-form-input :errorMessage="$errors->get('license_expiry')"  type="date" placeholder="license_expiry" name="license_expiry" wire:model="license_expiry" :value="$license_expiry ? \Carbon\Carbon::parse($license_expiry)->format('m-d-Y') : null"/>
             </div>
             <div class="mt-4 form-row">
                 <div class="mb-3 col-md-6">
@@ -94,9 +110,17 @@ $save = function(){
                           </div>
                     </div>
                 </div> --}}
-                @if ($licenseImgUrl)
-                <img class="w-20"  src="{{ $licenseImgUrl->temporaryUrl() }}" alt="">
-                @endif
+            </div>
+            <div class="mt-4 form-row">
+                <div class="mb-3 col-md-6">
+                    <div class="form-group">
+
+                        @if ($licenseImgUrl)
+                            <img class=""  src="{{ $licenseImgUrl }}" alt="">
+                        @endif
+
+                    </div>
+                </div>
             </div>
             {{-- <img src="https://dartscars-bucket-dev.s3.eu-west-1.amazonaws.com/image+15+(1).png" alt=""> --}}
             <x-primary-button>

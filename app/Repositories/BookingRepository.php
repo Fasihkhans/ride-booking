@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\Constants\Constants;
 use App\Models\Booking;
 use App\Interfaces\IBookingRepository;
+use Illuminate\Support\Facades\DB;
 
 class BookingRepository implements IBookingRepository
 {
@@ -25,10 +26,7 @@ class BookingRepository implements IBookingRepository
     static public function findDriverForBooking(int $vehicleId,int $driverId)
     {
         return Booking::where(['vehicle_id'=>$vehicleId,'driver_id'=>$driverId])
-                ->whereHas('driver',function ($query) use ($driverId){
-                    $query->where(['id'=> $driverId,'is_online'=>true]);
-                })
-                ->whereNotIn('status',[Constants::BOOKING_WAITING, Constants::BOOKING_ACCEPTED,Constants::BOOKING_IN_PROGRESS])
+                ->whereIn('status',[Constants::BOOKING_WAITING, Constants::BOOKING_ACCEPTED,Constants::BOOKING_IN_PROGRESS])
                 ->with('driver')
                 ->first();
     }
@@ -93,6 +91,11 @@ class BookingRepository implements IBookingRepository
         $model->status = $status;
         $model->update();
         return $model;
+    }
+
+    static public function getActiveBookings()
+    {
+        return Booking::whereIn('status',[Constants::BOOKING_WAITING, Constants::BOOKING_ACCEPTED,Constants::BOOKING_IN_PROGRESS])->get();
     }
     public function update(Booking $booking,array $data)
     {

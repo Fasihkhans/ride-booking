@@ -1,4 +1,15 @@
 <div>
+    <dl class="grid items-center justify-center w-full max-w-screen-xl grid-cols-3 gap-6 mx-auto text-gray-900 dark:text-white sm:py-8">
+        <x-stats-card :title="'Total'">
+            {{ str_pad($totalVehicles, 2, '0', STR_PAD_LEFT) }}
+        </x-stats-card>
+        <x-stats-card :title="'Active'">
+            {{ str_pad($activeVehicles, 2, '0', STR_PAD_LEFT) }}
+        </x-stats-card>
+        <x-stats-card :title="'Inactive'">
+            {{ str_pad($inActiveVehicles, 2, '0', STR_PAD_LEFT) }}
+        </x-stats-card>
+    </dl>
     <div>
         <form class="flex items-center" wire:submit="search">
             <label for="simple-search" class="sr-only">Search</label>
@@ -54,7 +65,7 @@
                             {{ $vehicle->license_no_plate }}
                         </th>
                         <td class="p-2">
-                            {{ $vehicle->created_at }}
+                            {{ $vehicle->created_at->format('d M Y') }}
                             {{-- <img src="{{Storage::disk('public')->url($vehicleType->upload_url) }}"/> --}}
                         </td>
                         <td class="p-2">

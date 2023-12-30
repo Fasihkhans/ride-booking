@@ -21,7 +21,7 @@ new class extends Component
     <div class="scroll-wrapper scrollbar-inner" style="position: relative;">
         <div class="scrollbar-inner scroll-content align-items-center scroll-scrolly_visible" style="height: auto; margin-bottom: 0px; margin-right: 0px; min-height: 500vh;">
              <!-- Brand -->
-            <div class="p-3 m-4 sidenav-header d-flex align-items-center">
+            <div class="justify-center w-full p-3 sidenav-header d-flex align-items-center">
                 <div class="flex items-center shrink-0">
                     <a href="{{ route('dashboard') }}" wire:navigate>
                         <x-application-logo class="block w-auto text-gray-800 fill-current h-9 dark:text-gray-200" />

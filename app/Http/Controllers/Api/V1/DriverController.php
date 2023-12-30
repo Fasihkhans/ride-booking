@@ -40,4 +40,23 @@ class DriverController extends Controller
             return APIResponse::UnknownInternalServerError($ex);
         }
     }
+
+
+    /**
+     * Action for fetch driver status
+     *
+     * @return APIResponse
+     */
+    public function isOnline(Request $request)
+    {
+        try
+        {
+            $driver =   $this->driverRepository->isOnline( $request->id);
+            if (!$driver)
+                APIResponse::NotFound('No Driver Found');
+            return APIResponse::SuccessWithData('success', ['isOnline'=>$driver]);
+        } catch (Exception $ex) {
+            return APIResponse::UnknownInternalServerError($ex);
+        }
+    }
 }

@@ -35,7 +35,8 @@ class DriverController extends Controller
      */
     public function show(string $id)
     {
-        //
+        // dd(decrypt($id));
+        return view("drivers.show",['id'=>$id]);
     }
 
     /**

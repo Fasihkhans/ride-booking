@@ -23,7 +23,7 @@ class LoggedInUserResource extends JsonResource
             'lastName' => $this->last_name,
             'email' => $this->email,
             'phoneNumber' => $this->phone_number,
-            'status' => $this->status == 1 ? "active" : "inactive",
+            'status' => $this->status,
             'userRole' => $roleName,
             'token' => $this->secret,
         ];

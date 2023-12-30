@@ -167,7 +167,7 @@ class BookingController extends Controller
             if (!$bookingUpdated)
                 return APIResponse::NotFound('No result found');
             if($bookingUpdated->status == 'inProgress')
-                $this->bookingStopsRepository::addDriverPickUpCoordinates($request->driverLatitude,$request->driverLongitude,$bookingUpdated->id);
+                $this->bookingStopsRepository::addDriverPickUpCoordinates($request->driver['latitude'],$request->driver['longitude'],$bookingUpdated->id);
             if($bookingUpdated->status == 'completed'){
                 $this->bookingStopsRepository::addDriverdropOffCoordinates($request->driver['latitude'],$request->driver['longitude'],$bookingUpdated->id);
                 $this->BookingPaymentsRepository::create($bookingUpdated);

@@ -35,6 +35,11 @@ class UserObserver
                                                         'name' => "cash",
                                                         'status' => Constants::ACTIVE
                                                     ]);
+            $this->iCustomerPaymentMethodsRepository::create([
+                                                        'user_id'=>$user->id,
+                                                        'name' => "card",
+                                                        'status' => Constants::ACTIVE
+                                                    ]);
         }
 
     }
@@ -44,7 +49,7 @@ class UserObserver
         if($user->role_id == Configuration::UserRole('driver'))
         {
 
-            $user->status = true;
+            $user->status = 'active';
             $user->verified = true;
             $password = Str::random(10);
             $user->password = Hash::make($password);

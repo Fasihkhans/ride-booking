@@ -24,12 +24,22 @@ class DriverRepository implements IDriverRepository
     {
         return Driver::where('user_id', $userId)->first();
     }
+
+    static public function findByIdWithUser(int $id)
+    {
+        return Driver::find($id)->with('user');
+    }
     static public function onlineStatus(bool $status, int $id)
     {
         $model = Driver::find($id);
         $model->is_online = $status;
         $model->update();
         return $model;
+    }
+
+    static public function isOnline(int $id)
+    {
+        return Driver::where('id', $id)->value('is_online');
     }
     public function update(Driver $driver,array $data)
     {

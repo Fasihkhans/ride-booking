@@ -56,6 +56,8 @@ use Illuminate\Support\Facades\Route;
 
             Route::patch('{id}/online',[DriverController::class, 'onlineStatus']);
 
+            Route::get('{id}/online',[DriverController::class, 'isOnline']);
+
         });
     });
 
