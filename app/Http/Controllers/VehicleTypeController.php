@@ -43,9 +43,9 @@ class VehicleTypeController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(VehicleType $vehicleType)
+    public function show(string $id)
     {
-        //
+        return view("vehicle-types.show",['id'=>$id]);
     }
 
     /**

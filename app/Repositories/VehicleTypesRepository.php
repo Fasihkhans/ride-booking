@@ -48,6 +48,17 @@ class VehicleTypesRepository implements IVehicleTypesRepository
         // return self::fetchData($search)->paginate($perPage);
         return VehicleType::paginate($perPage);
     }
+
+    /**
+     * Fetch data from the VehicleType model based on a given id.
+     *
+     * @param int $id
+     * @return object
+     */
+    static public function findById(int $id)
+    {
+        return VehicleType::find($id);
+    }
     static public function list()
     {
         return VehicleType::orderBy('created_at', 'desc');

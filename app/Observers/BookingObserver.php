@@ -19,7 +19,7 @@ class BookingObserver
             $result = BookingRepository::findDriverForBooking($driverVehicle->vehicle_id,$driverVehicle->driver_id);
             if ($result == null) {
                 if(DriverRepository::isOnline($driverVehicle->driver_id)){
-                    return BookingRepository::assignDriver($driverVehicles[0]->driver_id, $driverVehicles[0]->vehicle_id, $booking->id);
+                    return BookingRepository::assignDriver($driverVehicles->driver_id, $driverVehicles->vehicle_id, $booking->id);
                 }
             }
         }

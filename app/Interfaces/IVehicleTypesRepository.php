@@ -20,5 +20,13 @@ interface IVehicleTypesRepository
      */
     static public function fetchData(string $search);
 
+    /**
+     * Fetch data from the VehicleType model based on a given id.
+     *
+     * @param int $id
+     * @return object
+     */
+    static public function findById(int $id);
+
     static public function list();
 }
