@@ -73,15 +73,14 @@ class EstimatedBookingFareResource extends JsonResource
 
         return [
             'booking_id' => $booking->id,
-            'base_fare' => $baseFare,
-            'per_mile_rate' => $perMileRate,
-            'per_minute_rate' => $perMinuteRate,
-            'payment_method_id' => $paymentMethodId,
-            'peak_hour_rate' => $peakHourRate,
-            'holiday_rate' => $holidayRate,
-            'total_minutes' => $totalMinutes,
-            'total_miles' => $totalMiles,
-            'total_fare' => $totalCost,
+            'baseFare' => $baseFare,
+            'perMileRate' => $perMileRate,
+            'perMinuteRate' => $perMinuteRate,
+            'peakHourRate' => $peakHourRate,
+            'holidayRate' => $holidayRate,
+            'totalMinutes' => $totalMinutes,
+            'totalMiles' => $totalMiles,
+            'totalFare' => $totalCost,
         ];
     }
 }
