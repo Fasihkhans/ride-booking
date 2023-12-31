@@ -25,6 +25,7 @@ class BookingWithStopsResource extends JsonResource
             'updatedAt' => $this->updated_at,
             'type' => $this->type,
             'bookingStops' => BookingStopsResource::collection($this->bookingStops),
+            'customer' => CustomerDetailsResource::make($this->customer),
             'driver' =>  DriverResource::make($this->driver),
             'vehicle' => VehicleResource::make($this->vehicle),
             'paymentDetails' => PaymentDetailsResource::make($this->bookingPayment)
