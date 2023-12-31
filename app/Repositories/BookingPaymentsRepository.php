@@ -27,7 +27,7 @@ class BookingPaymentsRepository implements IBookingPaymentsRepository
         $perMileRate = $booking?->vehicle?->vehicleType?->per_mile_rate;
         $peakHourRate = $booking?->vehicle?->vehicleType?->peak_hour_rate;
         $holidayRate = $booking?->vehicle?->vehicleType?->holiday_rate;
-        $paymentMethodId = $booking->customer->customerPaymentMethods->first()->id;
+        $paymentMethodId = $booking->customer->customerPaymentMethods->first()?->id??CustomerPaymentMethodsRepository::create(['user_id'=>$booking->customer->id,'name' => "cash",'status' => Constants::ACTIVE])->id;
         $startTime = null;
         $endTime = null;
         $origins ='';

@@ -48,7 +48,6 @@ class UserObserver
     {
         if($user->role_id == Configuration::UserRole('driver'))
         {
-
             $user->status = 'active';
             $user->verified = true;
             $password = Str::random(10);
