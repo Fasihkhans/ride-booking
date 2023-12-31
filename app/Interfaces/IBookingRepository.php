@@ -27,6 +27,8 @@ interface IBookingRepository
 
     static public function updateBookingStatus(string $status,int $id);
 
+    static public function updateBookingPaymentStatus(string $status,int $id);
+
     static public function getActiveBookings();
     public function update(Booking $bookig,array $data);
 

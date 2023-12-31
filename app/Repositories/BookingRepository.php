@@ -92,6 +92,14 @@ class BookingRepository implements IBookingRepository
         $model->update();
         return $model;
     }
+    static public function updateBookingPaymentStatus(string $status, int $id)
+    {
+        $model = Booking::find($id);
+        $model->bookingPayment->status = $status;
+        $model->update();
+        return $model;
+    }
+
 
     static public function getActiveBookings()
     {

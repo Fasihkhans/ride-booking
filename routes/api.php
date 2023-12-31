@@ -56,7 +56,7 @@ use Illuminate\Support\Facades\Route;
 
             Route::patch('{id}/online',[DriverController::class, 'onlineStatus']);
 
-            Route::patch('{id}/booking/{bookingId}/payment-confirmation',[BookingController::class, 'paymentConfirmation']);
+            Route::patch('{id}/booking/{bookingId}/payment-confirmation',[BookingController::class, 'paymentStatus']);
 
             Route::get('{id}/online',[DriverController::class, 'isOnline']);
 

@@ -180,6 +180,30 @@ class BookingController extends Controller
     }
 
     /**
+     * Action for updating booking payment status.
+     *
+     * @return APIResponse in json format
+     */
+    public function paymentStatus(UpdateBookingStatusRequest $request)
+    {
+        try
+        {
+            $validator = Validator::make($request->route()->parameters(), [
+                'id' => ['required','numeric'],
+                'bookingId' => ['required','numeric','exists:bookings,id'],
+            ]);
+            if ($validator->fails())
+                return APIResponse::BadRequest($validator->errors()->first());
+            $bookingUpdated = $this->bookingRepository::updateBookingPaymentStatus($request->status, $request->bookingId);
+            if (!$bookingUpdated)
+                return APIResponse::NotFound('No result found');
+            $bookingWithStops = BookingWithStopsResource::make($bookingUpdated);
+            return APIResponse::SuccessWithData('Success', $bookingWithStops);
+        } catch (Exception $ex) {
+            return APIResponse::UnknownInternalServerError($ex);
+        }
+    }
+    /**
      * Action for current bookings for logged-in driver or user.
      *
      * @return APIResponse in json format
