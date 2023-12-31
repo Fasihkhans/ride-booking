@@ -27,8 +27,10 @@ class UpdateBookingStatusRequest extends FormRequest
      */
     public function rules(): array
     {
-        if(Auth::user()->roles->first()->name == 'user')
+        if(Auth::user()->roles->first()->name == 'user'){
+
             return ['status' => ['required','string',Rule::in('cancelByUser')]];
+        }
         if(in_array($this->status,['inProgress','completed'])){
             return [
                 'status' => ['required','string',
@@ -51,10 +53,12 @@ class UpdateBookingStatusRequest extends FormRequest
 
 
     protected function prepareForValidation() {
-        $this->merge([
-            'driver_latitude' => $this->driver['latitude'],
-            'driver_longitude' => $this->driver['longitude']
-        ]);
+        if($this->driver){
+            $this->merge([
+                'driver_latitude' => $this->driver['latitude'],
+                'driver_longitude' => $this->driver['longitude']
+            ]);
+        }
     }
     /**
      *
