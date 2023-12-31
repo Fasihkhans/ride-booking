@@ -79,6 +79,7 @@ class BookingRepository implements IBookingRepository
     {
         return Booking::where('customer_id',$userId)
                 ->whereIn('status',[Constants::BOOKING_WAITING, Constants::BOOKING_ACCEPTED,Constants::BOOKING_IN_PROGRESS])
+                ->WhereNotNull('driver_id')
                 ->with(['bookingStops','driver','vehicle'])
                 ->orderBy('updated_at', 'desc')
                 ->first();
