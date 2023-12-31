@@ -29,7 +29,7 @@ class UserLoginRequest extends FormRequest
         return [
             'email' => ['required', 'string', 'exists:users', 'email', 'regex:/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix', 'max:255'],
             'password' => ['required', 'string', 'min:8'],
-            'device_token' => ['text','nullable']
+            'device_token' => ['string','nullable']
         ];
     }
 
