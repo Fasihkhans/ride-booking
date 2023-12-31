@@ -59,6 +59,17 @@ class VehicleTypesRepository implements IVehicleTypesRepository
     {
         return VehicleType::find($id);
     }
+
+    /**
+     * Fetch data from the VehicleType model based on a given name.
+     *
+     * @param int $id
+     * @return object
+     */
+    static public function getVehicleByName(string $name)
+    {
+        return VehicleType::where('name',$name)->first();
+    }
     static public function list()
     {
         return VehicleType::orderBy('created_at', 'desc');

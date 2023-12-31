@@ -28,5 +28,13 @@ interface IVehicleTypesRepository
      */
     static public function findById(int $id);
 
+    /**
+     * Fetch data from the VehicleType model based on a given name.
+     *
+     * @param int $id
+     * @return object
+     */
+    static public function getVehicleByName(string $name);
+
     static public function list();
 }

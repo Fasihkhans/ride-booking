@@ -21,7 +21,7 @@ class BookingPaymentsRepository implements IBookingPaymentsRepository
         if ($bookingTime->between($dayStartTime, $dayEndTime)) {
             $baseFare = $booking?->vehicle?->vehicleType?->base_fare;
         } else {
-            $baseFare = $booking?->vehicle?->vehicleType?->base_fare;
+            $baseFare = $booking?->vehicle?->vehicleType?->night_base_fare;
         }
         $perMinuteRate = $booking?->vehicle?->vehicleType?->per_minute_rate;
         $perMileRate = $booking?->vehicle?->vehicleType?->per_mile_rate;
@@ -35,7 +35,7 @@ class BookingPaymentsRepository implements IBookingPaymentsRepository
         foreach($booking?->bookingStops as $stop)
         {
             if($stop->type =='pickUp'){
-                $origins .= $stop?->driver_latitude.",".$stop?->driver_longitude; // ctemp============>
+                $origins .= $stop?->latitude.",".$stop?->longitude; // ctemp============>
                 $startTime = $stop?->updated_at;
             }
             if($stop->type =='middleStop'){
@@ -44,7 +44,7 @@ class BookingPaymentsRepository implements IBookingPaymentsRepository
             }
 
             if($stop->type =='dropOff'){
-                $destinations .= $stop?->driver_latitude.",".$stop?->driver_longitude;
+                $destinations .= $stop?->latitude.",".$stop?->longitude;
                 $endTime = $stop?->updated_at;
             }
         }
@@ -55,7 +55,7 @@ class BookingPaymentsRepository implements IBookingPaymentsRepository
                         ->addOrigin($origins)
                         ->addDestination($destinations)->useMetricUnits()
                         ->request();
-
+        // dd($origins);
         $totalMeters = 0;
         $count = 0;
         foreach($getDistance->rows() as $distance)
@@ -64,6 +64,7 @@ class BookingPaymentsRepository implements IBookingPaymentsRepository
             $count++;
         }
         $totalMiles = round($totalMeters*0.00062137,1);
+        // dd($baseFare +($perMinuteRate * $totalMinutes)+($perMileRate * $totalMiles));
         $totalCost = $baseFare + ($perMinuteRate * $totalMinutes)+($perMileRate * $totalMiles);
 
         return BookingPayments::create([

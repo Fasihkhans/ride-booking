@@ -7,6 +7,7 @@ use App\Helpers\APIResponse;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CommonPaginatedRequest;
 use App\Http\Requests\StoreBookingRequest;
+use App\Http\Requests\UpdateBookingPaymentStatusRequest;
 use App\Http\Requests\UpdateBookingStatusRequest;
 use App\Http\Resources\BookingStopsResource;
 use App\Http\Resources\BookingWithStopsResource;
@@ -184,7 +185,7 @@ class BookingController extends Controller
      *
      * @return APIResponse in json format
      */
-    public function paymentStatus(UpdateBookingStatusRequest $request)
+    public function paymentStatus(UpdateBookingPaymentStatusRequest $request)
     {
         try
         {
