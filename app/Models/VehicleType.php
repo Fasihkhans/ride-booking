@@ -19,6 +19,9 @@ class VehicleType extends Model
         'holiday_rate' ,
         'peak_hour_rate' ,
         'upload_url',
+        'night_base_fare',
+        'night_per_minute_rate',
+        'night_per_mile_rate'
     ];
 
     public function vehicles()
