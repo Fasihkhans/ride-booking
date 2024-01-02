@@ -132,7 +132,7 @@
             </span>
             <ul class="flex flex-wrap items-center mt-3 text-sm font-medium text-gray-500 sm:mt-0">
                 <li>
-                    <a href="#" class="hover:underline me-4 md:me-6">Privacy</a>
+                    <a href="/privacy-policy" class="hover:underline me-4 md:me-6">Privacy</a>
                 </li>
                 <li>
                     <a href="#" class="hover:underline me-4 md:me-6">Accessibility</a>

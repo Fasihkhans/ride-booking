@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::view('/', 'welcome');
+Route::view('/privacy-policy', 'website/privacy-Policy');
 
 Route::middleware(['auth','role:admin'])->prefix('admin')->group( function () {
     Route::view('/', 'dashboard')
