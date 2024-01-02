@@ -110,9 +110,14 @@ class UserRepository implements IUserRepository
         $user = User::find($userId);
         $user->status = $status;
         return $user->save();
-
     }
 
+    public function updateDeviceToken(int $userId, string $deviceToken)
+    {
+        $user = User::find($userId);
+        $user->device_token = $deviceToken;
+        return $user->save();
+    }
     static public function update(array $data)
     {
         $user = User::find($data['id']);

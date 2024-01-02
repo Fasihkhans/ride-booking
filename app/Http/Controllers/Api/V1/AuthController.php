@@ -66,8 +66,8 @@ class AuthController extends Controller
             $user->secret = $this->userRepository->generateBearerToken($user, !Configuration::Get('allow_multi_device_login'));
             if ($user->role_id == 3)
                     $user->driverDetails = $this->driverRepository->findByUserID($user->id);
-            // dd($user->driverDetails );
-                    // return APIResponse::SuccessWithData('Driver Logged in successfully', new LoggedInUserResource($user));
+            if ($request->deviceToken)
+                    $this->userRepository->updateDeviceToken($user->id, $request->deviceToken);
             return APIResponse::SuccessWithData('Logged in successfully', new LoggedInUserResource($user));
         } catch (Exception $ex) {
             return APIResponse::InternalServerError($ex);
