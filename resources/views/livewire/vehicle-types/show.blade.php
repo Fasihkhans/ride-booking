@@ -6,7 +6,7 @@ state([
     'id',
     'name' => '',
     'base_fare' => '',
-    'per_mintue_rate' => '',
+    'per_minute_rate' => '',
     'per_mile_rate' => '',
     'min_mintues' => '',
     'min_miles' => '',
@@ -14,7 +14,7 @@ state([
     'peak_hour_rate' => '',
     'upload' => null,
     'night_base_fare' => '',
-    'night_per_mintue_rate' => '',
+    'night_per_minute_rate' => '',
     'night_per_mile_rate' => '',
     'vehicleType'
 ]);
@@ -41,7 +41,7 @@ $save = function(){
     $validated = $this->validate([
         'name' => ['required', 'regex:/^[\pL\s]+$/u', 'string', 'min:2', 'max:50'],
         'base_fare' => ['required', 'decimal:2'],
-        'per_mintue_rate' => ['required', 'decimal:2'],
+        'per_minute_rate' => ['required', 'decimal:2'],
         'per_mile_rate' => ['required', 'decimal:2'],
         'min_mintues' => ['required', 'decimal:2'],
         'min_miles' => ['required', 'decimal:2'],
@@ -49,7 +49,7 @@ $save = function(){
         'peak_hour_rate' => ['required', 'decimal:2'],
         'upload' => ['nullable', 'file'],
         'night_base_fare' => ['required', 'decimal:2'],
-        'night_per_mintue_rate' => ['required', 'decimal:2'],
+        'night_per_minute_rate' => ['required', 'decimal:2'],
         'night_per_mile_rate' => ['required', 'decimal:2'],
 
     ]);
@@ -87,13 +87,13 @@ $save = function(){
             <div class="py-2 text-lg font-normal tracking-tight text-black">Day Rates</div>
             <div class="mt-2 form-row">
                 <x-form-input :errorMessage="$errors->get('base_fare')"  type="text" placeholder="Base Fare" name="fare" wire:model="base_fare"/>
-                <x-form-input :errorMessage="$errors->get('per_mintue_rate')"  type="text" placeholder="per-minute Rate" name="fare" wire:model="per_mintue_rate"/>
+                <x-form-input :errorMessage="$errors->get('per_mintue_rate')"  type="text" placeholder="per-minute Rate" name="fare" wire:model="per_minute_rate"/>
                 <x-form-input :errorMessage="$errors->get('per_mile_rate')"  type="text" placeholder="per-mile Rate" name="fare" wire:model="per_mile_rate"/>
             </div>
             <div class="py-2 text-lg font-normal tracking-tight text-black">Night Rates</div>
             <div class="mt-2 form-row">
                 <x-form-input :errorMessage="$errors->get('night_base_fare')"  type="text" placeholder="Base Fare" name="fare" wire:model="night_base_fare"/>
-                <x-form-input :errorMessage="$errors->get('night_per_mintue_rate')"  type="text" placeholder="per-minute Rate" name="fare" wire:model="night_per_mintue_rate"/>
+                <x-form-input :errorMessage="$errors->get('night_per_minute_rate')"  type="text" placeholder="per-minute Rate" name="fare" wire:model="night_per_minute_rate"/>
                 <x-form-input :errorMessage="$errors->get('night_per_mile_rate')"  type="text" placeholder="per-mile Rate" name="fare" wire:model="night_per_mile_rate"/>
             </div>
             <div class="text-lg font-bold tracking-tight text-black">Additional charges</div>
