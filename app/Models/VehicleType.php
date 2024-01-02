@@ -12,7 +12,7 @@ class VehicleType extends Model
     protected $fillable = [
         'name',
         'base_fare' ,
-        'per_mintue_rate' ,
+        'per_minute_rate' ,
         'per_mile_rate' ,
         'min_mintues' ,
         'min_miles' ,
