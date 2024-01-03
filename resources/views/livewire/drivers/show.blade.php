@@ -29,9 +29,7 @@ mount(function(){
     $this->email = $this->driver->user->email;
     $this->license_no = $this->driver->license_no;
     $this->license_expiry = $this->driver->license_expiry;
-    $this->license_img_url =Storage::disk('s3')->exists($this->driver->license_img_url)
-        ? Storage::disk('s3')->url($this->driver->license_img_url)
-        : Storage::disk('local')->url($this->driver->license_img_url);
+    $this->license_img_url = Storage::disk(env('CURRENT_IMG_DRIVER'))->url($this->driver->license_img_url)??Storage::disk('local')->url($this->driver->license_img_url);
     $this->status = $this->driver->user->status;
 });
 
@@ -52,7 +50,7 @@ $save = function(){
     ]);
 
     $validated += [
-        'license_img_url' => $this->licenseImgUrl? $this->licenseImgUrl->store('drivers','public'):$this->driver->license_img_url,
+        'license_img_url' => $this->licenseImgUrl? $this->licenseImgUrl->store('drivers','s3'):$this->driver->license_img_url,
     ];
 
     UserRepository::update($validated);

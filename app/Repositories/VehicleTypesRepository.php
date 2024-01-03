@@ -13,10 +13,19 @@ class VehicleTypesRepository implements IVehicleTypesRepository
         return VehicleType::create($data);
     }
 
-    public function update(VehicleType $vehicleType,array $data)
+    static public function update(VehicleType $vehicleType,array $data)
     {
-        $vehicleType->name = $data['name'];
-        $vehicleType->fare = $data['fare'];
+        $vehicleType->name= $data['name'];
+        $vehicleType->base_fare= $data['base_fare'];
+        $vehicleType->per_minute_rate= $data['per_minute_rate'];
+        $vehicleType->per_mile_rate= $data['per_mile_rate'];
+        $vehicleType->min_mintues= $data['min_mintues'];
+        $vehicleType->min_miles= $data['min_miles'];
+        $vehicleType->holiday_rate= $data['holiday_rate'];
+        $vehicleType->peak_hour_rate= $data['peak_hour_rate'];
+        $vehicleType->night_base_fare= $data['night_base_fare'];
+        $vehicleType->night_per_minute_rate= $data['night_per_minute_rate'];
+        $vehicleType->night_per_mile_rate= $data['night_per_mile_rate'];
         $vehicleType->upload_url = $data['upload_url'];
         return $vehicleType->save();
     }

@@ -34,7 +34,7 @@ $save = function(){
     // dd($this->licenseImgUrl);
     $validated += [
         'role_id' => Configuration::UserRole('driver'),
-        'license_img_url' => $this->licenseImgUrl->store('drivers','public'),
+        'license_img_url' => $this->licenseImgUrl->store('drivers','s3'),
     ];
 
     $user = new UserRepository;

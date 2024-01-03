@@ -16,6 +16,7 @@ state([
     'night_base_fare' => '',
     'night_per_minute_rate' => '',
     'night_per_mile_rate' => '',
+    'upload_url' =>'',
     'vehicleType'
 ]);
 
@@ -26,15 +27,16 @@ mount(function(){
     $this->id = $this->vehicleType->id;
     $this->name = $this->vehicleType->name;
     $this->base_fare = $this->vehicleType->base_fare;
-    $this->per_mintue_rate = $this->vehicleType->per_mintue_rate;
+    $this->per_minute_rate = $this->vehicleType->per_minute_rate;
     $this->per_mile_rate = $this->vehicleType->per_mile_rate;
     $this->min_mintues = $this->vehicleType->min_mintues;
     $this->min_miles = $this->vehicleType->min_miles;
     $this->holiday_rate = $this->vehicleType->holiday_rate;
     $this->peak_hour_rate = $this->vehicleType->peak_hour_rate;
     $this->night_base_fare = $this->vehicleType->night_base_fare;
-    $this->night_per_mintue_rate = $this->vehicleType->night_per_mintue_rate;
+    $this->night_per_minute_rate = $this->vehicleType->night_per_minute_rate;
     $this->night_per_mile_rate = $this->vehicleType->night_per_mile_rate;
+    $this->upload_url = Storage::disk(env('CURRENT_IMG_DRIVER'))->url($this->upload_url)??Storage::disk('local')->url($this->upload_url);
 });
 
 $save = function(){
@@ -54,13 +56,15 @@ $save = function(){
 
     ]);
     $validated += [
-            'upload_url' => $this->upload? $this->upload->store('drivers'): $this->upload_url
+            'upload_url' => $this->upload? $this->upload->store('vehicle-types','s3'): $this->upload_url
         ];
 
-    VehicleTypesRepository::create($validated);
+    if(VehicleTypesRepository::update($this->vehicleType,$validated))
+    {
+        session()->flash('success','Type has been updated');
+        $this->redirect(route('vehicle-types.index'));
+    }
 
-    session()->flash('success','Type has been created');
-    $this->redirect(url()->previous());
 }?>
 
 <div>
@@ -87,7 +91,7 @@ $save = function(){
             <div class="py-2 text-lg font-normal tracking-tight text-black">Day Rates</div>
             <div class="mt-2 form-row">
                 <x-form-input :errorMessage="$errors->get('base_fare')"  type="text" placeholder="Base Fare" name="fare" wire:model="base_fare"/>
-                <x-form-input :errorMessage="$errors->get('per_mintue_rate')"  type="text" placeholder="per-minute Rate" name="fare" wire:model="per_minute_rate"/>
+                <x-form-input :errorMessage="$errors->get('per_minute_rate')"  type="text" placeholder="per-minute Rate" name="fare" wire:model="per_minute_rate"/>
                 <x-form-input :errorMessage="$errors->get('per_mile_rate')"  type="text" placeholder="per-mile Rate" name="fare" wire:model="per_mile_rate"/>
             </div>
             <div class="py-2 text-lg font-normal tracking-tight text-black">Night Rates</div>

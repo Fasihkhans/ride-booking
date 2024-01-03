@@ -81,7 +81,7 @@
                         </td>
 
                         <td class="p-2"  style="filter: invert(25%)">
-                            {{-- <img src="{{Storage::disk('public')->url($vehicle->vehicleType->upload_url) }}"/> --}}
+                            {{-- <img src="{{Storage::disk(env('CURRENT_IMG_DRIVER'))->url($vehicle->vehicleType->upload_url) }}"/> --}}
                         </td>
                         <td class="p-2">
 

@@ -66,11 +66,11 @@
                         </th>
                         <td class="p-2">
                             {{ $vehicle->created_at->format('d M Y') }}
-                            {{-- <img src="{{Storage::disk('public')->url($vehicleType->upload_url) }}"/> --}}
+                            {{-- <img src="{{Storage::disk(env('CURRENT_IMG_DRIVER'))->url($vehicleType->upload_url) }}"/> --}}
                         </td>
                         <td class="p-2">
                             {{ $vehicle->make }}
-                            {{-- <img src="{{Storage::disk('public')->url($vehicleType->upload_url) }}"/> --}}
+                            {{-- <img src="{{Storage::disk(env('CURRENT_IMG_DRIVER'))->url($vehicleType->upload_url) }}"/> --}}
                         </td>
                         <td class="p-2">
                             {{ $vehicle->model }}
@@ -88,7 +88,7 @@
                         </td>
 
                         <td class="p-2"  style="filter: invert(25%)">
-                            <img src="{{Storage::disk('public')->url($vehicle->vehicleType->upload_url) }}"/>
+                            <img src="{{Storage::disk(env('CURRENT_IMG_DRIVER'))->url($vehicle->vehicleType->upload_url) }}"/>
                         </td>
 
                         <td class="p-2">

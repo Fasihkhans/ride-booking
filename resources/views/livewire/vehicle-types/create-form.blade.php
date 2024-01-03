@@ -13,7 +13,7 @@ state([
     'peak_hour_rate' => '',
     'upload' => null,
     'night_base_fare' => '',
-    'night_per_mintue_rate' => '',
+    'night_per_minute_rate' => '',
     'night_per_mile_rate' => '',
 ]);
 
@@ -36,13 +36,14 @@ $save = function(){
 
     ]);
     $validated += [
-            'upload_url' => $this->upload->store('drivers')
+            'upload_url' => $this->upload->store('vehicle-types','s3')
         ];
 
-    VehicleTypesRepository::create($validated);
-
-    session()->flash('success','Type has been created');
-    $this->redirect(url()->previous());
+    if(VehicleTypesRepository::create($validated))
+    {
+        session()->flash('success','Type has been created');
+        $this->redirect(route('vehicle-types.index'));
+    }
 }?>
 
 <div>

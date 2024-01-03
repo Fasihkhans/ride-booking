@@ -58,7 +58,7 @@ $save = function(){
     if($this->uploadVehiclePhotos){
         foreach($this->uploadVehiclePhotos as $uploadVehiclePhoto) {
             $vehicleUpload['vehicle_id'] = $vehicle->id;
-            $vehicleUpload['upload_url'] =  $uploadVehiclePhoto->store('vehicles');
+            $vehicleUpload['upload_url'] =  $uploadVehiclePhoto->store('vehicles','s3');
             $vehicleUpload['upload_type'] = "VehiclePhotos";
             VehicleUploadsRepository::create($vehicleUpload);
             $vehicleUpload = null;
@@ -67,7 +67,7 @@ $save = function(){
     if ($this->uploadVehicleLicensePhotos) {
         foreach($this->uploadVehicleLicensePhotos as $uploadVehicleLicensePhoto) {
             $vehicleUpload['vehicle_id'] = $vehicle->id;
-            $vehicleUpload['upload_url'] =  $uploadVehicleLicensePhoto->store('vehicles');
+            $vehicleUpload['upload_url'] =  $uploadVehicleLicensePhoto->store('vehicles','s3');
             $vehicleUpload['upload_type'] = "VehicleLicensePhotos";
             VehicleUploadsRepository::create($vehicleUpload);
             $vehicleUpload = null;
@@ -102,7 +102,7 @@ $save = function(){
                             <input type="radio" name="vehicle_id" wire:model="vehicle_type_id" value="{{ $vehicleType->id }}" />
                             <span class="checkmark"></span>
                                 <div class="inline-flex items-center justify-center px-1 pt-4 pb-2 ml-5 w-14 h-14">
-                                    <img  class="mx-3 radio-img" src="{{Storage::disk('public')->url($vehicleType->upload_url) }}"/>
+                                    <img  class="mx-3 radio-img" src="{{Storage::disk(env('CURRENT_IMG_DRIVER'))->url($vehicleType->upload_url) }}"/>
                                 </div>
                             <div class="text-center text-sm font-bold font-['Urbanist'] tracking-tight capitalize">{{ $vehicleType->name }}</div>
                         </label>
@@ -127,7 +127,7 @@ $save = function(){
                         <div class="mb-3 col-md-3">
                             <div class="form-group">
                                 <div class="flex items-center justify-center w-full max-w-xs p-2 align-middle bg-white border border-black rounded-lg shadow justify-items-center h-36">
-                                    <img class="flex" src="{{ Storage::disk('public')->url($VehiclePhoto->upload_url) }}" alt="">
+                                    <img class="flex" src="{{ Storage::disk(env('CURRENT_IMG_DRIVER'))->url($VehiclePhoto->upload_url) }}" alt="">
                                 </div>
                             </div>
                         </div>
@@ -152,7 +152,7 @@ $save = function(){
                         <div class="mb-3 col-md-3">
                             <div class="form-group">
                                 <div class="flex items-center justify-center w-full max-w-xs p-2 align-middle bg-white border border-black rounded-lg shadow justify-items-center h-36">
-                                    <img class="flex max-h-36" src="{{ Storage::disk('public')->url($VehiclePhoto->upload_url) }}" alt="">
+                                    <img class="flex max-h-36" src="{{ Storage::disk(env('CURRENT_IMG_DRIVER'))->url($VehiclePhoto->upload_url) }}" alt="">
                                 </div>
                             </div>
                         </div>

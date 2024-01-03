@@ -48,7 +48,7 @@ $save = function(){
     if($this->uploadVehiclePhotos){
         foreach($this->uploadVehiclePhotos as $uploadVehiclePhoto) {
             $vehicleUpload['vehicle_id'] = $vehicle->id;
-            $vehicleUpload['upload_url'] =  $uploadVehiclePhoto->store('vehicles');
+            $vehicleUpload['upload_url'] =  $uploadVehiclePhoto->store('vehicles','s3');
             $vehicleUpload['upload_type'] = "VehiclePhotos";
             VehicleUploadsRepository::create($vehicleUpload);
             $vehicleUpload = null;
@@ -57,7 +57,7 @@ $save = function(){
     if ($this->uploadVehicleLicensePhotos) {
         foreach($this->uploadVehicleLicensePhotos as $uploadVehicleLicensePhoto) {
             $vehicleUpload['vehicle_id'] = $vehicle->id;
-            $vehicleUpload['upload_url'] =  $uploadVehicleLicensePhoto->store('vehicles');
+            $vehicleUpload['upload_url'] =  $uploadVehicleLicensePhoto->store('vehicles','s3');
             $vehicleUpload['upload_type'] = "VehicleLicensePhotos";
             VehicleUploadsRepository::create($vehicleUpload);
             $vehicleUpload = null;
@@ -66,7 +66,7 @@ $save = function(){
 
 
     session()->flash('success','Vehicle has been added');
-    $this->redirect(url()->previous());
+    $this->redirect(route('vehicles.index'));
 }?>
 
 <div>
@@ -92,7 +92,7 @@ $save = function(){
                             <input type="radio" name="vehicle_id" wire:model="vehicle_type_id" value="{{ $vehicleType->id }}" />
                             <span class="checkmark"></span>
                                 <div class="inline-flex items-center justify-center px-1 pt-4 pb-2 ml-5 w-14 h-14">
-                                    <img  class="mx-3 radio-img" src="{{Storage::disk('public')->url($vehicleType->upload_url) }}"/>
+                                    <img  class="mx-3 radio-img" src="{{Storage::disk(env('CURRENT_IMG_DRIVER'))->url($vehicleType->upload_url) }}"/>
                                 </div>
                             <div class="text-center text-sm font-bold font-['Urbanist'] tracking-tight capitalize">{{ $vehicleType->name }}</div>
                         </label>
