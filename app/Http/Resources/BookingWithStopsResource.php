@@ -24,6 +24,7 @@ class BookingWithStopsResource extends JsonResource
             'createdAt' => $this->created_at,
             'updatedAt' => $this->updated_at,
             'type' => $this->type,
+            'preCalculatedFare' => $this->pre_calculated_fare,
             'estimatedFare' => EstimatedBookingFareResource::make($this),
             'bookingStops' => BookingStopsResource::collection($this->bookingStops),
             'customer' => CustomerDetailsResource::make($this->customer),

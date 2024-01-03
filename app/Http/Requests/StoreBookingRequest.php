@@ -38,7 +38,8 @@ class StoreBookingRequest extends FormRequest
                                             Constants::BOOKING_STOP_TYPE_DROP_OFF
                                             )],
             'data.*.location_obj' =>['required','json'],
-            'paymentMethod' => ['required','string', Rule::in(Constants::BOOKING_PAYMENT_METHOD_CASH,Constants::BOOKING_PAYMENT_METHOD_CARD)]
+            'paymentMethod' => ['required','string', Rule::in(Constants::BOOKING_PAYMENT_METHOD_CASH,Constants::BOOKING_PAYMENT_METHOD_CARD)],
+            'preCalculatedFare' => ['required','decimal:1,2']
         ];
     }
 
@@ -60,7 +61,6 @@ class StoreBookingRequest extends FormRequest
 
             $this->merge([
                 'data' => $transformedData,
-
             ]);
         }
     }

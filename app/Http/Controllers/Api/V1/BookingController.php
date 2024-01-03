@@ -41,7 +41,8 @@ class BookingController extends Controller
 
             $booking = $this->bookingRepository::create(['customer_id'=>Auth::user()->id,
                                                         'status'=>'waiting',
-                                                        'type'=>Constants::BOOKING_TYPE_ON_DEMAND
+                                                        'type'=>Constants::BOOKING_TYPE_ON_DEMAND,
+                                                        'pre_calculated_fare'=>$request->preCalculatedFare
                                                     ]);
 
             foreach($request['data'] as $bookingStop)

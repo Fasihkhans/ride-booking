@@ -16,6 +16,7 @@ class Booking extends Model
         "vehicle_id",
         "type",
         "status",
+        "pre_calculated_fare"
     ];
 
     protected $casts = [
