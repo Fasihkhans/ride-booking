@@ -61,7 +61,7 @@ class BookingRepository implements IBookingRepository
 
     static public function findBooking(int $id)
     {
-        return Booking::find($id)
+        return Booking::where('id',$id)
                 ->with(['bookingStops','driver','vehicle'])
                 ->first();
     }

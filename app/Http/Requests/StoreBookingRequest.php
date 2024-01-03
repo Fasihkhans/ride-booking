@@ -39,7 +39,7 @@ class StoreBookingRequest extends FormRequest
                                             )],
             'data.*.location_obj' =>['required','json'],
             'paymentMethod' => ['required','string', Rule::in(Constants::BOOKING_PAYMENT_METHOD_CASH,Constants::BOOKING_PAYMENT_METHOD_CARD)],
-            'preCalculatedFare' => ['required','decimal:1,2']
+            'preCalculatedFare' => ['required','decimal:0,2']
         ];
     }
 

@@ -140,7 +140,7 @@ class BookingController extends Controller
             ]);
             if ($validator->fails())
                 return APIResponse::BadRequest($validator->errors()->first());
-            $booking = $this->bookingRepository::findBooking($request->bookingId);
+            $booking = $this->bookingRepository::findBooking((int) $request->bookingId);
             if(!$booking)
                 return APIResponse::NotFound('No result found');
             $bookingWithStops = BookingWithStopsResource::make($booking);
