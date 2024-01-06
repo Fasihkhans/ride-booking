@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\DriverController;
+use App\Http\Controllers\HelpController;
 use App\Http\Controllers\VehicleAssignmentController;
 use App\Http\Controllers\VehiclesController;
 use App\Http\Controllers\VehicleTypeController;
@@ -18,8 +19,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::view('/', 'welcome');
+Route::view('/', 'welcome')->name('welcome');
 Route::view('/privacy-policy', 'website.privacy-policy');
+Route::view('/help', 'website.help');
+Route::post('help', [HelpController::class, 'sendMail'])->name('helpMail');
 
 Route::middleware(['auth','role:admin'])->prefix('admin')->group( function () {
     Route::view('/', 'dashboard')

@@ -110,6 +110,16 @@ class BookingRepository implements IBookingRepository
     {
         return Booking::whereIn('status',[Constants::BOOKING_WAITING, Constants::BOOKING_ACCEPTED,Constants::BOOKING_IN_PROGRESS])->get();
     }
+
+    static public function getCompletedBookings()
+    {
+        return Booking::where('status',Constants::BOOKING_COMPLETED)->get();
+    }
+
+    static public function getAllBookingDateWise($date)
+    {
+        return Booking::where('created_at','>=', $date)->get();
+    }
     public function update(Booking $booking,array $data)
     {
 

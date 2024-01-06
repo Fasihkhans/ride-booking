@@ -59,6 +59,11 @@ new class extends Component
                         </x-nav-link>
                     </li>
                     <li class="m-2 nav-item">
+                        <x-nav-link :href="route('booking.index')" :active="request()->routeIs('booking.*')" wire:navigate>
+                            {{ __('Manage Trips') }}
+                        </x-nav-link>
+                    </li>
+                    <li class="m-2 nav-item">
                         <x-nav-link   wire:click="logout"  :active="request()->routeIs('logout')">
                             {{ __('Log Out') }}
                         </x-nav-link>

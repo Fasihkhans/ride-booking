@@ -30,6 +30,10 @@ interface IBookingRepository
     static public function updateBookingPaymentStatus(string $status,int $id);
 
     static public function getActiveBookings();
+
+    static public function getCompletedBookings();
+
+    static public function getAllBookingDateWise($date);
     public function update(Booking $bookig,array $data);
 
 }

@@ -46,7 +46,7 @@
                         <a href="#" class="block px-3 py-2 text-white bg-transparent rounded hover:bg-gray-100 md:hover:text-blue-700 md:p-0 ">Safety</a>
                     </li>
                     <li>
-                        <a href="#" class="block px-3 py-2 text-white rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 ">Help</a>
+                        <a href="/help" class="block px-3 py-2 text-white rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 ">Help</a>
                     </li>
                 </ul>
             </div>
@@ -54,7 +54,7 @@
         </nav>
 
         <!-- Page Content -->
-        <main class="main-content">
+        <main class="flex main-content">
             {{ $slot }}
         </main>
 
@@ -73,7 +73,7 @@
 
 
         <footer class="bg-black shadow ">
-            <nav class="z-50 w-full bg-black border-b border-gray-200 ">
+            <nav class="w-full bg-black border-b border-gray-200 ">
                 <div class="flex flex-wrap items-center justify-between max-w-screen-xl p-4 mx-auto">
                     <a href="/" class="flex items-center space-x-2 rtl:space-x-reverse">
                         <img src="{{ asset('assets/svg/dart-logo.svg') }}" class="h-8" alt="Flowbite Logo">
