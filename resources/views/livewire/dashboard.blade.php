@@ -14,243 +14,70 @@
             {{ str_pad($activeRides, 2, '0', STR_PAD_LEFT) }}
         </x-stats-card>
     </dl>
+    <section class="p-4 m-4 border shadow rounded-xl">
+        <div class="flex items-center justify-between">
+            <h2 class="col-6"> Trends</h2>
+            <div class=" col-4">
+                {{-- <div  id="reportrange" class="justify-center p-2 border rounded-sm cursor-pointer min-w-min max-w-max justify-self-end"  >
+                    <i class="fa fa-calendar"></i>&nbsp;
+                    <span></span> <i class="fa fa-caret-down"></i>
+                </div> --}}
+                {{-- <x-date-picker :startDate="$startDate" :endDate="$endDate"></x-date-picker> --}}
+            </div>
+        </div>
+        <div class="container w-full p-4 mx-auto">
+            {{-- <canvas id="stackedChart" width="800" height="400"></canvas> --}}
+            <x-stack-graph :labels="$labels" :cashDataSet="$cashDataSet" :cardDataSet="$cardDataSet"  wire:poll="$labels"></x-stack-graph>
+        </div>
+    </section>
+    <section class="p-4 m-4 border shadow-sm rounded-xl">
+        <h2> Current Trips</h2>
+        <x-live-gmap></x-live-gmap>
+    </section>
 
-      {{-- <div id="map" class="w-full h-screen p-6"></div> --}}
+    @assets
 
-      {{-- <script>
-        (g=>{var h,a,k,p="The Google Maps JavaScript API",c="google",l="importLibrary",q="__ib__",m=document,b=window;b=b[c]||(b[c]={});var d=b.maps||(b.maps={}),r=new Set,e=new URLSearchParams,u=()=>h||(h=new Promise(async(f,n)=>{await (a=m.createElement("script"));e.set("libraries",[...r]+"");for(k in g)e.set(k.replace(/[A-Z]/g,t=>"_"+t[0].toLowerCase()),g[k]);e.set("callback",c+".maps."+q);a.src=`https://maps.${c}apis.com/maps/api/js?`+e;d[q]=f;a.onerror=()=>h=n(Error(p+" could not load."));a.nonce=m.querySelector("script[nonce]")?.nonce||"";m.head.append(a)}));d[l]?console.warn(p+" only loads once. Ignoring:",g):d[l]=(f,...n)=>r.add(f)&&u().then(()=>d[l](f,...n))})({
-          key: "YOUR_API_KEY",
-          v: "weekly",
-          // Use the 'v' parameter to indicate the version to use (weekly, beta, alpha, etc.).
-          // Add other bootstrap parameters as needed, using camel case.
-        });
-      </script> --}}
-      {{-- <script async
-      src="https://maps.googleapis.com/maps/api/js?key={{ env('GOOGLE_MAPS_KEY') }}_KEY&callback=initMap">
-  </script> --}}
-<section class="p-4">
-    <h2> Current Trips</h2>
-    <div id="map" class="w-full p-10 h-96 rounded-xl "></div>
-</section>
-@script
-  <script>
-    (async () => {
-        const apiKey = "{{ env('GOOGLE_MAPS_KEY') }}";
-        const style = [
-                        {
-                            "elementType": "geometry",
-                            "stylers": [
-                            {
-                                "color": "#212121"
-                            }
-                            ]
-                        },
-                        {
-                            "elementType": "labels.icon",
-                            "stylers": [
-                            {
-                                "visibility": "off"
-                            }
-                            ]
-                        },
-                        {
-                            "elementType": "labels.text.fill",
-                            "stylers": [
-                            {
-                                "color": "#757575"
-                            }
-                            ]
-                        },
-                        {
-                            "elementType": "labels.text.stroke",
-                            "stylers": [
-                            {
-                                "color": "#212121"
-                            }
-                            ]
-                        },
-                        {
-                            "featureType": "administrative",
-                            "elementType": "geometry",
-                            "stylers": [
-                            {
-                                "color": "#757575"
-                            }
-                            ]
-                        },
-                        {
-                            "featureType": "administrative.country",
-                            "elementType": "labels.text.fill",
-                            "stylers": [
-                            {
-                                "color": "#9e9e9e"
-                            }
-                            ]
-                        },
-                        {
-                            "featureType": "administrative.land_parcel",
-                            "stylers": [
-                            {
-                                "visibility": "off"
-                            }
-                            ]
-                        },
-                        {
-                            "featureType": "administrative.locality",
-                            "elementType": "labels.text.fill",
-                            "stylers": [
-                            {
-                                "color": "#bdbdbd"
-                            }
-                            ]
-                        },
-                        {
-                            "featureType": "poi",
-                            "elementType": "labels.text.fill",
-                            "stylers": [
-                            {
-                                "color": "#757575"
-                            }
-                            ]
-                        },
-                        {
-                            "featureType": "poi.park",
-                            "elementType": "geometry",
-                            "stylers": [
-                            {
-                                "color": "#181818"
-                            }
-                            ]
-                        },
-                        {
-                            "featureType": "poi.park",
-                            "elementType": "labels.text.fill",
-                            "stylers": [
-                            {
-                                "color": "#616161"
-                            }
-                            ]
-                        },
-                        {
-                            "featureType": "poi.park",
-                            "elementType": "labels.text.stroke",
-                            "stylers": [
-                            {
-                                "color": "#1b1b1b"
-                            }
-                            ]
-                        },
-                        {
-                            "featureType": "road",
-                            "elementType": "geometry.fill",
-                            "stylers": [
-                            {
-                                "color": "#2c2c2c"
-                            }
-                            ]
-                        },
-                        {
-                            "featureType": "road",
-                            "elementType": "labels.text.fill",
-                            "stylers": [
-                            {
-                                "color": "#8a8a8a"
-                            }
-                            ]
-                        },
-                        {
-                            "featureType": "road.arterial",
-                            "elementType": "geometry",
-                            "stylers": [
-                            {
-                                "color": "#373737"
-                            }
-                            ]
-                        },
-                        {
-                            "featureType": "road.highway",
-                            "elementType": "geometry",
-                            "stylers": [
-                            {
-                                "color": "#3c3c3c"
-                            }
-                            ]
-                        },
-                        {
-                            "featureType": "road.highway.controlled_access",
-                            "elementType": "geometry",
-                            "stylers": [
-                            {
-                                "color": "#4e4e4e"
-                            }
-                            ]
-                        },
-                        {
-                            "featureType": "road.local",
-                            "elementType": "labels.text.fill",
-                            "stylers": [
-                            {
-                                "color": "#616161"
-                            }
-                            ]
-                        },
-                        {
-                            "featureType": "transit",
-                            "elementType": "labels.text.fill",
-                            "stylers": [
-                            {
-                                "color": "#757575"
-                            }
-                            ]
-                        },
-                        {
-                            "featureType": "water",
-                            "elementType": "geometry",
-                            "stylers": [
-                            {
-                                "color": "#000000"
-                            }
-                            ]
-                        },
-                        {
-                            "featureType": "water",
-                            "elementType": "labels.text.fill",
-                            "stylers": [
-                            {
-                                "color": "#3d3d3d"
-                            }
-                            ]
-                        }
-                        ];
-       // Check if the Google Maps API script has already been loaded
-       if (typeof google === 'undefined' || typeof google.maps === 'undefined') {
-            // Load the Google Maps API script dynamically
-            const script = document.createElement('script');
-            script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&libraries=places&callback=initMap`;
-            script.defer = true;
-            script.async = true;
+    {{-- <script src="https://cdn.jsdelivr.net/npm/livewire/livewire.js"></script> --}}
 
-            // Set up a callback function to initialize the map once the script is loaded
-            window.initMap = async () => {
-                const { maps } = google; // Destructure the 'maps' object
+    <script src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+    @endassets
+    @script
+    <script>
+        $(document).ready(function () {
+            $(function() {
 
-                // Apply the custom style to the map
-                const map = new maps.Map(document.getElementById('map'), {
-                    center: { lat: 54.532497, lng: -1.5605716 },
-                    zoom: 13,
-                    styles: style, // Apply the custom style here
-                    gestureHandling: "none",
-                    // marker
+                function cb(start, end) {
+
+                    var start = moment(start ).isValid() ? moment(start) : moment().subtract(29, 'days');
+                    var end = moment(end).isValid() ? moment(end) : moment();
+                    $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+                    // setLocalStorage(start, end); // Store the selected date range
+                }
+                cb(@json($startDate), @json($endDate));
+                $('#reportrange').daterangepicker({
+                    startDate: {{ $startDate}},
+                    endDate: {{ $endDate}},
+                    ranges: {
+                        'Today': [moment(), moment()],
+                        'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                        'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+                        'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+                        'This Month': [moment().startOf('month'), moment().endOf('month')],
+                        'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+                    }
+                }, cb);
+
+                $('#reportrange').on('apply.daterangepicker', function(ev, picker) {
+                    const startDate = picker.startDate.format('YYYY-MM-DD');
+                    const endDate = picker.endDate.format('YYYY-MM-DD');
+                    $wire.dispatch('date-changed',{startDate: picker.startDate, endDate: picker.endDate})
+                    cb(picker.startDate, picker.endDate);
                 });
-            };
-
-            // Append the script to the document
-            document.head.appendChild(script);
-        } else {
-            // If the Google Maps API is already loaded, initialize the map directly
-            await initMap();
-        }
-    })();
-</script>
-@endscript
+            });
+        });
+    </script>
+    @endscript
 </div>

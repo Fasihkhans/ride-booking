@@ -35,6 +35,7 @@ class VehiclesRepository implements IVehiclesRepository
         $Vehicles->max_capacity = $data['max_capacity'];
         $Vehicles->vehicle_type_id = $data['vehicle_type_id'];
         $Vehicles->status =  $data['status'];
-        return $Vehicles->save();
+        $Vehicles->save();
+        return $Vehicles;
     }
 }

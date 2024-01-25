@@ -22,4 +22,12 @@ class VehicleAssignmentController extends Controller
         return view("vehicle-assignment.create");
     }
 
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function show(string $id)
+    {
+        return view("vehicle-assignment.show",['id'=>$id]);
+    }
+
 }

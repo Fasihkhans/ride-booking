@@ -40,7 +40,7 @@ $save = function(){
 
     ]);
     $validated +=[
-        'status' => Constants::ACTIVE_VEHICLE
+        'status' => 'active'
     ];
 
 
@@ -105,25 +105,51 @@ $save = function(){
                 <div class="mb-3 col-md-6">
                     <div class="form-group">
                         <div class="custom-file">
-                            <input type="file" class="custom-file-input" id="customFileLang" lang="en" wire:model="uploadVehiclePhotos" multiple>
-                            <label class="custom-file-label" for="customFileLang">Vehicle Photos</label>
+                            <input type="file" class="cursor-pointer custom-file-input" id="customFileLang" lang="en" wire:model="uploadVehiclePhotos" multiple>
+                            <label class="cursor-pointer custom-file-label" for="customFileLang">Vehicle Photos</label>
                             <x-input-error :messages="$errors->get('uploadVehiclePhotos')" class="mt-2" />
                         </div>
                     </div>
                 </div>
             </div>
+            @if ($uploadVehiclePhotos)
+                <div class="mt-4 form-row">
+                    @foreach ($uploadVehiclePhotos as $uploadVehiclePhoto)
+                    <div class="mb-3 col-md-3">
+                        <div class="form-group">
+                            <div class="flex items-center justify-center w-full max-w-xs p-2 align-middle bg-white border border-black rounded-lg shadow justify-items-center h-36">
+                                <img  src="{{ $uploadVehiclePhoto->temporaryUrl() }}" alt="">
+                            </div>
+                        </div>
+                    </div>
+                    @endforeach
+                </div>
+            @endif
             <div class="mt-4 text-xl font-bold tracking-tight text-black">Vehicle License and Registration Information</div>
             <div class="mt-4 form-row">
                 <div class="mb-3 col-md-6">
                     <div class="form-group">
                         <div class="custom-file">
-                            <input type="file" class="custom-file-input" id="customFileLang" lang="en" wire:model="uploadVehicleLicensePhotos" multiple>
-                            <label class="custom-file-label" for="customFileLang"> Registration Information</label>
+                            <input type="file" class="cursor-pointer custom-file-input" id="customFileLang" lang="en" wire:model="uploadVehicleLicensePhotos" multiple>
+                            <label class="cursor-pointer custom-file-label" for="customFileLang"> Registration Information</label>
                             <x-input-error :messages="$errors->get('uploadVehicleLicensePhotos')" class="mt-2" />
                           </div>
                     </div>
                 </div>
             </div>
+            @if ($uploadVehicleLicensePhotos)
+                <div class="mt-4 form-row">
+                    @foreach ($uploadVehicleLicensePhotos as $uploadVehicleLicensePhoto)
+                    <div class="mb-3 col-md-3">
+                        <div class="form-group">
+                            <div class="flex items-center justify-center w-full max-w-xs p-2 align-middle bg-white border border-black rounded-lg shadow justify-items-center h-36">
+                                <img  src="{{ $uploadVehicleLicensePhoto->temporaryUrl() }}" alt="">
+                            </div>
+                        </div>
+                    </div>
+                    @endforeach
+                </div>
+            @endif
             <div class="mt-4 form-row">
             </div>
             <x-primary-button>

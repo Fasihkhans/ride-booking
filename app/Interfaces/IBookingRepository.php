@@ -13,14 +13,17 @@ interface IBookingRepository
     static public function findWithStops(int $id);
 
     static public function findDriverForBooking(int $vehicleId,int $driverId);
+
     static public function updateStatus(int $status,int $id);
 
     static public function assignDriver(int $driverId,int $vehicleId, int $id);
 
     static public function findDriverBookings(int $driverId);
+
     static public function findCustomerBookings(int $userId);
 
     static public function findBooking(int $id);
+
     static public function findDriverActiveBookings(int $driverId);
 
     static public function findCustomerActiveBookings(int $userId);
@@ -33,7 +36,10 @@ interface IBookingRepository
 
     static public function getCompletedBookings();
 
+    static public function getCompletedBookingsWithDateRange($startDate,$endDate);
+
     static public function getAllBookingDateWise($date);
+
     public function update(Booking $bookig,array $data);
 
 }

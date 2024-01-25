@@ -1,5 +1,5 @@
 <x-app-layout>
-    <x-page-header name="Dashborad"></x-page-header>
+    <x-page-header name="Dashboard"></x-page-header>
 
-    <livewire:dashboard />
+    <livewire:dashboard/>
 </x-app-layout>

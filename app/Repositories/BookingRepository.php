@@ -116,6 +116,11 @@ class BookingRepository implements IBookingRepository
         return Booking::where('status',Constants::BOOKING_COMPLETED)->get();
     }
 
+    static public function getCompletedBookingsWithDateRange($startDate,$endDate)
+    {
+        return Booking::where('status',Constants::BOOKING_COMPLETED)->whereBetween('created_at', [$startDate, $endDate])->get();
+    }
+
     static public function getAllBookingDateWise($date)
     {
         return Booking::where('created_at','>=', $date)->get();

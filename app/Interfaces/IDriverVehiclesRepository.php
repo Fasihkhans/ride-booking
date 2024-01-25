@@ -10,6 +10,14 @@ interface IDriverVehiclesRepository
 
     static public function getActive();
 
-    public function update(DriverVehicles $driver,array $data);
+    static public function update(DriverVehicles $driver,array $data);
+
+    /**
+     * Fetch data from the DriverVehicle model based on a given id.
+     *
+     * @param int $id
+     * @return object
+     */
+    static public function findById(int $id);
 
 }

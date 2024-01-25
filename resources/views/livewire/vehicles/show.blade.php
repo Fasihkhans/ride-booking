@@ -121,6 +121,19 @@ $save = function(){
                     </div>
                 </div>
             </div>
+            @if ($uploadVehiclePhotos)
+                <div class="mt-4 form-row">
+                    @foreach ($uploadVehiclePhotos as $uploadVehiclePhoto)
+                    <div class="mb-3 col-md-3">
+                        <div class="form-group">
+                            <div class="flex items-center justify-center w-full max-w-xs p-2 align-middle bg-white border border-black rounded-lg shadow justify-items-center h-36">
+                                <img  src="{{ $uploadVehiclePhoto->temporaryUrl() }}" alt="">
+                            </div>
+                        </div>
+                    </div>
+                    @endforeach
+                </div>
+            @endif
             <div class="mt-4 form-row">
                 @foreach ($VehiclePhotos as $VehiclePhoto)
                     @if ($VehiclePhoto->upload_type == 'VehiclePhotos')
@@ -146,6 +159,19 @@ $save = function(){
                     </div>
                 </div>
             </div>
+            @if ($uploadVehicleLicensePhotos)
+                <div class="mt-4 form-row">
+                    @foreach ($uploadVehicleLicensePhotos as $uploadVehicleLicensePhoto)
+                    <div class="mb-3 col-md-3">
+                        <div class="form-group">
+                            <div class="flex items-center justify-center w-full max-w-xs p-2 align-middle bg-white border border-black rounded-lg shadow justify-items-center h-36">
+                                <img  src="{{ $uploadVehicleLicensePhoto->temporaryUrl() }}" alt="">
+                            </div>
+                        </div>
+                    </div>
+                    @endforeach
+                </div>
+            @endif
             <div class="mt-4 form-row">
                 @foreach ($VehiclePhotos as $VehiclePhoto)
                     @if ($VehiclePhoto->upload_type == 'VehicleLicensePhotos')

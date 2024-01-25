@@ -53,7 +53,7 @@ $save = function(){
             <div class="text-xl font-bold tracking-tight text-black">Type Details</div>
             <div class="mt-4 form-row">
                 <x-form-input :errorMessage="$errors->get('name')"  type="text" placeholder="Name" name="name" wire:model="name"/>
-                    <div class="mb-3 col-md-6">
+                    <div class="mb-3 col-md-5">
                         <div class="form-group">
                             <div class="custom-file">
                                 <input type="file" class="custom-file-input" id="customFileLang" lang="en" wire:model="upload">
@@ -62,7 +62,18 @@ $save = function(){
                             </div>
                         </div>
                     </div>
-            </div>
+                </div>
+                @if ($upload)
+                <div class="mt-4 form-row">
+                    <div class="mb-3 col-md-3">
+                        <div class="form-group">
+                            <div class="flex items-center justify-center w-full max-w-xs p-2 align-middle border border-black rounded-lg shadow justify-items-center h-36">
+                                <img  src="{{ $upload->temporaryUrl() }}" alt="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @endif
             <div class="text-xl font-bold tracking-tight text-black">Set Pricing</div>
             <div class="py-2 text-lg font-normal tracking-tight text-black">Day Rates</div>
             <div class="mt-2 form-row">

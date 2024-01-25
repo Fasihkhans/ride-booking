@@ -44,7 +44,7 @@
             <tbody>
                 @foreach ($data as $driverVehicle )
                 {{-- {{ $driver }} --}}
-                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                    <tr class="bg-white border-b cursor-pointer dark:bg-gray-800 dark:border-gray-700" onclick="window.location.href='{{ route('vehicle-assignment.show',encrypt($driverVehicle->id)) }}';">
                         <th scope="row" class="p-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                             {{ $driverVehicle->driver->user->first_name.' '.$driverVehicle->driver->user->last_name }}
                         </th>

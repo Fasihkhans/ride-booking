@@ -36,7 +36,7 @@ mount(function(){
     $this->night_base_fare = $this->vehicleType->night_base_fare;
     $this->night_per_minute_rate = $this->vehicleType->night_per_minute_rate;
     $this->night_per_mile_rate = $this->vehicleType->night_per_mile_rate;
-    $this->upload_url = Storage::disk(env('CURRENT_IMG_DRIVER'))->url($this->upload_url)??Storage::disk('local')->url($this->upload_url);
+    $this->upload_url = Storage::disk(env('CURRENT_IMG_DRIVER'))->url($this->vehicleType->upload_url)??Storage::disk('local')->url($this->vehicleType->upload_url);
 });
 
 $save = function(){
@@ -86,6 +86,15 @@ $save = function(){
                             </div>
                         </div>
                     </div>
+            </div>
+            <div class="mt-4 form-row">
+                <div class="mb-3 col-md-3">
+                    <div class="form-group">
+                        <div class="flex items-center justify-center w-full max-w-xs p-2 align-middle bg-gray-200 border border-black rounded-lg shadow justify-items-center h-36">
+                            <img src="{{ $upload?$upload->temporaryUrl():$this->upload_url }}" alt="">
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="text-xl font-bold tracking-tight text-black">Set Pricing</div>
             <div class="py-2 text-lg font-normal tracking-tight text-black">Day Rates</div>

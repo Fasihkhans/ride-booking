@@ -29,6 +29,10 @@ class DriverVehicleStatusCast implements CastsAttributes
      */
     public function set(Model $model, string $key, mixed $value, array $attributes): mixed
     {
-        return $value;
+        return match ($value) {
+             'active' => Constants::ACTIVE,
+             'inActive' => Constants::INACTIVE,
+            default => 9,
+        };
     }
 }

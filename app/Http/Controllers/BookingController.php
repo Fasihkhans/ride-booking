@@ -35,9 +35,9 @@ class BookingController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Booking $bookings)
+    public function show(string $id)
     {
-        //
+        return view('bookings.show',['id'=>$id]);
     }
 
     /**

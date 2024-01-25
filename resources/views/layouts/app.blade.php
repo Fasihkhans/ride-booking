@@ -21,7 +21,13 @@
             ])
     </head>
     <body class="antialiased g-sidenav-show g-sidenav-pinned">
+
+            <div id="loading">
+                <div id="loading-spinner"></div>
+            </div>
+
             <livewire:layout.navigation />
+
             <div class=" main-content">
                 <!-- Page Heading -->
                 @if (isset($header))

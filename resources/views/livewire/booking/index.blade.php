@@ -12,10 +12,10 @@
     </dl>
     <section class="py-4">
         <h2> Current Trips</h2>
-        <div id="map" class="w-full py-4 h-80 rounded-xl "></div>
+        <x-live-gmap></x-live-gmap>
     </section>
     <div>
-        {{-- <form class="flex items-center" wire:submit="search">
+        <form class="flex items-center" wire:submit="search">
             <label for="simple-search" class="sr-only">Search</label>
             <div class="relative w-full">
                 <div class="absolute inset-y-0 flex items-center pointer-events-none start-0 ps-3">
@@ -25,7 +25,7 @@
                 </div>
                 <input wire:model='query' type="text" id="simple-search" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search">
             </div>
-        </form> --}}
+        </form>
 
     </div>
     <div class="relative overflow-x-auto">
@@ -70,8 +70,8 @@
             </thead>
             <tbody>
                 @foreach ($data as $booking )
-                {{-- <tr class="bg-white border-b cursor-pointer dark:bg-gray-800 dark:border-gray-700" onclick="window.location.href='{{ route('',encrypt($booking->id)) }}';"> --}}
-                    <tr class="bg-white border-b cursor-pointer dark:bg-gray-800 dark:border-gray-700">
+                <tr class="bg-white border-b cursor-pointer dark:bg-gray-800 dark:border-gray-700" onclick="window.location.href='{{ route('booking.show',encrypt($booking->id)) }}';">
+                    {{-- <tr class="bg-white border-b cursor-pointer dark:bg-gray-800 dark:border-gray-700"> --}}
                         <th scope="row" class="p-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                             {{ $booking->vehicle?->license_no_plate }}
                         </th>
@@ -107,7 +107,7 @@
                             {{ $booking->bookingPayment?->paymentMethod?->name }}
                         </td>
                         <td class="p-2">
-                            <span class="{{ ($booking->status=='completed')?'bg-green-100 text-emerald-900':'bg-rose-100 text-red-800' }} p-1 rounded-md">
+                            <span class="{{ ($booking->status=='completed' || $booking->status=='active')?'bg-green-100 text-emerald-900':'bg-rose-100 text-red-800' }} p-1 rounded-md">
                             {{ ucfirst($booking->status) }}
                             </span>
                         </td>
@@ -119,226 +119,4 @@
     <div class="p-4">
         {{ $data->links()}}
     </div>
-
-    @script
-      <script>
-        (async () => {
-            const apiKey = "{{ env('GOOGLE_MAPS_KEY') }}";
-            const style = [
-                            {
-                                "elementType": "geometry",
-                                "stylers": [
-                                {
-                                    "color": "#212121"
-                                }
-                                ]
-                            },
-                            {
-                                "elementType": "labels.icon",
-                                "stylers": [
-                                {
-                                    "visibility": "off"
-                                }
-                                ]
-                            },
-                            {
-                                "elementType": "labels.text.fill",
-                                "stylers": [
-                                {
-                                    "color": "#757575"
-                                }
-                                ]
-                            },
-                            {
-                                "elementType": "labels.text.stroke",
-                                "stylers": [
-                                {
-                                    "color": "#212121"
-                                }
-                                ]
-                            },
-                            {
-                                "featureType": "administrative",
-                                "elementType": "geometry",
-                                "stylers": [
-                                {
-                                    "color": "#757575"
-                                }
-                                ]
-                            },
-                            {
-                                "featureType": "administrative.country",
-                                "elementType": "labels.text.fill",
-                                "stylers": [
-                                {
-                                    "color": "#9e9e9e"
-                                }
-                                ]
-                            },
-                            {
-                                "featureType": "administrative.land_parcel",
-                                "stylers": [
-                                {
-                                    "visibility": "off"
-                                }
-                                ]
-                            },
-                            {
-                                "featureType": "administrative.locality",
-                                "elementType": "labels.text.fill",
-                                "stylers": [
-                                {
-                                    "color": "#bdbdbd"
-                                }
-                                ]
-                            },
-                            {
-                                "featureType": "poi",
-                                "elementType": "labels.text.fill",
-                                "stylers": [
-                                {
-                                    "color": "#757575"
-                                }
-                                ]
-                            },
-                            {
-                                "featureType": "poi.park",
-                                "elementType": "geometry",
-                                "stylers": [
-                                {
-                                    "color": "#181818"
-                                }
-                                ]
-                            },
-                            {
-                                "featureType": "poi.park",
-                                "elementType": "labels.text.fill",
-                                "stylers": [
-                                {
-                                    "color": "#616161"
-                                }
-                                ]
-                            },
-                            {
-                                "featureType": "poi.park",
-                                "elementType": "labels.text.stroke",
-                                "stylers": [
-                                {
-                                    "color": "#1b1b1b"
-                                }
-                                ]
-                            },
-                            {
-                                "featureType": "road",
-                                "elementType": "geometry.fill",
-                                "stylers": [
-                                {
-                                    "color": "#2c2c2c"
-                                }
-                                ]
-                            },
-                            {
-                                "featureType": "road",
-                                "elementType": "labels.text.fill",
-                                "stylers": [
-                                {
-                                    "color": "#8a8a8a"
-                                }
-                                ]
-                            },
-                            {
-                                "featureType": "road.arterial",
-                                "elementType": "geometry",
-                                "stylers": [
-                                {
-                                    "color": "#373737"
-                                }
-                                ]
-                            },
-                            {
-                                "featureType": "road.highway",
-                                "elementType": "geometry",
-                                "stylers": [
-                                {
-                                    "color": "#3c3c3c"
-                                }
-                                ]
-                            },
-                            {
-                                "featureType": "road.highway.controlled_access",
-                                "elementType": "geometry",
-                                "stylers": [
-                                {
-                                    "color": "#4e4e4e"
-                                }
-                                ]
-                            },
-                            {
-                                "featureType": "road.local",
-                                "elementType": "labels.text.fill",
-                                "stylers": [
-                                {
-                                    "color": "#616161"
-                                }
-                                ]
-                            },
-                            {
-                                "featureType": "transit",
-                                "elementType": "labels.text.fill",
-                                "stylers": [
-                                {
-                                    "color": "#757575"
-                                }
-                                ]
-                            },
-                            {
-                                "featureType": "water",
-                                "elementType": "geometry",
-                                "stylers": [
-                                {
-                                    "color": "#000000"
-                                }
-                                ]
-                            },
-                            {
-                                "featureType": "water",
-                                "elementType": "labels.text.fill",
-                                "stylers": [
-                                {
-                                    "color": "#3d3d3d"
-                                }
-                                ]
-                            }
-                            ];
-           // Check if the Google Maps API script has already been loaded
-           if (typeof google === 'undefined' || typeof google.maps === 'undefined') {
-                // Load the Google Maps API script dynamically
-                const script = document.createElement('script');
-                script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&libraries=places&callback=initMap`;
-                script.defer = true;
-                script.async = true;
-
-                // Set up a callback function to initialize the map once the script is loaded
-                window.initMap = async () => {
-                    const { maps } = google; // Destructure the 'maps' object
-
-                    // Apply the custom style to the map
-                    const map = new maps.Map(document.getElementById('map'), {
-                        center: { lat: 54.532497, lng: -1.5605716 },
-                        zoom: 13,
-                        styles: style, // Apply the custom style here
-                        gestureHandling: "none",
-                        // marker
-                    });
-                };
-
-                // Append the script to the document
-                document.head.appendChild(script);
-            } else {
-                // If the Google Maps API is already loaded, initialize the map directly
-                await initMap();
-            }
-        })();
-    </script>
-    @endscript
 </div>

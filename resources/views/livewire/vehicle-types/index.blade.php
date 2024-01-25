@@ -68,7 +68,7 @@
                             {{ $vehicleType->base_fare }}
                         </td>
                         <td class="p-2">
-                            {{ $vehicleType->per_mintue_rate }}
+                            {{ $vehicleType->per_minute_rate }}
                         </td>
 
                         <td class="p-2">
@@ -78,7 +78,7 @@
                             {{ $vehicleType->night_base_fare }}
                         </td>
                         <td class="p-2">
-                            {{ $vehicleType->night_per_mintue_rate }}
+                            {{ $vehicleType->night_per_minute_rate }}
                         </td>
 
                         <td class="p-2">

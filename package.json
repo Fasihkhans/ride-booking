@@ -15,6 +15,7 @@
         "vite": "^4.0.0"
     },
     "dependencies": {
-        "@googlemaps/js-api-loader": "^1.16.2"
+        "@googlemaps/js-api-loader": "^1.16.2",
+        "chart.js": "^4.4.1"
     }
 }

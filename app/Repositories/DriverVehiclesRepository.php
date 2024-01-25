@@ -17,8 +17,27 @@ class DriverVehiclesRepository implements IDriverVehiclesRepository
     {
         return DriverVehicles::where('status', Constants::ACTIVE)->get();
     }
-    public function update(DriverVehicles $driver,array $data)
-    {
 
+    /**
+     * Fetch data from the DriverVehicle model based on a given id.
+     *
+     * @param int $id
+     * @return object
+     */
+    static public function findById(int $id)
+    {
+        return DriverVehicles::find($id);
+    }
+    static public function update(DriverVehicles $driverVehicles,array $data)
+    {
+        $driverVehicles->start_date = $data['start_date'];
+        $driverVehicles->end_date = $data['end_date'];
+        $driverVehicles->start_time = $data['start_time'];
+        $driverVehicles->end_time = $data['end_time'];
+        $driverVehicles->driver_id = $data['driver_id'];
+        $driverVehicles->vehicle_id = $data['vehicle_id'];
+        $driverVehicles->status = $data['status'];
+        $driverVehicles->save();
+        return $driverVehicles;
     }
 }
