@@ -16,6 +16,8 @@ state([
     'drop_off'=> '',
     'origin'=>'',
     'destination'=>'',
+    'pre_calculated_fare'=>'',
+    'payment_method',
     'booking',
 ]);
 mount(function(){
@@ -29,6 +31,9 @@ mount(function(){
     $this->destination = $this->booking->bookingStops->last();
     $this->pick_up = $this->origin->stop;
     $this->drop_off = $this->destination->stop;
+    $this->pre_calculated_fare = $this->booking->pre_calculated_fare;
+    $this->payment_method = $this->booking->bookingPayment?->paymentMethod->name;
+    // dd( $this->payment_method);
 });
 ?>
 
@@ -36,7 +41,7 @@ mount(function(){
     <section class="py-4">
         <div class="flex gap-1 ">
             <div class="col-4">
-                <x-gmap class="h-svh" :origin='$origin' :destination='$destination'></x-gmap>
+                <x-gmap class="h-full" :origin='$origin' :destination='$destination'></x-gmap>
             </div>
             <div class="col-7 h-auto bg-stone-50 shadow-lg rounded-[20px] border border-stone-900 p-4 ml-5">
                 <form wire:submit.prevent="save"  class="mt-4" enctype="multipart/form-data">
@@ -81,9 +86,9 @@ mount(function(){
                     </div>
                     <div class="text-lg font-bold tracking-tight text-black">Amount</div>
                     <div class="mt-4 form-row">
-                        <x-form-input :errorMessage="$errors->get('pick_up')"  type="text" placeholder="Pickup" name="pick_up" wire:model="pick_up"/>
+                        <x-form-input :errorMessage="$errors->get('pre_calculated_fare')"  type="text" placeholder="Est Amount" name="pre_calculated_fare" wire:model="pre_calculated_fare" disabled/>
 
-                        <x-form-input :errorMessage="$errors->get('drop_off')"  type="text" placeholder="Drop off" name="drop_off" wire:model="drop_off"/>
+                        <x-form-input :errorMessage="$errors->get('payment_method')"  type="text" placeholder="Payment Method" name="payment_method" wire:model="payment_method" disabled/>
                     </div>
                 </form>
             </div>

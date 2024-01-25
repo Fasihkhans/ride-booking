@@ -1,7 +1,7 @@
 <div>
     <x-app-layout>
         <x-page-header name="Edit Driver">
-            <a href="{{ route('driver.index') }}">
+            <a href="{{ route('booking.index') }}">
                 <x-primary-button>
                     {{__('Go Back')}}
                 </x-primary-button>
