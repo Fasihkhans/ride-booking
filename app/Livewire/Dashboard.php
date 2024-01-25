@@ -55,7 +55,7 @@ class Dashboard extends Component
 
         $this->completedBookings->each(function ($booking) {
             $monthYear = $booking->created_at->format('F Y');
-            $paymentMethod = $booking->bookingPayment->paymentMethod?->name;
+            $paymentMethod = $booking?->bookingPayment?->paymentMethod?->name;
 
             $index = array_search($monthYear, $this->labels);
 
