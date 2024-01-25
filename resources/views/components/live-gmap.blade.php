@@ -1,10 +1,10 @@
 <div>
-    <div id="map" class="w-full p-10 h-96 rounded-xl "></div>
+    <div id="maps" class="w-full p-10 h-96 rounded-xl "></div>
     @script
     <script>
         (async () => {
-            const apiKey = "{{ env('GOOGLE_MAPS_KEY') }}";
-            const style = [
+            const liveMapApiKey = "{{ env('GOOGLE_MAPS_KEY') }}";
+            const liveMapStyle = [
                             {
                                 "elementType": "geometry",
                                 "stylers": [
@@ -194,21 +194,20 @@
         if (typeof google === 'undefined' || typeof google.maps === 'undefined') {
                 // Load the Google Maps API script dynamically
                 let script = document.createElement('script');
-                script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&libraries=places&callback=initMap`;
+                script.src = `https://maps.googleapis.com/maps/api/js?key=${liveMapApiKey}&libraries=places&callback=initMaps`;
                 script.defer = true;
                 script.async = true;
 
                 // Set up a callback function to initialize the map once the script is loaded
-                window.initMap = async () => {
+                window.initMaps = async () => {
                     let { maps } = google; // Destructure the 'maps' object
 
                     // Apply the custom style to the map
-                    let map = new maps.Map(document.getElementById('map'), {
+                    let map = new maps.Map(document.getElementById('maps'), {
                         center: { lat: 54.532497, lng: -1.5605716 },
                         zoom: 13,
-                        styles: style, // Apply the custom style here
+                        styles: liveMapStyle, // Apply the custom style here
                         gestureHandling: "none",
-                        // marker
                     });
                 };
 
@@ -216,7 +215,7 @@
                 document.head.appendChild(script);
             } else {
                 // If the Google Maps API is already loaded, initialize the map directly
-                await initMap();
+                await initMaps();
             }
         });
     </script>

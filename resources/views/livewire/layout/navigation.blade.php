@@ -69,7 +69,7 @@ new class extends Component
                         </x-nav-link>
                     </li>
                     <li class="m-2 border-t-2 nav-item">
-                        <x-nav-link   :href="route('profile')"  :active="request()->routeIs('settings')">
+                        <x-nav-link   :href="route('profile')"  :active="request()->routeIs('profile')">
                             {{ __('Setting') }}
                         </x-nav-link>
                     </li>
