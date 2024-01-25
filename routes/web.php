@@ -4,6 +4,7 @@ use App\Exports\DriverExport;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\DriverController;
 use App\Http\Controllers\HelpController;
+use App\Http\Controllers\UsersController;
 use App\Http\Controllers\VehicleAssignmentController;
 use App\Http\Controllers\VehiclesController;
 use App\Http\Controllers\VehicleTypeController;
@@ -41,6 +42,8 @@ Route::middleware(['auth','role:admin'])->prefix('admin')->group( function () {
     Route::get('/booking-csv-download',[BookingController::class, 'exportCSV'])->name('download.booking.csv');
     Route::resource('vehicle-assignment', VehicleAssignmentController::class);
     Route::get('/vehicle-assignment-csv-download',[VehicleAssignmentController::class, 'exportCSV'])->name('download.vehicle-assignment.csv');
+    Route::resource('users', UsersController::class);
+    Route::get('/users-csv-download',[UsersController::class, 'exportCSV'])->name('download.users.csv');
 });
 
 require __DIR__.'/auth.php';

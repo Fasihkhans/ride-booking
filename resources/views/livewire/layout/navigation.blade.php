@@ -44,6 +44,11 @@ new class extends Component
                         </x-nav-link>
                     </li>
                     <li class="m-2 nav-item">
+                        <x-nav-link :href="route('users.index')" :active="request()->routeIs('users.*')" wire:navigate>
+                            {{ __('Manage Users') }}
+                        </x-nav-link>
+                    </li>
+                    <li class="m-2 nav-item">
                         <x-nav-link :href="route('vehicles.index')" :active="request()->routeIs('vehicles.*')" wire:navigate>
                             {{ __('Manage Vehicles') }}
                         </x-nav-link>
