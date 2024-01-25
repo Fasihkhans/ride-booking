@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\BookingsExport;
 use App\Http\Requests\StoreBookingRequest;
 use App\Http\Requests\UpdateBookingRequest;
 use App\Models\Booking;
+use Maatwebsite\Excel\Facades\Excel;
 
 class BookingController extends Controller
 {
@@ -40,6 +42,13 @@ class BookingController extends Controller
         return view('bookings.show',['id'=>$id]);
     }
 
+
+     /**
+     * export vehicle data in CSV format
+     */
+    public function exportCSV(){
+        return Excel::download(new BookingsExport, 'trips.csv');
+    }
     /**
      * Show the form for editing the specified resource.
      */

@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\VehicleAssignmentExport;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class VehicleAssignmentController extends Controller
 {
@@ -30,4 +32,10 @@ class VehicleAssignmentController extends Controller
         return view("vehicle-assignment.show",['id'=>$id]);
     }
 
+     /**
+     * export vehicle data in CSV format
+     */
+    public function exportCSV(){
+        return Excel::download(new VehicleAssignmentExport, 'vehicles-assignment.csv');
+    }
 }

@@ -12,6 +12,18 @@ class Index extends Component
     use WithPagination;
     public $query = '';
 
+    // public $data;
+
+    // public $sortBys = '';
+
+    public function mount(){
+        // $this->sortBys = "created_at";
+    }
+    // public function sortBy($field,$order)
+    // {
+    //     $this->sortBys = $field;
+
+    // }
     public function search()
     {
         $this->resetPage();
@@ -22,6 +34,7 @@ class Index extends Component
             $query->whereRaw('first_name like ?', ['%' . $this->query . '%'])
                   ->orWhereRaw('last_name like ?', ['%' . $this->query . '%']);
         })
+        ->orderBy('created_at','desc')
         ->with(['user','driverVehicles.vehicle','booking'])
         ->paginate(10);
         return view('livewire.drivers.index',['data'=>$data]);

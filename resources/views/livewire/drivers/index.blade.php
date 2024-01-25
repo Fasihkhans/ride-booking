@@ -10,6 +10,18 @@
                 </div>
                 <input wire:model='query' type="text" id="simple-search" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search">
             </div>
+            {{-- <div x-data="{ open: false }" @click.away="open = false">
+                <button @click="open = !open" class="px-4 py-2 mx-2 bg-white border rounded">
+                    Sort
+                </button>
+
+                <div x-show="open" class="absolute z-50 mt-2 bg-white border rounded shadow-md">
+                    <!-- Dropdown content goes here -->
+                    <a wire:click="sortBy('user.first_name','asc')" href="#" class="block px-4 py-2 text-gray-800 hover:bg-gray-200">Name</a>
+                    <a wire:click="sortBy('created_at')" href="#" class="block px-4 py-2 text-gray-800 hover:bg-gray-200">Date Created</a>
+
+                </div>
+            </div> --}}
         </form>
 
     </div>

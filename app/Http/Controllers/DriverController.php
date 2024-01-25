@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\DriverExport;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class DriverController extends Controller
 {
@@ -39,6 +41,12 @@ class DriverController extends Controller
         return view("drivers.show",['id'=>$id]);
     }
 
+    /**
+     * export driver data in CSV format
+     */
+    public function exportCSV(){
+            return Excel::download(new DriverExport, 'drivers.csv');
+    }
     /**
      * Show the form for editing the specified resource.
      */

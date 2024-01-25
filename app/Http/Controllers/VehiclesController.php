@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\VehiclesExport;
 use App\Http\Requests\StoreVehiclesRequest;
 use App\Http\Requests\UpdateVehiclesRequest;
 use App\Models\Vehicles;
+use Maatwebsite\Excel\Facades\Excel;
 
 class VehiclesController extends Controller
 {
@@ -40,6 +42,12 @@ class VehiclesController extends Controller
         return view("vehicles.show",['id'=>$id]);
     }
 
+     /**
+     * export vehicle data in CSV format
+     */
+    public function exportCSV(){
+        return Excel::download(new VehiclesExport, 'vehicles.csv');
+    }
     /**
      * Show the form for editing the specified resource.
      */
