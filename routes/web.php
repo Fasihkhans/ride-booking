@@ -1,6 +1,5 @@
 <?php
 
-use App\Exports\DriverExport;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\DriverController;
 use App\Http\Controllers\HelpController;
@@ -9,7 +8,6 @@ use App\Http\Controllers\VehicleAssignmentController;
 use App\Http\Controllers\VehiclesController;
 use App\Http\Controllers\VehicleTypeController;
 use Illuminate\Support\Facades\Route;
-use Maatwebsite\Excel\Facades\Excel;
 
 /*
 |--------------------------------------------------------------------------
