@@ -34,7 +34,9 @@ class Index extends Component
         $data = Booking::whereHas('driver.user',function ($query) {
             $query->whereRaw('first_name like ?', ['%' . $this->query . '%'])
                   ->orWhereRaw('last_name like ?', ['%' . $this->query . '%']);
-        })->with('bookingStops','driver','vehicle','bookingPayment')->paginate(10);
+        })->with('bookingStops','driver','vehicle','bookingPayment')
+        ->orderBy('created_at','desc')
+        ->paginate(10);
         return view('livewire.booking.index',['data'=>$data]);
     }
 }
