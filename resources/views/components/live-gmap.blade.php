@@ -1,10 +1,10 @@
 <div>
-    <div id="maps" class="w-full p-10 h-96 rounded-xl "></div>
+    <div id="map" class="w-full p-10 h-96 rounded-xl "></div>
     @script
     <script>
-        (async () => {
-            const liveMapApiKey = "{{ env('GOOGLE_MAPS_KEY') }}";
-            const liveMapStyle = [
+        (function () {
+            const apiKey = "{{ env('GOOGLE_MAPS_KEY') }}";
+            const style = [
                             {
                                 "elementType": "geometry",
                                 "stylers": [
@@ -190,34 +190,45 @@
                                 ]
                             }
                             ];
-        // Check if the Google Maps API script has already been loaded
-        if (typeof google === 'undefined' || typeof google.maps === 'undefined') {
+
+            // Check if the Google Maps API script has already been loaded
+            if (typeof google === 'undefined' || typeof google.maps === 'undefined') {
                 // Load the Google Maps API script dynamically
-                let script = document.createElement('script');
-                script.src = `https://maps.googleapis.com/maps/api/js?key=${liveMapApiKey}&libraries=places&callback=initMaps`;
+                const script = document.createElement('script');
+                script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&callback=Function.prototype&libraries=places`;
                 script.defer = true;
                 script.async = true;
 
-                // Set up a callback function to initialize the map once the script is loaded
-                window.initMaps = async () => {
-                    let { maps } = google; // Destructure the 'maps' object
+                script.onload = () => {
+                    // Once the script is loaded, initialize the map
+                    initMap();
+                };
 
-                    // Apply the custom style to the map
-                    let map = new maps.Map(document.getElementById('maps'), {
-                        center: { lat: 54.532497, lng: -1.5605716 },
-                        zoom: 13,
-                        styles: liveMapStyle, // Apply the custom style here
-                        gestureHandling: "none",
-                    });
+                script.onerror = () => {
+                    console.error('Failed to load Google Maps API script.');
                 };
 
                 // Append the script to the document
                 document.head.appendChild(script);
             } else {
                 // If the Google Maps API is already loaded, initialize the map directly
-                await initMaps();
+                initMap();
             }
-        });
+
+            // Function to initialize the map
+            function initMap() {
+                const { maps } = google; // Destructure the 'maps' object
+
+                // Apply the custom style to the map
+                const map = new maps.Map(document.getElementById('map'), {
+                    center: { lat: 54.532497, lng: -1.5605716 },
+                    zoom: 13,
+                    styles: style, // Apply the custom style here
+                    gestureHandling: "none",
+                    // marker
+                });
+            }
+        })();
     </script>
     @endscript
 </div>
