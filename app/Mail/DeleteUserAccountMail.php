@@ -42,10 +42,6 @@ class DeleteUserAccountMail extends Mailable
         );
     }
 
-    public function build()
-    {
-        return $this->markdown('emails.user-account-deletion');
-    }
     /**
      * Get the attachments for the message.
      *

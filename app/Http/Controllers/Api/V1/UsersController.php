@@ -28,7 +28,7 @@ class UsersController extends Controller
             if (!$userDelete)
                 APIResponse::UnknownInternalServerError('Error while updating');
             SendMail::dispatch($user->email,new DeleteUserAccountMail());
-            // $this->iUserRepository->logout($request->user(), true);
+            $this->iUserRepository->logout($request->user(), true);
             return APIResponse::Success('Resource updated');
         } catch (Exception $ex) {
             return APIResponse::UnknownInternalServerError($ex);
