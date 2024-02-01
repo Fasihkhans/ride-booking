@@ -25,4 +25,5 @@ interface IUserRepository
 
     public function updateDeviceToken(int $userId, string $deviceToken);
     static public function update(array $data);
+    public function destory(int $id);
 }

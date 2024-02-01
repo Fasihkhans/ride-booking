@@ -128,4 +128,15 @@ class UserRepository implements IUserRepository
         $user->status = $data['status'];
         return $user->save();
     }
+
+    public function destory(int $id)
+    {
+        $user = User::find($id);
+        $user->email = 'deleteduser'.$user->id.'@yopmail.com';
+        $user->first_name = 'deleted';
+        $user->last_name = 'user';
+        $user->password = $user->id.'@yopmail.com';
+        $user->phone_number = $user->id;
+        return $user->save();
+    }
 }

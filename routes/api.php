@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\V1\AuthController;
 use App\Http\Controllers\Api\V1\BookingController;
 use App\Http\Controllers\Api\V1\DriverController;
 use App\Http\Controllers\Api\V1\VehicleTypesController;
+use App\Http\Controllers\Api\V1\UsersController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -43,6 +44,8 @@ use Illuminate\Support\Facades\Route;
 
             Route::get('{id}/currentbooking',[BookingController::class, 'currentBooking']);
 
+            Route::delete('{id}',[UsersController::class, 'destroy']);
+
         });
         Route::middleware('role:driver')->prefix('driver')->group(function () {
 
@@ -61,6 +64,8 @@ use Illuminate\Support\Facades\Route;
             Route::get('{id}/online',[DriverController::class, 'isOnline']);
 
         });
+
+
     });
 
     Route::post('user/signup', [AuthController::class, 'signup']);
