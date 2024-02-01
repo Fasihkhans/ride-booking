@@ -35,13 +35,17 @@ class DeleteUserAccountMail extends Mailable
     /**
      * Get the message content definition.
      */
-    public function content(): Content
-    {
-        return new Content(
-            view: 'emails.user-account-deletion',
-        );
-    }
+    // public function content(): Content
+    // {
+    //     return new Content(
+    //         view: 'emails.user-account-deletion',
+    //     );
+    // }
 
+    public function build()
+    {
+        return $this->markdown('emails.user-account-deletion');
+    }
     /**
      * Get the attachments for the message.
      *
