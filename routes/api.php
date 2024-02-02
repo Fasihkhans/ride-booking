@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\V1\AuthController;
 use App\Http\Controllers\Api\V1\BookingController;
 use App\Http\Controllers\Api\V1\DriverController;
+use App\Http\Controllers\Api\V1\PaymentController;
 use App\Http\Controllers\Api\V1\VehicleTypesController;
 use App\Http\Controllers\Api\V1\UsersController;
 use Illuminate\Http\Request;
@@ -45,6 +46,14 @@ use Illuminate\Support\Facades\Route;
             Route::get('{id}/currentbooking',[BookingController::class, 'currentBooking']);
 
             Route::delete('{id}',[UsersController::class, 'destroy']);
+
+            Route::post('{id}/payment-method',[PaymentController::class, 'store']);
+
+            Route::get('{id}/payment-methods',[PaymentController::class, 'list']);
+
+            Route::delete('{id}/payment-method/{methodId}',[PaymentController::class, 'destory']);
+
+            Route::patch('{id}/payment-method/{methodId}/default',[PaymentController::class, 'default']);
 
         });
         Route::middleware('role:driver')->prefix('driver')->group(function () {
