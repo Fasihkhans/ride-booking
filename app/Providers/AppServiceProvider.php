@@ -10,6 +10,7 @@ use App\Interfaces\IDriverRepository;
 use App\Interfaces\IUserRepository;
 use App\Interfaces\IVehicleTypesRepository;
 use App\Interfaces\IVerificationCodeRepository;
+use App\Models\CustomerPaymentMethods;
 use App\Models\VerificationCode;
 use App\Repositories\BookingPaymentsRepository;
 use App\Repositories\BookingRepository;
@@ -21,6 +22,7 @@ use App\Repositories\VehicleTypesRepository;
 use App\Repositories\VerificationCodeRepository;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\ServiceProvider;
+use Laravel\Cashier\Cashier;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -46,5 +48,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         JsonResource::withoutWrapping();
+
+        Cashier::useCustomerModel(CustomerPaymentMethods::class);
     }
 }

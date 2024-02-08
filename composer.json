@@ -7,6 +7,7 @@
     "require": {
         "php": "^8.1",
         "guzzlehttp/guzzle": "^7.2",
+        "laravel/cashier": "^13.17",
         "laravel/framework": "^10.10",
         "laravel/horizon": "^5.21",
         "laravel/passport": "^11.10",
@@ -16,8 +17,9 @@
         "livewire/livewire": "^3.0",
         "livewire/volt": "^1.0",
         "maatwebsite/excel": "^3.1",
+        "phpoffice/phpspreadsheet": "^1.29",
         "spatie/laravel-permission": "^6.1",
-        "stripe/stripe-php": "^13.10",
+        "stripe/stripe-php": "^9.9",
         "teampickr/php-google-maps-distance-matrix": "^0.6.0"
     },
     "require-dev": {

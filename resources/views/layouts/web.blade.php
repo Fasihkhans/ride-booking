@@ -24,7 +24,7 @@
         <nav class="fixed top-0 z-50 w-full bg-black border-b border-gray-200 start-0 ">
             <div class="flex flex-wrap items-center justify-between max-w-screen-xl p-4 mx-auto">
                 <a href="/" class="flex items-center space-x-2 rtl:space-x-reverse">
-                    <img src="{{ asset('assets/svg/dart-logo.svg') }}" class="h-8" alt="Flowbite Logo">
+                    {{-- <img src="{{ asset('assets/svg/dart-logo.svg') }}" class="h-8" alt="Flowbite Logo"> --}}
                 </a>
             <div class="flex space-x-3 md:order-2 md:space-x-0 rtl:space-x-reverse">
                 {{-- <button type="button" class="px-4 py-2 mx-2 text-sm font-medium text-center text-white bg-black border border-white rounded-lg hover:bg-black hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 ">Login</button>
@@ -76,7 +76,7 @@
             <nav class="w-full bg-black border-b border-gray-200 ">
                 <div class="flex flex-wrap items-center justify-between max-w-screen-xl p-4 mx-auto">
                     <a href="/" class="flex items-center space-x-2 rtl:space-x-reverse">
-                        <img src="{{ asset('assets/svg/dart-logo.svg') }}" class="h-8" alt="Flowbite Logo">
+                        {{-- <img src="{{ asset('assets/svg/dart-logo.svg') }}" class="h-8" alt="Flowbite Logo"> --}}
                     </a>
                 <div class="flex space-x-3 md:order-2 md:space-x-0 rtl:space-x-reverse">
                     <div class="flex mt-4 sm:justify-center sm:mt-0">

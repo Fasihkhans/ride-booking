@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Api\V1\PaymentController;
+use App\Http\Controllers\PaymentController as PaymentViewController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\DriverController;
 use App\Http\Controllers\HelpController;
@@ -25,7 +27,14 @@ Route::view('/privacy-policy', 'website.privacy-policy');
 Route::view('/help', 'website.help');
 Route::post('help', [HelpController::class, 'sendMail'])->name('helpMail');
 
+Route::view('/payment-details', 'payment-details');
+
+Route::post('save-card', [PaymentViewController::class,'store'])->name('save-card');
 Route::middleware(['auth','role:admin'])->prefix('admin')->group( function () {
+
+    // Route::get('payment-details',[PaymentViewController::class, 'index'])->name('payment-details');
+
+
     Route::view('/', 'dashboard')
         ->middleware(['verified'])->name('dashboard');
 
