@@ -18,13 +18,14 @@ class PaymentController extends Controller
 
     }
 
-    // public function store(Request $request)
-    // {
-    //     $user = Auth::user();
+    public function store(Request $request)
+    {
+        dd($request);
+        // $user = Auth::user();
 
-    //     $card = $user->customerPaymentMethods->updateCard($request->stripeToken);
+        // $card = $user->customerPaymentMethods->updateCard($request->stripeToken);
 
-    //     dd($card);
-    //     // You can add additional logic here, such as redirecting the user or displaying a success message.
-    // }
+        // dd($card);
+        // You can add additional logic here, such as redirecting the user or displaying a success message.
+    }
 }

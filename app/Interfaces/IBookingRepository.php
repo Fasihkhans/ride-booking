@@ -40,6 +40,8 @@ interface IBookingRepository
 
     static public function getAllBookingDateWise($date);
 
+    public function createBookingPayment(int $bookingId, int $paymentMethodId);
+
     public function update(Booking $bookig,array $data);
 
 }

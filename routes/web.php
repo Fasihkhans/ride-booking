@@ -10,6 +10,7 @@ use App\Http\Controllers\VehicleAssignmentController;
 use App\Http\Controllers\VehiclesController;
 use App\Http\Controllers\VehicleTypeController;
 use Illuminate\Support\Facades\Route;
+use Livewire\Volt\Volt;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,7 +28,7 @@ Route::view('/privacy-policy', 'website.privacy-policy');
 Route::view('/help', 'website.help');
 Route::post('help', [HelpController::class, 'sendMail'])->name('helpMail');
 
-Route::view('/payment-details', 'payment-details');
+Volt::route('/payment-details', 'payment-details');
 
 Route::post('save-card', [PaymentViewController::class,'store'])->name('save-card');
 Route::middleware(['auth','role:admin'])->prefix('admin')->group( function () {

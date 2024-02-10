@@ -51,6 +51,7 @@ class BookingController extends Controller
                 $bookingStop['status'] = Constants::BOOKING_STOP_STATUS_ACTIVE;
                 $this->bookingStopsRepository::create($bookingStop);
             }
+            $this->bookingRepository->createBookingPayment($booking->id,$request->paymentMethodId);
             $bookingWithStops = $this->bookingRepository::findWithStops($booking->id);
             if (!$bookingWithStops)
                 APIResponse::NotFound('No result found');
@@ -172,7 +173,10 @@ class BookingController extends Controller
                 $this->bookingStopsRepository::addDriverPickUpCoordinates($request->driver['latitude'],$request->driver['longitude'],$bookingUpdated->id);
             if($bookingUpdated->status == 'completed'){
                 $this->bookingStopsRepository::addDriverdropOffCoordinates($request->driver['latitude'],$request->driver['longitude'],$bookingUpdated->id);
-                $this->BookingPaymentsRepository::create($bookingUpdated);
+                $bookingPayment = $this->BookingPaymentsRepository::create($bookingUpdated);
+                // if (!$bookingPayment)
+                //     return APIResponse::BadRequest('Booking payment creation failed');
+                $bookingUpdated->refresh();
             }
             $bookingWithStops = BookingWithStopsResource::make($bookingUpdated);
             return APIResponse::SuccessWithData('Success', $bookingWithStops);
@@ -235,4 +239,5 @@ class BookingController extends Controller
             return APIResponse::UnknownInternalServerError($ex);
         }
     }
+
 }

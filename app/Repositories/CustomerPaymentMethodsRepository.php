@@ -25,7 +25,9 @@ class CustomerPaymentMethodsRepository implements ICustomerPaymentMethodsReposit
 
     public function destroy(int $id)
     {
-        return CustomerPaymentMethods::destroy($id);
+        $model = CustomerPaymentMethods::find($id);
+        return $model->delete();
+
     }
 
 

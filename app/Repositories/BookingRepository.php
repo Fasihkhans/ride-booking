@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\Constants\Constants;
 use App\Models\Booking;
 use App\Interfaces\IBookingRepository;
+use App\Models\BookingPayments;
 use Illuminate\Support\Facades\DB;
 
 class BookingRepository implements IBookingRepository
@@ -125,6 +126,16 @@ class BookingRepository implements IBookingRepository
     {
         return Booking::where('created_at','>=', $date)->get();
     }
+
+    public function createBookingPayment(int $bookingId, int $paymentMethodId)
+    {
+        return BookingPayments::create([
+            'booking_id'=>$bookingId,
+            'payment_method_id'=>$paymentMethodId,
+            'status' => Constants::BOOKING_PAYMENT_PENDING
+        ]);
+    }
+
     public function update(Booking $booking,array $data)
     {
 

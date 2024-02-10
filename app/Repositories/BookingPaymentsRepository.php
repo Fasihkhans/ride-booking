@@ -3,10 +3,18 @@
 namespace App\Repositories;
 
 use App\Constants\Constants;
+use App\Helpers\APIResponse;
 use App\Interfaces\IBookingPaymentsRepository;
 use App\Models\Booking;
 use App\Models\BookingPayments;
 use Carbon\Carbon;
+use Stripe\Charge;
+use Stripe\Exception\CardException;
+use Stripe\Stripe;
+use Stripe\Exception\InvalidRequestException;
+use Stripe\Exception\AuthenticationException;
+use Stripe\Exception\ApiConnectionException;
+use Stripe\Exception\ApiErrorException;
 use TeamPickr\DistanceMatrix\DistanceMatrix as DistanceMatrixDistanceMatrix;
 use TeamPickr\DistanceMatrix\Licenses\StandardLicense;
 
@@ -27,7 +35,7 @@ class BookingPaymentsRepository implements IBookingPaymentsRepository
         $perMileRate = $booking?->vehicle?->vehicleType?->per_mile_rate;
         $peakHourRate = $booking?->vehicle?->vehicleType?->peak_hour_rate;
         $holidayRate = $booking?->vehicle?->vehicleType?->holiday_rate;
-        $paymentMethodId = $booking->customer->customerPaymentMethods->first()?->id??CustomerPaymentMethodsRepository::create(['user_id'=>$booking->customer->id,'name' => "cash",'status' => Constants::ACTIVE])->id;
+        // $paymentMethodId = $booking->customer->customerPaymentMethods->first()?->id??CustomerPaymentMethodsRepository::create(['user_id'=>$booking->customer->id,'name' => "cash",'status' => Constants::ACTIVE])->id;
         $startTime = null;
         $endTime = null;
         $origins ='';
@@ -66,20 +74,41 @@ class BookingPaymentsRepository implements IBookingPaymentsRepository
         $totalMiles = round($totalMeters*0.00062137,1);
         // dd($baseFare +($perMinuteRate * $totalMinutes)+($perMileRate * $totalMiles));
         $totalCost = $baseFare + ($perMinuteRate * $totalMinutes)+($perMileRate * $totalMiles);
+        $bookingPayment = BookingPayments::find($booking->bookingPayment->id);
 
-        return BookingPayments::create([
-            'booking_id' => $booking->id,
-            'base_fare' => $baseFare,
-            'per_mile_rate' => $perMileRate,
-            'per_minute_rate' => $perMinuteRate,
-            'payment_method_id' => $paymentMethodId,
-            'status' => Constants::BOOKING_PAYMENT_PENDING,
-            'peak_hour_rate' => $peakHourRate,
-            'holiday_rate' => $holidayRate,
-            'total_minutes' => $totalMinutes,
-            'total_miles' => $totalMiles,
-            'total_fare' => $totalCost,
-        ]);
+        if($bookingPayment->paymentMethod->name =='card'){
+            $card = json_decode($bookingPayment->paymentMethod->stripe_card_reference);
+            // dd($card);
+            Stripe::setApiKey(env('STRIPE_SECRET'));
+            $charge = Charge::create([
+                'amount' => $totalCost * 100, // Stripe requires amount in cents
+                'currency' => 'gbp',
+                'customer' => $booking->customer_id,
+                'source' => $card->token->card->id,
+                'description' => 'Payment for booking id: ' . $booking->id,
+            ]);
+            // Check if charge was successful
+            if ($charge->status === 'succeeded') {
+                $bookingPayment->status = Constants::BOOKING_PAYMENT_PAID;
+            } else {
+                $bookingPayment->status = Constants::BOOKING_PAYMENT_FAILED;
+            }
+
+        }else{
+            $bookingPayment->status = Constants::BOOKING_PAYMENT_PENDING;
+        }
+        $bookingPayment->booking_id = $booking->id;
+        $bookingPayment->base_fare = $baseFare;
+        $bookingPayment->per_mile_rate = $perMileRate;
+        $bookingPayment->per_minute_rate = $perMinuteRate;
+        $bookingPayment->peak_hour_rate = $peakHourRate;
+        $bookingPayment->holiday_rate = $holidayRate;
+        $bookingPayment->total_minutes = $totalMinutes;
+        $bookingPayment->total_miles = $totalMiles;
+        $bookingPayment->total_fare = $totalCost;
+
+
+        return $bookingPayment->update();
     }
 
 }
