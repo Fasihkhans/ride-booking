@@ -28,10 +28,9 @@ Route::view('/privacy-policy', 'website.privacy-policy');
 Route::view('/help', 'website.help');
 Route::post('help', [HelpController::class, 'sendMail'])->name('helpMail');
 
-Volt::route('/payment-details', 'payment-details');
 
-Route::post('save-card', [PaymentViewController::class,'store'])->name('save-card');
 Route::middleware(['auth','role:admin'])->prefix('admin')->group( function () {
+
 
     // Route::get('payment-details',[PaymentViewController::class, 'index'])->name('payment-details');
 
@@ -54,4 +53,8 @@ Route::middleware(['auth','role:admin'])->prefix('admin')->group( function () {
     Route::get('/users-csv-download',[UsersController::class, 'exportCSV'])->name('download.users.csv');
 });
 
+Route::middleware(['auth','role:user'])->prefix('user')->group( function () {
+    Volt::route('/payment-details', 'payment-details');
+    Route::post('save-card', [PaymentViewController::class,'store'])->name('save-card');
+});
 require __DIR__.'/auth.php';

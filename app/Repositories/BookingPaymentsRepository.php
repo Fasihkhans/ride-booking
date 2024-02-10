@@ -9,6 +9,7 @@ use App\Models\Booking;
 use App\Models\BookingPayments;
 use Carbon\Carbon;
 use Stripe\Charge;
+use Stripe\Customer;
 use Stripe\Exception\CardException;
 use Stripe\Stripe;
 use Stripe\Exception\InvalidRequestException;
@@ -78,12 +79,26 @@ class BookingPaymentsRepository implements IBookingPaymentsRepository
 
         if($bookingPayment->paymentMethod->name =='card'){
             $card = json_decode($bookingPayment->paymentMethod->stripe_card_reference);
-            // dd($card);
+
             Stripe::setApiKey(env('STRIPE_SECRET'));
+            $stripeCustomerId = $bookingPayment->paymentMethod->stripe_id;
+            if(!$stripeCustomerId){
+                $user = $booking->customer;
+                $customer = Customer::create([
+                    'source' => $card->token->id,
+                    'name' => $user->first_name." ".$user->last_name,
+                    'email' => $user->email,
+                ]);
+                $stripeCustomerId = $customer->id;
+                $bookingPayment->paymentMethod->stripe_id = $stripeCustomerId;
+                $bookingPayment->paymentMethod->save();
+            }
+            // dd($stripeCustomerId);
+
             $charge = Charge::create([
                 'amount' => $totalCost * 100, // Stripe requires amount in cents
                 'currency' => 'gbp',
-                'customer' => $booking->customer_id,
+                'customer' => $stripeCustomerId,
                 'source' => $card->token->card->id,
                 'description' => 'Payment for booking id: ' . $booking->id,
             ]);
