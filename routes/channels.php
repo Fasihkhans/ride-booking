@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\User;
 use Illuminate\Support\Facades\Broadcast;
 
 /*
@@ -15,4 +16,14 @@ use Illuminate\Support\Facades\Broadcast;
 
 Broadcast::channel('App.Models.User.{id}', function ($user, $id) {
     return (int) $user->id === (int) $id;
+});
+
+
+Broadcast::routes(['middleware' => ['auth:api']]);
+
+Broadcast::channel('booking.{bookingId}', function (User $user, $bookingId) {
+    // dd('ss');
+    // return !is_null($user);
+    return true;
+    // return $user->id = \App\Models\Booking::find($bookingId)->customer_id;
 });

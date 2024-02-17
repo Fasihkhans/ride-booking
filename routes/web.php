@@ -9,6 +9,7 @@ use App\Http\Controllers\UsersController;
 use App\Http\Controllers\VehicleAssignmentController;
 use App\Http\Controllers\VehiclesController;
 use App\Http\Controllers\VehicleTypeController;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Livewire\Volt\Volt;
 
@@ -22,6 +23,15 @@ use Livewire\Volt\Volt;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+Route::get('testsockets', function (Request $request) {
+    // Get the bookingID query parameter from the request
+    $bookingId = $request->query('bookingId');
+
+    // Pass the bookingId variable to the view
+    return view('checking-websocket', [
+        'bookingId' => $bookingId
+    ]);
+});
 
 Route::view('/', 'welcome')->name('welcome');
 Route::view('/privacy-policy', 'website.privacy-policy');

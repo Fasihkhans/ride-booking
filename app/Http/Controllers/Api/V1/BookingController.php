@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Constants\Constants;
+use App\Events\BookingStatus;
 use App\Helpers\APIResponse;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CommonPaginatedRequest;
@@ -178,6 +179,8 @@ class BookingController extends Controller
                 //     return APIResponse::BadRequest('Booking payment creation failed');
                 $bookingUpdated->refresh();
             }
+
+            event(new BookingStatus($request->bookingId, $request->status));
             $bookingWithStops = BookingWithStopsResource::make($bookingUpdated);
             return APIResponse::SuccessWithData('Success', $bookingWithStops);
         } catch (Exception $ex) {
