@@ -20,6 +20,11 @@ import Echo from 'laravel-echo';
 import Pusher from 'pusher-js';
 window.Pusher = Pusher;
 
+
+const options = {
+    broadcaster: 'pusher',
+    key: 'your-pusher-channels-key'
+}
 window.Echo = new Echo({
     broadcaster: 'pusher',
     key: import.meta.env.VITE_PUSHER_APP_KEY,
@@ -29,4 +34,5 @@ window.Echo = new Echo({
     wssPort: import.meta.env.VITE_PUSHER_PORT ?? 443,
     forceTLS: (import.meta.env.VITE_PUSHER_SCHEME ?? 'https') === 'https',
     enabledTransports: ['ws', 'wss'],
+    client: new Pusher()
 });

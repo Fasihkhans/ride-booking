@@ -35,11 +35,11 @@ class UserObserver
                                                         'name' => "cash",
                                                         'status' => Constants::ACTIVE
                                                     ]);
-            $this->iCustomerPaymentMethodsRepository::create([
-                                                        'user_id'=>$user->id,
-                                                        'name' => "card",
-                                                        'status' => Constants::ACTIVE
-                                                    ]);
+            // $this->iCustomerPaymentMethodsRepository::create([
+            //                                             'user_id'=>$user->id,
+            //                                             'name' => "card",
+            //                                             'status' => Constants::ACTIVE
+            //                                         ]);
         }
 
     }

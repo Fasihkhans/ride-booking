@@ -16,6 +16,7 @@ class BookingStatus implements ShouldBroadcast
 
     public $bookingId;
     public $status;
+    public $data;
     /**
      * Create a new event instance.
      */
@@ -23,6 +24,7 @@ class BookingStatus implements ShouldBroadcast
     {
         $this->bookingId = $bookingId;
         $this->status =  $status;
+        $this->data = ['bookingId'=>$this->bookingId,"status"=>$this->status];
     }
 
     /**
@@ -33,11 +35,16 @@ class BookingStatus implements ShouldBroadcast
     public function broadcastOn()
     {
             return [
-                new Channel('booking.'.$this->bookingId)
+                new PrivateChannel('booking.'.$this->bookingId)
             ];
+            // new Channel('booking.'.$this->bookingId);
 
     }
 
+    public function broadcastWith(): array
+    {
+        return ['data' => $this->data];
+    }
     // public function broadcastAs()
     // {
     //     return 'booking';

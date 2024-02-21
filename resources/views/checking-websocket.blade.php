@@ -16,9 +16,9 @@
     {!! Vite::content('resources/js/app.js') !!}
 </script>
 <script>
-        console.log({{ $bookingId }});
-        Echo.channel(`booking.{{$bookingId}}`).listen('.BookingStatus',(e)=>{
-            console.log(e);
+        console.log(Echo.channel('booking.{{ $bookingId }}'));
+        Echo.channel('booking.{{ $bookingId }}').listen('BookingStatus',(e)=>{
+            console.log("testing",e);
         });
 </script>
 </html>
