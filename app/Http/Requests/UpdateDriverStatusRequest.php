@@ -26,7 +26,9 @@ class UpdateDriverStatusRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'isOnline' => ['required','boolean']
+            'isOnline' => ['required','boolean'],
+            'latitude' => ['required','numeric'],
+            'longitude' => ['required','numeric'],
         ];
     }
 

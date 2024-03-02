@@ -20,6 +20,7 @@ class PaymentDetailsResource extends JsonResource
             "baseFare"=> $this->base_fare,
             "perMileRate"=> $this->per_mile_rate,
             "paymentMethodId"=> $this->payment_method_id,
+            "type" => $this->paymentMethod->name,
             "status"=> $this->status,
             "perMinuteRate"=> $this->per_minute_rate,
             "peakHourRate"=> $this->peak_hour_rate,

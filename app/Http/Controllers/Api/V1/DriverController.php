@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\V1;
 
+use App\Events\DriverAvailability;
 use App\Helpers\APIResponse;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UpdateDriverStatusRequest;
@@ -31,10 +32,11 @@ class DriverController extends Controller
     {
         try
         {
-
             $driver =   $this->driverRepository->onlineStatus($request->isOnline, $request->id);
             if (!$driver)
                 APIResponse::UnknownInternalServerError('Error while updating');
+            if($request->isOnline)
+                event(new DriverAvailability($request->id,$request->latitude,$request->longitude));
             return APIResponse::Success('Resource updated');
         } catch (Exception $ex) {
             return APIResponse::UnknownInternalServerError($ex);

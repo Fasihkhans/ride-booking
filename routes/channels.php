@@ -22,8 +22,13 @@ Broadcast::channel('App.Models.User.{id}', function ($user, $id) {
 Broadcast::routes(['middleware' => ['auth:api']]);
 
 Broadcast::channel('booking.{bookingId}', function (User $user, $bookingId) {
-    // dd('ss');
-    // return !is_null($user);
     return true;
-    // return $user->id = \App\Models\Booking::find($bookingId)->customer_id;
+});
+
+Broadcast::channel('driver.{driverId}', function (User $user, $driverId) {
+    return true;
+});
+
+Broadcast::channel('driver-booking.{driverId}', function (User $user, $driverId) {
+    return true;
 });

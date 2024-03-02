@@ -3,6 +3,7 @@
 namespace App\Observers;
 
 use App\Constants\Constants;
+use App\Events\DriverBooking;
 use App\Models\Booking;
 use App\Repositories\BookingRepository;
 use App\Repositories\DriverRepository;
@@ -19,6 +20,7 @@ class BookingObserver
             $result = BookingRepository::findDriverForBooking($driverVehicle->vehicle_id,$driverVehicle->driver_id);
             if ($result == null) {
                 if(DriverRepository::isOnline($driverVehicle->driver_id)){
+                    event(new DriverBooking($driverVehicle->driver_id,$booking));
                     return BookingRepository::assignDriver($driverVehicle->driver_id, $driverVehicle->vehicle_id, $booking->id);
                 }
             }

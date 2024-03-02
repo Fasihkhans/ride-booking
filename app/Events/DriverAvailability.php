@@ -10,21 +10,23 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class BookingStatus implements ShouldBroadcast
+class DriverAvailability implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $bookingId;
-    public $status;
+    public $driverId;
+    public $latitude;
+    public $longitude;
     public $data;
     /**
      * Create a new event instance.
      */
-    public function __construct($bookingId,$status)
+    public function __construct(int $driverId,$latitude,$longitude)
     {
-        $this->bookingId = $bookingId;
-        $this->status =  $status;
-        $this->data = ['bookingId'=>$this->bookingId,"status"=>$this->status];
+        $this->driverId = $driverId;
+        $this->longitude = $longitude;
+        $this->latitude = $latitude;
+        $this->data = ['driverId'=>$this->driverId,'latitude'=>$this->latitude,'longitude'=> $this->longitude];
     }
 
     /**
@@ -32,11 +34,11 @@ class BookingStatus implements ShouldBroadcast
      *
      * @return array<int, \Illuminate\Broadcasting\Channel>
      */
-    public function broadcastOn()
+    public function broadcastOn(): array
     {
-            return [
-                new PrivateChannel('booking.'.$this->bookingId)
-            ];
+        return [
+            new PrivateChannel('driver.'.$this->driverId),
+        ];
     }
 
     public function broadcastWith(): array
