@@ -13,16 +13,16 @@
                     <form method="POST" action="{{ route('helpMail') }}" class="w-full mx-auto">
                         {{ csrf_field() }}
                         <div class="mb-6">
-                            <label for="name-input" class="block mb-2 text-sm font-bold text-gray-900 dark:text-white">Name</label>
-                            <input type="text" id="name-input" name="name" class="block w-full p-4 text-gray-900 border border-gray-300 rounded-lg shadow-lg bg-gray-50 sm:text-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 " required>
+                            <label for="name-input" class="block mb-2 text-sm font-bold text-gray-900">Name</label>
+                            <input type="text" id="name-input" name="name" class="block w-full p-4 text-gray-900 border border-gray-300 rounded-lg shadow-lg bg-gray-50 sm:text-md focus:ring-blue-500 focus:border-blue-500 " required>
                         </div>
                         <div class="mb-6">
-                            <label for="email-input" class="block mb-2 text-sm font-bold text-gray-900 dark:text-white">Email</label>
-                            <input type="email" id="email-input" name="email" class="block w-full p-4 text-gray-900 border border-gray-300 rounded-lg shadow-lg bg-gray-50 sm:text-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+                            <label for="email-input" class="block mb-2 text-sm font-bold text-gray-900">Email</label>
+                            <input type="email" id="email-input" name="email" class="block w-full p-4 text-gray-900 border border-gray-300 rounded-lg shadow-lg bg-gray-50 sm:text-md focus:ring-blue-500 focus:border-blue-500 " required>
                         </div>
                         <div class="mb-5">
-                            <label for="message" class="block mb-2 text-sm font-bold text-gray-900 dark:text-white">Message</label>
-                            <textarea id="message" rows="4" name="message" class="block p-2.5 shadow-lg w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Leave a comment..." required></textarea>
+                            <label for="message" class="block mb-2 text-sm font-bold text-gray-900">Message</label>
+                            <textarea id="message" rows="4" name="message" class="block p-2.5 shadow-lg w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500   " placeholder="Leave a comment..." required></textarea>
                         </div>
                         <div class="mt-5">
 

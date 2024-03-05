@@ -119,8 +119,8 @@ $save = function(){
 
                         @if ($license_img_url)
                         {{-- <div class="border rounded-md border-neutral-950 h-50 w-50"> --}}
-                        <div class="flex items-center justify-center max-w-xs align-middle bg-white border border-black rounded-lg shadow justify-items-center h-36 w-50">
-                            <img class="flex" src="{{ $license_img_url }}" alt="">
+                        <div class="flex items-center justify-center max-w-xs align-middle bg-white border border-black rounded-lg shadow justify-items-center h-80 w-80">
+                            <img class="w-full h-full rounded-lg object-fit" src="{{ $license_img_url }}" alt="">
                         </div>
                         @endif
                     </div>

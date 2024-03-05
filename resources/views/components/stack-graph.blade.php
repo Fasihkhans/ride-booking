@@ -1,29 +1,31 @@
+
+
+@props(['labels', 'cardDataSet', 'cashDataSet'])
+
 <div>
-    <canvas id="stackedChart" class="w-full h-auto" ></canvas>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <canvas id="stackedChart" class="w-full h-auto"></canvas>
 
-    {{-- <script src="{{ asset('js/daterangepicker.js') }}"></script> --}}
-        <script>
-
-        document.addEventListener('DOMContentLoaded', function () {
+    <script>
+        // Function to initialize the chart
+        function initializeChart(labels, cardDataSet, cashDataSet) {
             var ctx = document.getElementById('stackedChart').getContext('2d');
 
             var stackedChart = new Chart(ctx, {
                 type: 'bar',
                 data: {
-                    labels: @json($labels),
+                    labels: labels,
                     datasets: [
                         {
                             label: 'Card',
                             backgroundColor: '#000000',
-                            borderRadius	: 10,
-                            data: @json($cardDataSet),
+                            borderRadius: 10,
+                            data: cardDataSet,
                         },
                         {
                             label: 'Cash',
                             backgroundColor: '#FFB800',
-                            borderRadius	: 10,
-                            data: @json($cashDataSet),
+                            borderRadius: 10,
+                            data: cashDataSet,
                         },
                     ],
                 },
@@ -38,6 +40,19 @@
                     },
                 },
             });
+        }
+
+        // Load Chart.js asynchronously
+        function loadChartJS(callback) {
+            var script = document.createElement('script');
+            script.src = 'https://cdn.jsdelivr.net/npm/chart.js';
+            script.onload = callback;
+            document.head.appendChild(script);
+        }
+
+        // Load Chart.js and initialize the chart
+        loadChartJS(function () {
+            initializeChart(@json($labels), @json($cardDataSet), @json($cashDataSet));
         });
-        </script>
+    </script>
 </div>

@@ -24,7 +24,7 @@ new class extends Component
             <div class="justify-center w-full p-3 sidenav-header d-flex align-items-center">
                 <div class="flex items-center shrink-0">
                     <a href="{{ route('dashboard') }}" wire:navigate>
-                        <x-application-logo class="block w-auto text-gray-800 fill-current h-9 dark:text-gray-200" />
+                        <x-application-logo class="block w-auto text-gray-800 fill-current h-9 " />
                     </a>
                 </div>
             </div>

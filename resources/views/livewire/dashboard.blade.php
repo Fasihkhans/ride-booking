@@ -1,6 +1,6 @@
 <div class="bg-white">
 
-    <dl class="grid items-center justify-center w-full max-w-screen-xl grid-cols-4 gap-8 p-4 mx-auto text-gray-900 dark:text-white sm:p-8">
+    <dl class="grid items-center justify-center w-full max-w-screen-xl grid-cols-4 gap-8 p-4 mx-auto text-gray-900 sm:p-8">
         <x-stats-card :title="'Total Vehicles'">
             {{ str_pad($totalVehicles, 2, '0', STR_PAD_LEFT) }}
         </x-stats-card>

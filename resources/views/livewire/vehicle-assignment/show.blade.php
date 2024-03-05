@@ -74,7 +74,7 @@ $save = function(){
             <div class="mt-4 form-row">
                     <div class="mb-3 col-md-6">
                         <div class="form-group">
-                            <select class="form-control"  wire:model='vehicle_id' disabled>
+                            <select class="form-control"  wire:model='vehicle_id'>
                                 <option>Select Vehicle</option>
                                 @foreach ($vehicles as $vehicle)
                                     <option value="{{ $vehicle->id }}">
@@ -87,7 +87,7 @@ $save = function(){
                     </div>
                     <div class="mb-3 col-md-6">
                         <div class="form-group">
-                            <select class="form-control" wire:model='driver_id' disabled >
+                            <select class="form-control" wire:model='driver_id' >
                                 <option>Select Driver</option>
                                 @foreach ($drivers as $driver)
                                 <option value="{{ $driver->id }}">{{ $driver->user->first_name." ".$driver->user->last_name }}</option>
