@@ -16,6 +16,7 @@ use App\Http\Resources\PaginateResource;
 use App\Interfaces\IBookingPaymentsRepository;
 use App\Interfaces\IBookingRepository;
 use App\Interfaces\IBookingStopsRepository;
+use App\Jobs\SendFcmNotification;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -170,14 +171,32 @@ class BookingController extends Controller
             $bookingUpdated = $this->bookingRepository::updateBookingStatus($request->status, $request->bookingId);
             if (!$bookingUpdated)
                 return APIResponse::NotFound('No result found');
-            if($bookingUpdated->status == 'inProgress')
-                $this->bookingStopsRepository::addDriverPickUpCoordinates($request->driver['latitude'],$request->driver['longitude'],$bookingUpdated->id);
-            if($bookingUpdated->status == 'completed'){
-                $this->bookingStopsRepository::addDriverdropOffCoordinates($request->driver['latitude'],$request->driver['longitude'],$bookingUpdated->id);
-                $bookingPayment = $this->BookingPaymentsRepository::create($bookingUpdated);
-                // if (!$bookingPayment)
-                //     return APIResponse::BadRequest('Booking payment creation failed');
-                $bookingUpdated->refresh();
+
+            $notificationMessage = '';
+            $notificationTitle = '';
+
+            switch ($bookingUpdated->status) {
+                case 'accepted':
+                    $notificationTitle = "Ride Confirmed!";
+                    $notificationMessage = "Your ride has been confirmed. {$bookingUpdated->driver->user->full_name} is on the way to pick you up. They will arrive shortly. Thank you for choosing our service.";
+                    break;
+                case 'inProgress':
+                    $notificationTitle = "Your Ride Has Started!";
+                    $notificationMessage = "Your ride has officially started with {$bookingUpdated->driver->user->full_name}. They are on the way to your location. Sit back, relax, and enjoy the journey!";
+                    $this->bookingStopsRepository::addDriverPickUpCoordinates($request->driver['latitude'], $request->driver['longitude'], $bookingUpdated->id);
+                    break;
+                case 'completed':
+                    $notificationTitle = "Ride Completed";
+                    $notificationMessage = "Your ride has been successfully completed. Thank you for choosing our service! Please take a moment to rate your ride and provide any feedback. We value your input and look forward to serving you again.";
+                    $this->bookingStopsRepository::addDriverdropOffCoordinates($request->driver['latitude'], $request->driver['longitude'], $bookingUpdated->id);
+                    $bookingPayment = $this->BookingPaymentsRepository::create($bookingUpdated);
+                    $bookingUpdated->refresh();
+                    break;
+            }
+
+            // Dispatch the FCM notification
+            if ($notificationMessage && $notificationTitle) {
+                dispatch(new SendFcmNotification($bookingUpdated->customer->device_token, $notificationTitle, $notificationMessage));
             }
 
             event(new BookingStatus($request->bookingId, $request->status));

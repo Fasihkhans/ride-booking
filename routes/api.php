@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\V1\DriverController;
 use App\Http\Controllers\Api\V1\PaymentController;
 use App\Http\Controllers\Api\V1\VehicleTypesController;
 use App\Http\Controllers\Api\V1\UsersController;
+use App\Jobs\SendFcmNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -75,6 +76,15 @@ use Illuminate\Support\Facades\Route;
         });
 
 
+    });
+    Route::post('push-notification', function (Request $request) {
+        $deviceToken = $request->input('device_token');
+        $title = $request->input('title');
+        $body = $request->input('body');
+
+        dispatch(new SendFcmNotification($deviceToken, $title, $body));
+
+        return response()->json(['message' => 'Push notification dispatched successfully'], 200);
     });
 
     Route::post('user/signup', [AuthController::class, 'signup']);

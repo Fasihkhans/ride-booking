@@ -126,6 +126,11 @@ return [
         'emergency' => [
             'path' => storage_path('logs/laravel.log'),
         ],
+        'fcm' => [
+            'driver' => 'single',
+            'path' => storage_path('logs/fcm.log'), // Specify the path to your log file
+            'level' => 'info', // Adjust the log level as needed
+        ],
     ],
 
 ];
