@@ -1,12 +1,13 @@
 <?php
 
 use App\Http\Controllers\Auth\VerifyEmailController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Livewire\Volt\Volt;
 
 Route::middleware('guest')->group(function () {
-    // Volt::route('register', 'pages.auth.register')
-    //     ->name('register');
+    Volt::route('register', 'pages.auth.register')
+        ->name('register');
 
     Volt::route('login', 'pages.auth.login')
         ->name('login');
@@ -16,6 +17,8 @@ Route::middleware('guest')->group(function () {
 
     Volt::route('reset-password/{token}', 'pages.auth.reset-password')
         ->name('password.reset');
+
+    volt::route('otp-verification','pages.auth.otp')->name('otp');
 });
 
 Route::middleware('auth')->group(function () {
@@ -28,4 +31,9 @@ Route::middleware('auth')->group(function () {
 
     Volt::route('confirm-password', 'pages.auth.confirm-password')
         ->name('password.confirm');
+
+    Route::get('/logout', function () {
+        Auth::logout();
+        return redirect()->route('login'); // Redirect to login page after logout
+    })->name('logout');
 });

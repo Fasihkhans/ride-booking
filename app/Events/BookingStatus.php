@@ -35,7 +35,7 @@ class BookingStatus implements ShouldBroadcast
     public function broadcastOn()
     {
             return [
-                new PrivateChannel('booking.'.$this->bookingId)
+                new Channel('booking.'.$this->bookingId)
             ];
     }
 

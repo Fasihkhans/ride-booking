@@ -27,9 +27,18 @@
                     <img src="{{ asset('assets/svg/dart-logo.svg') }}" class="h-8" alt="Flowbite Logo">
                 </a>
             <div class="flex space-x-3 md:order-2 md:space-x-0 rtl:space-x-reverse">
-                {{-- <button type="button" class="px-4 py-2 mx-2 text-sm font-medium text-center text-white bg-black border border-white rounded-lg hover:bg-black hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 ">Login</button>
+                @auth
+                    <a href="{{ route('logout') }}"><button type="button" class="px-4 py-2 mx-2 text-sm font-medium text-center text-white bg-black border border-white rounded-lg hover:bg-black hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 ">LogOut</button></a>
+                @endauth
+                @guest
 
-                <button type="button" class="px-4 py-2 text-sm font-medium text-center text-black bg-white rounded-lg hover:bg-black hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 ">SignUp</button> --}}
+                <a href="{{ route('login') }}"><button type="button" class="px-4 py-2 mx-2 text-sm font-medium text-center text-white bg-black border border-white rounded-lg hover:bg-black hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 ">Login</button></a>
+
+                <a href="{{ route('register') }}"><button type="button" class="px-4 py-2 text-sm font-medium text-center text-black bg-white rounded-lg hover:bg-black hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 ">SignUp</button></a>
+
+                @endguest
+
+
                 {{-- <button data-collapse-toggle="navbar-sticky" type="button" class="inline-flex items-center justify-center w-10 h-10 p-2 text-sm bg-white rounded-lg text-white-500 md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 " aria-controls="navbar-sticky" aria-expanded="false">
                     <span class="sr-only">Open main menu</span>
                     <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">

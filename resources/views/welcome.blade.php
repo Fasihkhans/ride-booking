@@ -1,7 +1,6 @@
 <x-web-layout>
     <div class="relative w-full h-auto bg-white">
-
-            <section class="bg-gray-700 bg-center bg-no-repeat " style="background-image: url('{{ asset('assets/png/landingPageS1.png') }}');">
+            <section class="bg-local bg-gray-700 bg-center bg-no-repeat bg-cover" style="background-image: url('{{ asset('assets/png/landingPageS1.png') }}');">
                 <div class="max-w-screen-xl px-4 py-24 mx-auto text-left lg:py-56">
                     <h1 class="mb-4 text-4xl leading-[88px] tracking-tight text-white md:text-5xl lg:text-6xl  font-normal">Get in the driver’s seat<br> and get paid</h1>
                     <p class="mb-8 text-lg font-normal text-white lg:text-xl sm:px-16 lg:px-2 font-['Outfit']">Drive on the platform with the largest network of active riders.</p>
