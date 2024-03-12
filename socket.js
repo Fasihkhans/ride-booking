@@ -29,28 +29,10 @@ io.on('connection', (Server) => {
     redis.publish('new-message--', JSON.stringify({ message: msg }));
         console.log("new message ---:" ,msg);
     });
-
-    redis.subscribe('dartscars_database_booking.279'); // Substitute 279 with the appropriate booking ID
-
-    redis.on('message', (channel, message) => {
-        console.log('Received message on channel:', channel);
-        console.log('Raw message:', message);
-
-        try {
-            const event = JSON.parse(message);
-            console.log('Parsed event:', event);
-
-            switch (event.type) {
-                case 'BookingStatus':
-                    console.log('Booking status changed:', event.data);
-                    // Handle the event as needed
-                    break;
-                default:
-                    console.log('Unhandled event type:', event.type);
-            }
-        } catch (error) {
-            console.error('Error parsing message:', error);
-        }
+    redis.psubscribe('*');
+    redis.on('pmessage', (pattern, channel, message) => {
+        console.log("pattern:",pattern,"channel:", channel,"message:", message)
+        Server.emit('redis_message', { channel, message });
     });
 
 
@@ -64,42 +46,10 @@ redis.on('connect', () => {
   console.log('Connected to Redis');
 });
 
-// redis.on('error', (error) => {
-//   console.error('Redis error:', error);
-// });
-
-redis.subscribe('laravel-events', (err, count) => {
-  if (err) {
-    console.error('Error subscribing to Redis channel:', err);
-  } else {
-    console.log('Subscribed to Redis channel');
-  }
-});
 server.listen(3000, () => {
   console.log('Socket.IO server running on port 3000');
 });
 
-// const redis = new Redis({
-//   host: process.env.REDIS_HOST || 'localhost',
-//   port: process.env.REDIS_PORT || 3001,
-//   password: process.env.REDIS_PASSWORD || null, // Change to your Redis password
-// });
-
-
-// redis.on('message', (channel, message) => {
-//   console.log('Message Received:', message);
-//   try {
-//     const parsedMessage = JSON.parse(message);
-//     io.emit(`${channel}:${parsedMessage.event}`, parsedMessage.data);
-//   } catch (error) {
-//     console.error('Error parsing message:', error);
-//   }
-// });
-
-// const PORT = process.env.PORT || 3000;
-// server.listen(PORT, () => {
-//   console.log(`Server listening on port ${PORT}`);
-// });
 
 
 
