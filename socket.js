@@ -4,13 +4,16 @@ import { Server } from 'socket.io';
 import Redis from 'ioredis';
 import cors from 'cors';
 
+
 const app = express();
 const server = http.createServer(app);
 const io = new Server(server, {
     cors: {
         origin: process.env.CORS_ORIGIN || "*", // Use environment variable or allow all origins
         methods: ["GET", "POST"]
-    }
+    },
+    pingTimeout: 30000,
+    pingInterval: 30000
 });
 app.use(cors());
 
