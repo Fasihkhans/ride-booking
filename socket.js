@@ -39,15 +39,15 @@ io.on('connection', (Server) => {
   // Event listeners for socket communication
   Server.on('disconnect', () => {
     console.log('User disconnected');
-  });
-});
+    });
+    });
 
 redis.on('connect', () => {
   console.log('Connected to Redis');
 });
 
-server.listen(3000, () => {
-  console.log('Socket.IO server running on port 3000');
+server.listen(6001, () => {
+  console.log('Socket.IO server running on port 6001');
 });
 
 
