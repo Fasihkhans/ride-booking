@@ -10,6 +10,7 @@
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         {{-- <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" /> --}}
+        <script src="https://kit.fontawesome.com/7f4db50383.js" crossorigin="anonymous"></script>
 
         <!-- Scripts -->
         @vite([
@@ -22,13 +23,15 @@
     </head>
     <body class="w-full overflow-x-hidden antialiased g-sidenav-show g-sidenav-pinned font-['Outfit']">
         <nav class="fixed top-0 z-50 w-full bg-black border-b border-gray-200 start-0 ">
-            <div class="flex flex-wrap items-center justify-between max-w-screen-xl p-4 mx-auto">
+            <div class="flex flex-wrap items-center justify-between max-w-screen-xl p-4 mx-auto sm:w-screen">
                 <a href="/" class="flex items-center space-x-2 rtl:space-x-reverse">
                     <img src="{{ asset('assets/svg/dart-logo.svg') }}" class="h-8" alt="Flowbite Logo">
                 </a>
             <div class="flex space-x-3 md:order-2 md:space-x-0 rtl:space-x-reverse">
-                <i class="text-white fa fa-phone" aria-hidden="true"></i>
-<a href="tel:+01325 521640"><h1 type="button" class="px-4 py-2 mx-2 text-sm font-medium text-center text-white bg-black border-white hover:bg-black hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 ">01325 521640</h1></a>
+
+                <a href="tel:+44-13-2552-1640">
+                    <h1 type="button" class="px-4 py-2 mx-2 text-lg font-medium text-center text-white bg-black border-white hover:bg-black hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 "><i class="text-lg text-white fa-solid fa-phone "></i> +44-13-2552-1640</h1>
+                </a>
 
                 @auth
                     <a href="{{ route('logout') }}"><button type="button" class="px-4 py-2 mx-2 text-sm font-medium text-center text-white bg-black border border-white rounded-lg hover:bg-black hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 ">LogOut</button></a>
