@@ -7,7 +7,6 @@
                     <div class="flex flex-col space-y-4 sm:flex-row sm:justify-start sm:space-y-0">
                         <a href="#" class="inline-flex items-center justify-center px-5 py-3 text-base  font-['Outfit'] font-medium text-center text-black bg-white rounded-lg hover:bg-black hover:border-white border hover:text-white focus:ring-4 focus:ring-blue-300 ">
                             Apply to drive
-
                         </a>
                     </div>
                 </div>

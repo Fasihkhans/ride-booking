@@ -92,4 +92,10 @@ use Illuminate\Support\Facades\Route;
 
     Route::post('account/otp/send', [AuthController::class, 'send']);
     Route::post('account/otp/verify', [AuthController::class, 'verify']);
+
+
+
+    // Route::get('/socket.io', function (Request $request) {
+    //     return app('Laravel\EchoServer\Server')->handle($request);
+    // });
     // Route::post('user/oauth/login', [OAuthController::class, 'login']);

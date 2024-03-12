@@ -27,9 +27,14 @@
                     <img src="{{ asset('assets/svg/dart-logo.svg') }}" class="h-8" alt="Flowbite Logo">
                 </a>
             <div class="flex space-x-3 md:order-2 md:space-x-0 rtl:space-x-reverse">
+                <i class="text-white fa fa-phone" aria-hidden="true"></i>
+<a href="tel:+01325 521640"><h1 type="button" class="px-4 py-2 mx-2 text-sm font-medium text-center text-white bg-black border-white hover:bg-black hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 ">01325 521640</h1></a>
+
                 @auth
                     <a href="{{ route('logout') }}"><button type="button" class="px-4 py-2 mx-2 text-sm font-medium text-center text-white bg-black border border-white rounded-lg hover:bg-black hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 ">LogOut</button></a>
                 @endauth
+
+
                 @guest
 
                 <a href="{{ route('login') }}"><button type="button" class="px-4 py-2 mx-2 text-sm font-medium text-center text-white bg-black border border-white rounded-lg hover:bg-black hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 ">Login</button></a>

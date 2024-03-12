@@ -68,3 +68,20 @@ Route::middleware(['auth','role:user'])->prefix('user')->group( function () {
     Route::post('save-card', [PaymentViewController::class,'store'])->name('save-card');
 });
 require __DIR__.'/auth.php';
+
+
+Route::get('fire', function () {
+    // this fires the event
+    event(new App\Events\TestEvent());
+    return "event fired";
+});
+
+Route::get('test', function () {
+    return view('test');
+});
+
+
+Route::get('/t', function () {
+    event(new \App\Events\SendMessage());
+    dd('Event Run Successfully.');
+    });
