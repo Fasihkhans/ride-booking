@@ -17,14 +17,16 @@ class BookingStatus implements ShouldBroadcast
     public $bookingId;
     public $status;
     public $data;
+    public $booking;
     /**
      * Create a new event instance.
      */
-    public function __construct($bookingId,$status)
+    public function __construct($bookingId,$status,$booking = null)
     {
         $this->bookingId = $bookingId;
         $this->status =  $status;
-        $this->data = ['bookingId'=>$this->bookingId,"status"=>$this->status];
+        $this->booking = $booking;
+        $this->data = ['bookingId'=>$this->bookingId,"status"=>$this->status,"booking"=>$this->booking];
     }
 
     /**

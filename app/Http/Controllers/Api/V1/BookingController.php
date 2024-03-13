@@ -199,7 +199,7 @@ class BookingController extends Controller
                 dispatch(new SendFcmNotification($bookingUpdated->customer->device_token, $notificationTitle, $notificationMessage));
             }
 
-            event(new BookingStatus($request->bookingId, $request->status));
+            event(new BookingStatus($request->bookingId, $request->status,$bookingUpdated));
             $bookingWithStops = BookingWithStopsResource::make($bookingUpdated);
             return APIResponse::SuccessWithData('Success', $bookingWithStops);
         } catch (Exception $ex) {

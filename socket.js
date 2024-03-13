@@ -36,6 +36,20 @@ io.on('connection', (Server) => {
     redis.on('pmessage', (pattern, channel, message) => {
         console.log("pattern:",pattern,"channel:", channel,"message:", message)
         Server.emit('redis_message', { channel, message });
+        let channelName = channel;
+        let parts = channelName.split(".");
+        if(parts[0]=='dartscars_database_booking'){
+            let jsonData = JSON.parse(message);
+            let bookingData = jsonData.data.data;
+            Server.emit('booking.'+parts[1], { bookingData });
+        }
+
+        if(parts[0]=='dartscars_database_private-driver-booking'){
+            let jsonData = JSON.parse(message);
+            let bookingData = jsonData.data;
+            Server.emit('driver-booking.'+parts[1], { bookingData });
+        }
+
     });
 
 
