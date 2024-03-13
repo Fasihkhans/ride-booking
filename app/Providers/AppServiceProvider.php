@@ -7,6 +7,7 @@ use App\Interfaces\IBookingRepository;
 use App\Interfaces\IBookingStopsRepository;
 use App\Interfaces\ICustomerPaymentMethodsRepository;
 use App\Interfaces\IDriverRepository;
+use App\Interfaces\IUserRatingRepository;
 use App\Interfaces\IUserRepository;
 use App\Interfaces\IVehicleTypesRepository;
 use App\Interfaces\IVerificationCodeRepository;
@@ -17,6 +18,7 @@ use App\Repositories\BookingRepository;
 use App\Repositories\BookingStopsRepository;
 use App\Repositories\CustomerPaymentMethodsRepository;
 use App\Repositories\DriverRepository;
+use App\Repositories\UserRatingRepository;
 use App\Repositories\UserRepository;
 use App\Repositories\VehicleTypesRepository;
 use App\Repositories\VerificationCodeRepository;
@@ -40,6 +42,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(ICustomerPaymentMethodsRepository::class, CustomerPaymentMethodsRepository::class);
         $this->app->bind(IBookingPaymentsRepository::class, BookingPaymentsRepository::class);
         $this->app->bind(\Illuminate\Contracts\Debug\ExceptionHandler::class,\App\Exceptions\ApiExceptionHandler::class);
+        $this->app->bind(IUserRatingRepository::class,UserRatingRepository::class);
     }
 
     /**

@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\V1\AuthController;
 use App\Http\Controllers\Api\V1\BookingController;
 use App\Http\Controllers\Api\V1\DriverController;
 use App\Http\Controllers\Api\V1\PaymentController;
+use App\Http\Controllers\Api\V1\UserRatingController;
 use App\Http\Controllers\Api\V1\VehicleTypesController;
 use App\Http\Controllers\Api\V1\UsersController;
 use App\Jobs\SendFcmNotification;
@@ -75,6 +76,7 @@ use Illuminate\Support\Facades\Route;
 
         });
 
+        Route::post('rating',[UserRatingController::class,'store']);
 
     });
     Route::post('push-notification', function (Request $request) {

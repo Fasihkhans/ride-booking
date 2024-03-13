@@ -34,7 +34,9 @@ class User extends Authenticatable
         'verified',
         'password',
         'status',
-        'profile_photo_path'];
+        'profile_photo_path',
+        'aggregate_rating'
+    ];
 
 
     /**
@@ -82,5 +84,10 @@ class User extends Authenticatable
 
     public function IsVerified(){
         return $this->verified;
+    }
+
+    public function rating()
+    {
+        return $this->hasMany(UserRating::class);
     }
 }

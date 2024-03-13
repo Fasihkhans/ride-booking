@@ -139,4 +139,11 @@ class UserRepository implements IUserRepository
         $user->phone_number = $user->id;
         return $user->save();
     }
+
+    public function updateAggregateRating(int $rating,int $userId)
+    {
+        $user = User::find($userId);
+        $user->aggregate_rating = $rating;
+        return $user->save();
+    }
 }
