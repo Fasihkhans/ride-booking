@@ -29,8 +29,9 @@ io.on('connection', (Server) => {
 
   Server.on('message', (msg) => {
     // Broadcast message to all connected clients via Redis
-    redis.publish('new-message--', JSON.stringify({ message: msg }));
+    // redis.publish('new-message--', JSON.stringify({ message: msg }));
         console.log("new message ---:" ,msg);
+        Server.emit('message', { msg });
     });
     redis.psubscribe('*');
     redis.on('pmessage', (pattern, channel, message) => {
