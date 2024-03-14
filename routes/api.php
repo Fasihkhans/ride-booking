@@ -74,6 +74,8 @@ use Illuminate\Support\Facades\Route;
 
             Route::get('{id}/online',[DriverController::class, 'isOnline']);
 
+            Route::get('{id}/income',[DriverController::class,'getIncome']);
+
         });
 
         Route::post('rating',[UserRatingController::class,'store']);

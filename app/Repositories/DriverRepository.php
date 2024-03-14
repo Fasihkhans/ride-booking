@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\Constants\Constants;
 use App\Models\Driver;
 use App\Interfaces\IDriverRepository;
+use Carbon\Carbon;
 
 class DriverRepository implements IDriverRepository
 {
@@ -55,5 +56,38 @@ class DriverRepository implements IDriverRepository
         $driver->license_expiry = $data['license_expiry'];
         $driver->license_img_url = $data['license_img_url'];
         return $driver->save();
+    }
+
+    public function getDriverIncome(int $id)
+    {
+        $driver = Driver::find($id);
+        if(!$driver)
+            return null;
+        $booking = $driver->booking();
+        $totalIncome = $booking->sum('pre_calculated_fare');//->sum('total_fare');
+        $totalBookings = $booking->count();
+        $startOfWeek = Carbon::now()->startOfWeek()->toDateString();
+        $endOfWeek = Carbon::now()->endOfWeek()->toDateString();
+        $cardIncome =  Driver::find($id)->booking()->whereBetween('created_at', [$startOfWeek, $endOfWeek])->whereHas('bookingPayment', function ($query) {
+                                    $query->whereHas('paymentMethod', function ($query) {
+                                        $query->where('name', 'card');
+                                    });
+                                })
+                                ->sum('pre_calculated_fare');
+        $cashIncome =  Driver::find($id)->booking()->whereBetween('created_at', [$startOfWeek, $endOfWeek])->whereHas('bookingPayment', function ($query) {
+                            $query->whereHas('paymentMethod', function ($query) {
+                                $query->where('name', 'cash');
+                            });
+                        })
+                        ->sum('pre_calculated_fare');
+
+        return [
+            'totalIncome'=>$totalIncome,
+            'totalBookings'=>$totalBookings,
+            'thisWeek'=>[
+                'cardIncome'=>$cardIncome,
+                'cashIncome'=>$cashIncome,
+                ]
+        ];
     }
 }

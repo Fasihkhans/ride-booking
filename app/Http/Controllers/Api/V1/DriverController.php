@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\V1;
 use App\Events\DriverAvailability;
 use App\Helpers\APIResponse;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\DriverIdRequest;
 use App\Http\Requests\UpdateDriverStatusRequest;
 use App\Interfaces\IDriverRepository;
 use App\Interfaces\IUserRepository;
@@ -57,6 +58,24 @@ class DriverController extends Controller
             if (!$driver)
                 APIResponse::NotFound('No Driver Found');
             return APIResponse::SuccessWithData('success', ['isOnline'=>$driver]);
+        } catch (Exception $ex) {
+            return APIResponse::UnknownInternalServerError($ex);
+        }
+    }
+
+    /**
+     * Action for fetch driver income
+     *
+     * @return APIResponse
+     */
+    public function getIncome(DriverIdRequest $request)
+    {
+        try
+        {
+            $driver =   $this->driverRepository->getDriverIncome( $request->id);
+            if (!$driver)
+                APIResponse::NotFound('No Driver Found');
+            return APIResponse::SuccessWithData('success',$driver);
         } catch (Exception $ex) {
             return APIResponse::UnknownInternalServerError($ex);
         }

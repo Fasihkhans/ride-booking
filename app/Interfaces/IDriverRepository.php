@@ -20,4 +20,6 @@ interface IDriverRepository
     public function update(Driver $driver,array $data);
 
     static public function updateDriver(int $id,array $data);
+
+    public function getDriverIncome(int $id);
 }
