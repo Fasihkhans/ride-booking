@@ -27,12 +27,19 @@ const redis = new Redis({
 io.on('connection', (Server) => {
   console.log('A user connected');
 
-  Server.on('message', (msg) => {
-    // Broadcast message to all connected clients via Redis
-    // redis.publish('new-message--', JSON.stringify({ message: msg }));
-        console.log("new message ---:" ,msg);
-        Server.emit('message', { msg });
+    Server.on('message', (msg) => {
+        // Broadcast message to all connected clients via Redis
+        // redis.publish('new-message--', JSON.stringify({ message: msg }));
+            console.log("new message ---:" ,msg);
+            Server.broadcast.emit('message', { msg });
     });
+    Server.on('drivers', (dati) => {
+        let data = JSON.parse(dati);
+        Server.broadcast.emit('driver-location.'+data.driverId, { data });
+    });
+
+
+
     redis.psubscribe('*');
     redis.on('pmessage', (pattern, channel, message) => {
         console.log("pattern:",pattern,"channel:", channel,"message:", message)
