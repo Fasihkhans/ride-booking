@@ -81,7 +81,4 @@ Route::get('test', function () {
 });
 
 
-Route::get('/t', function () {
-    event(new \App\Events\SendMessage());
-    dd('Event Run Successfully.');
-    });
+

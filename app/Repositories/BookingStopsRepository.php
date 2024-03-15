@@ -21,6 +21,10 @@ class BookingStopsRepository implements IBookingStopsRepository
             ->selectRaw('ANY_VALUE(id) as id, ANY_VALUE(booking_id) as booking_id, ANY_VALUE(status) as status ,
                          ANY_VALUE(latitude) as latitude, ANY_VALUE(longitude) as longitude, MAX(sequence_no) as sequence_no,
                          ANY_VALUE(is_favourite) as is_favourite,
+                         ANY_VALUE(location_obj) as location_obj,
+                         ANY_VALUE(type) as type,
+                         ANY_VALUE(driver_latitude) as driver_latitude,
+                         ANY_VALUE(driver_longitude) as driver_longitude,
                          ANY_VALUE(created_at) as created_at, ANY_VALUE(updated_at) as updated_at')
             ->groupBy('stop')
             ->orderBy('updated_at', 'desc');

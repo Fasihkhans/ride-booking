@@ -32,7 +32,7 @@ class BookingStops extends Model
         "driver_latitude" => "integer",
         "driver_longitude" => "integer",
         "type" => "string",
-        "location_json" => "json"
+        "location_obj" => "json"
     ];
 
     public function booking()

@@ -63,8 +63,8 @@ io.on('connection', (Server) => {
 
   // Event listeners for socket communication
   Server.on('disconnect', () => {
-    console.log('User disconnected');
-    });
+         console.log('User disconnected');
+        });
     });
 
 redis.on('connect', () => {
