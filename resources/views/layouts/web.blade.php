@@ -30,7 +30,7 @@
                     <img src="{{ asset('assets/svg/dart-logo.svg') }}" class="h-8" alt="Flowbite Logo">
                 </a>
                 {{-- <div class="flex space-x-3 md:order-2 md:space-x-0 rtl:space-x-reverse"> --}}
-                <div class="flex-wrap items-center justify-center w-full space-x-3 sm:inline-flex md:w-auto md:flex md:order-2 md:space-x-0 md:rtl:space-x-reverse">
+                <div class="flex-wrap items-center justify-center w-full sm:inline-flex md:w-auto md:flex md:order-2 md:space-x-0 md:rtl:space-x-reverse">
 
                     <a href="tel:+44-13-2552-1640" class=" md:flex">
                         <h1 type="button" class="px-4 py-2 text-lg font-medium text-center text-white bg-black border-white md:py-0 hover:bg-black hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 "><i class="text-lg text-white fa-solid fa-phone "></i> +44-13-2552-1640</h1>
@@ -38,21 +38,21 @@
                 {{-- <div class="inline-flex justify-center w-full md:flex"> --}}
 {{-- <div> --}}
 
-                        @auth
-                            <a href="{{ route('logout') }}"><button type="button" class="px-4 py-2 mx-2 text-sm font-medium text-center text-white bg-black border border-white rounded-lg hover:bg-black hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 ">LogOut</button></a>
+                         @auth
+                            {{-- <a href="{{ route('logout') }}"><button type="button" class="hidden px-4 py-2 mx-2 text-sm font-medium text-center text-white bg-black border border-white rounded-lg md:flex hover:bg-black hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300">LogOut</button></a> --}}
                         @endauth
 
 
                         @guest
 
-                            <a href="{{ route('login') }}"><button type="button" class="float-left px-4 py-2 mx-2 text-sm font-medium text-center text-white bg-black border border-white rounded-lg hover:bg-black hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 ">Login</button></a>
+                        {{-- <a href="{{ route('login') }}"><button type="button" class="hidden float-left px-4 py-2 mx-2 text-sm font-medium text-center text-white bg-black border border-white rounded-lg md:flex hover:bg-black hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 ">Login</button></a>
 
-                            <a href="{{ route('register') }}"><button type="button" class="float-left px-4 py-2 text-sm font-medium text-center text-black bg-white rounded-lg hover:bg-black hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 ">SignUp</button></a>
+                        <a href="{{ route('register') }}"><button type="button" class="hidden float-left px-4 py-2 text-sm font-medium text-center text-black bg-white rounded-lg md:flex hover:bg-black hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 ">SignUp</button></a> --}}
 
                         @endguest
 
 
-                        <button data-collapse-toggle="navbar-sticky" type="button" class="inline-flex items-center justify-center float-right w-10 h-10 mx-2 text-sm align-middle bg-white rounded-lg text-white-500 md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"  aria-controls="navbar-sticky" aria-expanded="false">
+                        <button data-collapse-toggle="navbar-sticky" type="button" class="absolute inline-flex items-center justify-center float-right w-10 h-10 mx-2 text-sm align-middle bg-white rounded-lg right-4 top-5 text-white-500 md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"  aria-controls="navbar-sticky" aria-expanded="false">
                             <span class="sr-only">Open main menu</span>
                             <svg class="w-5 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15"/>
@@ -60,6 +60,17 @@
                         </button>
                     </div>
                     <div class="items-center justify-between w-full md:flex md:w-auto md:order-1 " id="navbar-sticky" hidden>
+
+                        @auth
+                            {{-- <a href="{{ route('logout') }}"><button type="button" class="px-4 py-2 mx-2 text-sm font-medium text-center text-white bg-black border border-white rounded-lg md:hidden hover:bg-black hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 ">LogOut</button></a> --}}
+                        @endauth
+                        @guest
+
+                            {{-- <a href="{{ route('login') }}"><button type="button" class="px-4 py-2 mx-2 text-sm font-medium text-center text-white bg-black border border-white rounded-lg md:hidden hover:bg-black hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 ">Login</button></a> --}}
+
+                            {{-- <a href="{{ route('register') }}"><button type="button" class="px-4 py-2 mx-2 text-sm font-medium text-center text-black bg-white border border-white rounded-lg md:hidden hover:bg-black hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300">SignUp</button></a> --}}
+
+                        @endguest
                         <ul class="flex flex-col p-4 mt-4 font-medium border border-gray-100 rounded-lg md:p-0 bg-dark md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-black ">
                             <li>
                                 <a href="#" class="block px-3 py-2 text-white bg-transparent rounded md:text-white-700 md:p-0 " aria-current="page">Company</a>

@@ -19,6 +19,7 @@ state([
     'pre_calculated_fare'=>'',
     'payment_method',
     'booking',
+    'disable'=>''
 ]);
 mount(function(){
     $this->drivers = DriverRepository::getAllActiveDrivers();
@@ -33,6 +34,9 @@ mount(function(){
     $this->drop_off = $this->destination->stop;
     $this->pre_calculated_fare = $this->booking->pre_calculated_fare;
     $this->payment_method = $this->booking->bookingPayment?->paymentMethod->name;
+    if($this->booking->status == 'completed'||$this->booking->status == 'completed'){
+        $this->disable = 'disabled';
+    }
     // dd( $this->payment_method);
 });
 ?>
@@ -51,7 +55,7 @@ mount(function(){
                     <div class="mt-4 form-row">
                         <div class="mb-3 col-md-6">
                             <div class="form-group">
-                                <select class="form-control" wire:model='driver_id' >
+                                <select class="form-control" wire:model='driver_id' {{ $disable }} >
                                     <option>Select Driver</option>
                                     @foreach ($drivers as $driver)
                                     <option value="{{ $driver->id }}">{{ $driver->user->first_name." ".$driver->user->last_name }}</option>
@@ -62,7 +66,7 @@ mount(function(){
                         </div>
                         <div class="mb-3 col-md-6">
                             <div class="form-group">
-                                <select class="form-control"  wire:model='vehicle_id'>
+                                <select class="form-control"  wire:model='vehicle_id' {{ $disable }}>
                                     <option>Select Vehicle</option>
                                     @foreach ($vehicles as $vehicle)
                                         <option value="{{ $vehicle->id }}">

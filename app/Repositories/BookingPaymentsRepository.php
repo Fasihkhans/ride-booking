@@ -96,7 +96,7 @@ class BookingPaymentsRepository implements IBookingPaymentsRepository
             // dd($stripeCustomerId);
 
             $charge = Charge::create([
-                'amount' => $totalCost * 100, // Stripe requires amount in cents
+                'amount' => $booking->pre_calculated_fare * 100, // Stripe requires amount in cents
                 'currency' => 'gbp',
                 'customer' => $stripeCustomerId,
                 'source' => $card->token->card->id,

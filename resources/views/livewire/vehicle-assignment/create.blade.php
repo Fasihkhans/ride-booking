@@ -42,7 +42,7 @@ $save = function(){
         'vehicle_id.required' => 'The vehicle field is required.',
         'vehicle_id.numeric' => 'The vehicle must be a number.',
     ]);
-    $validated['status'] = Constants::ACTIVE;
+    $validated['status'] = 'active';
     $Driver = DriverVehiclesRepository::create($validated);
     session()->flash('success','Vehicle has been assigned to driver');
     $this->redirect(route('vehicle-assignment.index'));

@@ -94,14 +94,14 @@
                         </td>
 
                         <td class="p-2">
-                            {{ $booking->driver?->first_name." ".$booking->driver?->last_name }}
+                            {{ $booking->driver?->user?->first_name." ".$booking->driver?->user?->last_name }}
                         </td>
 
                         <td class="p-2">
                             {{ $booking->pre_calculated_fare }}
                         </td>
                         <td class="p-2">
-                            {{ $booking->bookingPayment?->total_fare }}
+                            {{ number_format((float) $booking->bookingPayment?->total_fare,2) }}
                         </td>
                         <td class="p-2">
                             {{ $booking->bookingPayment?->paymentMethod?->name }}

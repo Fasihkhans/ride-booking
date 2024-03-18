@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\V1\AccountRecoveryController;
 use App\Http\Controllers\Api\V1\AuthController;
 use App\Http\Controllers\Api\V1\BookingController;
 use App\Http\Controllers\Api\V1\DriverController;
@@ -97,6 +98,10 @@ use Illuminate\Support\Facades\Route;
     Route::post('account/otp/send', [AuthController::class, 'send']);
     Route::post('account/otp/verify', [AuthController::class, 'verify']);
 
+    //Recovery
+    Route::post('password/otp/send', [AccountRecoveryController::class, 'forgot']);
+    Route::post('password/otp/verify', [AccountRecoveryController::class, 'verify']);
+    Route::post('password/otp/reset', [AccountRecoveryController::class, 'reset']);
 
 
     // Route::get('/socket.io', function (Request $request) {

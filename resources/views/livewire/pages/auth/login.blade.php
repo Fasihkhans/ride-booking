@@ -20,11 +20,13 @@ new #[Layout('layouts.guest')] class extends Component
         $this->form->authenticate();
 
         Session::regenerate();
+        if(Auth::user()->role->name == 'admin'){
+            $this->redirect(
+                session('url.intended', route('dashboard')),
+                navigate: true
+            );
 
-        $this->redirect(
-            session('url.intended', RouteServiceProvider::HOME),
-            navigate: true
-        );
+        }
     }
 }; ?>
 <div>

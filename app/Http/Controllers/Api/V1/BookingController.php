@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Constants\Constants;
 use App\Events\BookingStatus;
+use App\Events\DriverBooking;
 use App\Helpers\APIResponse;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CommonPaginatedRequest;
@@ -17,6 +18,9 @@ use App\Interfaces\IBookingPaymentsRepository;
 use App\Interfaces\IBookingRepository;
 use App\Interfaces\IBookingStopsRepository;
 use App\Jobs\SendFcmNotification;
+use App\Repositories\BookingRepository;
+use App\Repositories\DriverRepository;
+use App\Repositories\DriverVehiclesRepository;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -168,6 +172,36 @@ class BookingController extends Controller
             ]);
             if ($validator->fails())
                 return APIResponse::BadRequest($validator->errors()->first());
+//================================================= this code will use for automatically assign ride other available driver if currect driver declined ride
+            // if($request->status == 'declined'){
+            //     $booking = $this->bookingRepository->find($request->bookingId);
+            //     if ($booking){
+            //         // dd($booking);
+            //         $driverVehicles = DriverVehiclesRepository::getActive();
+            //         $newDriverFound = false;
+            //         foreach($driverVehicles as $driverVehicle){
+            //             if($driverVehicle->driver_id == $booking->driver_id && $driverVehicle->vehicle_id == $booking->vehicle_id)
+            //                 continue;
+            //             $result = BookingRepository::findDriverForBooking($driverVehicle->vehicle_id,$driverVehicle->driver_id);
+            //             if ($result == null) {
+            //                 if(DriverRepository::isOnline($driverVehicle->driver_id)){
+
+            //                     event(new DriverBooking($driverVehicle->driver_id,$booking));
+            //                     $notificationTitle = "New Ride Request";
+            //                     $notificationMessage = "A new ride request is available nearby. Tap to accept and start the ride.";
+            //                     dispatch(new SendFcmNotification($driverVehicle->driver->user->device_token, $notificationTitle, $notificationMessage));
+            //                     BookingRepository::assignDriver($driverVehicle->driver_id, $driverVehicle->vehicle_id, $booking->id);
+            //                     $newDriverFound = true;
+
+            //                 }
+            //             }
+            //         }
+            //         if($newDriverFound){
+            //             $bookingWithStops = BookingWithStopsResource::make($booking);
+            //             return APIResponse::SuccessWithData('Success', $bookingWithStops);
+            //         }
+            //     }
+            // }
             $bookingUpdated = $this->bookingRepository::updateBookingStatus($request->status, $request->bookingId);
             if (!$bookingUpdated)
                 return APIResponse::NotFound('No result found');
