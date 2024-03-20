@@ -63,18 +63,18 @@ class DriverRepository implements IDriverRepository
         $driver = Driver::find($id);
         if(!$driver)
             return null;
-        $booking = $driver->booking();
+        $booking = $driver->booking()->where('status',Constants::BOOKING_COMPLETED);
         $totalIncome = $booking->sum('pre_calculated_fare');//->sum('total_fare');
         $totalBookings = $booking->count();
-        $startOfWeek = Carbon::now()->startOfWeek()->toDateString();
-        $endOfWeek = Carbon::now()->endOfWeek()->toDateString();
-        $cardIncome =  Driver::find($id)->booking()->whereBetween('created_at', [$startOfWeek, $endOfWeek])->whereHas('bookingPayment', function ($query) {
+        $startOfWeek = Carbon::now()->startOfYear()->toDateString();
+        $endOfWeek = Carbon::now()->endOfYear()->toDateString();
+        $cardIncome =  Driver::find($id)->booking()->where('status',Constants::BOOKING_COMPLETED)->whereBetween('created_at', [$startOfWeek, $endOfWeek])->whereHas('bookingPayment', function ($query) {
                                     $query->whereHas('paymentMethod', function ($query) {
                                         $query->where('name', 'card');
                                     });
                                 })
                                 ->sum('pre_calculated_fare');
-        $cashIncome =  Driver::find($id)->booking()->whereBetween('created_at', [$startOfWeek, $endOfWeek])->whereHas('bookingPayment', function ($query) {
+        $cashIncome =  Driver::find($id)->booking()->where('status',Constants::BOOKING_COMPLETED)->whereBetween('created_at', [$startOfWeek, $endOfWeek])->whereHas('bookingPayment', function ($query) {
                             $query->whereHas('paymentMethod', function ($query) {
                                 $query->where('name', 'cash');
                             });
