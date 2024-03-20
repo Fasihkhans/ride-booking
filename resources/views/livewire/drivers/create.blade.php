@@ -73,7 +73,7 @@ $save = function(){
             <div class="text-xl font-bold tracking-tight text-black">License Details</div>
 
             <div class="mt-4 form-row">
-                <x-form-input :errorMessage="$errors->get('license_no')"  type="text" pattern="[a-zA-Z0-9t]+" placeholder="License number" name="license_no" wire:model="license_no"/>
+                <x-form-input :errorMessage="$errors->get('license_no')"  type="text" pattern="[a-zA-Z0-9]+" placeholder="License number" name="license_no" wire:model="license_no"/>
 
                 <x-form-input :errorMessage="$errors->get('license_expiry')"  type="date" placeholder="license_expiry" name="license_expiry" wire:model="license_expiry"/>
             </div>
