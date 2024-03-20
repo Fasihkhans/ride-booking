@@ -13,13 +13,17 @@ class DriverAccountCreatationMail extends Mailable
 {
     use Queueable, SerializesModels;
     public $randomPassword;
+    Public $name;
+    public $email;
 
     /**
      * Create a new message instance.
      */
-    public function __construct(string $randomPassword)
+    public function __construct(string $randomPassword,string $name,string $email)
     {
         $this->randomPassword = $randomPassword;
+        $this->name = $name;
+        $this->email = $email;
     }
 
     /**
@@ -28,7 +32,7 @@ class DriverAccountCreatationMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Darts Cars - Your system generated is '.$this->randomPassword,
+            subject: 'Invitation to DartsCars Platform'.$this->randomPassword,
         );
     }
 

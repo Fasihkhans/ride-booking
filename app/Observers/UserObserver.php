@@ -23,7 +23,7 @@ class UserObserver
         if($user->role_id == Configuration::UserRole('driver'))
         {
             $user->assignRole(Role::findById($user->role_id, 'api'));
-            SendMail::dispatch($user->email,new DriverAccountCreatationMail($user->temp_password));
+            SendMail::dispatch($user->email,new DriverAccountCreatationMail($user->temp_password,$user->first_name.' '.$user->last_name,$user->email));
             $user->temp_password = null;
             $user->update();
 

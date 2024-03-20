@@ -28,7 +28,7 @@ class AccountVerificationMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Darts Cars - Your verification code for is '.$this->verificationCode,
+            subject: 'Welcome to Darts Cars! - Your verification code for is '.$this->verificationCode,
         );
     }
 
