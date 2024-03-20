@@ -6,7 +6,7 @@
 <img src="https://laravel.com/img/notification-logo.png" class="logo" alt="Laravel Logo">
 @else
 {{-- {{ $slot }} --}}
-<img src="https://dartscars.com/assets/png/dartscars-logo.svg" class="logo" alt="DartsCars Logo">
+<img src="https://dartscars.com/assets/png/dartscars-logo.png" class="logo" alt="DartsCars Logo">
 
 @endif
 </a>
