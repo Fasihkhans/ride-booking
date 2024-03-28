@@ -43,7 +43,7 @@ $save = function(){
         'email' => ['required', 'string', 'email', 'max:255'],
         'licenseImgUrl' => ['nullable', 'image','mimes:jpeg,png,jpg','max:10000'],
         'phone_number' => ['required', 'regex:/^(((\+44\s?\d{4}|\(?0\d{4}\)?)\s?\d{3}\s?\d{3})|((\+44\s?\d{3}|\(?0\d{3}\)?)\s?\d{3}\s?\d{4})|((\+44\s?\d{2}|\(?0\d{2}\)?)\s?\d{4}\s?\d{4}))(\s?\#(\d{4}|\d{3}))?$/'],
-        'license_no' => ['required', 'unique:drivers', 'regex:/^[A-Za-z0-9]+$/'],
+        'license_no' => ['required', 'unique:drivers,license_no,'.$this->id, 'regex:/^[A-Za-z0-9]+$/'],
         'license_expiry' => ['required', 'date'],
         'status' => ['required',Rule::in('active','inActive')]
 
