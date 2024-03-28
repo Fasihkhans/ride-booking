@@ -39,15 +39,15 @@
 {{-- <div> --}}
 
                          @auth
-                            {{-- <a href="{{ route('logout') }}"><button type="button" class="hidden px-4 py-2 mx-2 text-sm font-medium text-center text-white bg-black border border-white rounded-lg md:flex hover:bg-black hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300">LogOut</button></a> --}}
+                            <a href="{{ route('logout') }}"><button type="button" class="hidden px-4 py-2 mx-2 text-sm font-medium text-center text-white bg-black border border-white rounded-lg md:flex hover:bg-black hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300">LogOut</button></a>
                         @endauth
 
 
                         @guest
 
-                        {{-- <a href="{{ route('login') }}"><button type="button" class="hidden float-left px-4 py-2 mx-2 text-sm font-medium text-center text-white bg-black border border-white rounded-lg md:flex hover:bg-black hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 ">Login</button></a>
+                        <a href="{{ route('login') }}"><button type="button" class="hidden float-left px-4 py-2 mx-2 text-sm font-medium text-center text-white bg-black border border-white rounded-lg md:flex hover:bg-black hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 ">Login</button></a>
 
-                        <a href="{{ route('register') }}"><button type="button" class="hidden float-left px-4 py-2 text-sm font-medium text-center text-black bg-white rounded-lg md:flex hover:bg-black hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 ">SignUp</button></a> --}}
+                        <a href="{{ route('register') }}"><button type="button" class="hidden float-left px-4 py-2 text-sm font-medium text-center text-black bg-white rounded-lg md:flex hover:bg-black hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 ">SignUp</button></a>
 
                         @endguest
 
@@ -62,13 +62,13 @@
                     <div class="items-center justify-between w-full md:flex md:w-auto md:order-1 " id="navbar-sticky" hidden>
 
                         @auth
-                            {{-- <a href="{{ route('logout') }}"><button type="button" class="px-4 py-2 mx-2 text-sm font-medium text-center text-white bg-black border border-white rounded-lg md:hidden hover:bg-black hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 ">LogOut</button></a> --}}
+                            <a href="{{ route('logout') }}"><button type="button" class="px-4 py-2 mx-2 text-sm font-medium text-center text-white bg-black border border-white rounded-lg md:hidden hover:bg-black hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 ">LogOut</button></a>
                         @endauth
                         @guest
 
-                            {{-- <a href="{{ route('login') }}"><button type="button" class="px-4 py-2 mx-2 text-sm font-medium text-center text-white bg-black border border-white rounded-lg md:hidden hover:bg-black hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 ">Login</button></a> --}}
+                            <a href="{{ route('login') }}"><button type="button" class="px-4 py-2 mx-2 text-sm font-medium text-center text-white bg-black border border-white rounded-lg md:hidden hover:bg-black hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 ">Login</button></a>
 
-                            {{-- <a href="{{ route('register') }}"><button type="button" class="px-4 py-2 mx-2 text-sm font-medium text-center text-black bg-white border border-white rounded-lg md:hidden hover:bg-black hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300">SignUp</button></a> --}}
+                         <a href="{{ route('register') }}"><button type="button" class="px-4 py-2 mx-2 text-sm font-medium text-center text-black bg-white border border-white rounded-lg md:hidden hover:bg-black hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300">SignUp</button></a>
 
                         @endguest
                         <ul class="flex flex-col p-4 mt-4 font-medium border border-gray-100 rounded-lg md:p-0 bg-dark md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-black ">

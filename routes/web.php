@@ -81,4 +81,9 @@ Route::get('test', function () {
 });
 
 
+Route::middleware(['auth','role:user'])->prefix('user')->group( function () {
+    Volt::route('/', 'customers.index')->name('customer-home');
+    Volt::route('/pickup', 'customers.pickup')->name('pickup');
+    Volt::route('/payment', 'customers.payment')->name('payment');
 
+});

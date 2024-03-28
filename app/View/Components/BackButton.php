@@ -6,14 +6,14 @@ use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class Gmap extends Component
+class BackButton extends Component
 {
     /**
      * Create a new component instance.
      */
-    public function __construct(public object $origin,public object $destination)
+    public function __construct()
     {
-
+        //
     }
 
     /**
@@ -21,6 +21,6 @@ class Gmap extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.gmap');
+        return view('components.back-button');
     }
 }
