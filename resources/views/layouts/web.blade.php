@@ -32,8 +32,8 @@
                 {{-- <div class="flex space-x-3 md:order-2 md:space-x-0 rtl:space-x-reverse"> --}}
                 <div class="flex-wrap items-center justify-center w-full sm:inline-flex md:w-auto md:flex md:order-2 md:space-x-0 md:rtl:space-x-reverse">
 
-                    <a href="tel:+44-13-2552-1640" class=" md:flex">
-                        <h1 type="button" class="px-4 py-2 text-lg font-medium text-center text-white bg-black border-white md:py-0 hover:bg-black hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 "><i class="text-lg text-white fa-solid fa-phone "></i> +44-13-2552-1640</h1>
+                    <a href="tel:01325521640" class=" md:flex">
+                        <h1 type="button" class="px-4 py-2 text-lg font-medium text-center text-white bg-black border-white md:py-0 hover:bg-black hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 "><i class="text-lg text-white fa-solid fa-phone "></i> 01325521640</h1>
                     </a>
                 {{-- <div class="inline-flex justify-center w-full md:flex"> --}}
 {{-- <div> --}}

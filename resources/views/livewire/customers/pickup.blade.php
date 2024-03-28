@@ -23,10 +23,7 @@ new #[Layout('layouts.customer')] class extends Component
                 );
         }
     }
-
-
 }
-
 ?>
 
 <div>
