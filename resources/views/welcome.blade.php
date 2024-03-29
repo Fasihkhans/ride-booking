@@ -2,9 +2,10 @@
     <div class="relative w-full h-auto bg-white">
             <section class="bg-local bg-gray-700 bg-center bg-no-repeat bg-cover" style="background-image: url('{{ asset('assets/png/landingPageS1.png') }}');">
                 <div class="max-w-screen-xl px-4 py-24 mx-auto text-left lg:py-56">
-                    <h1 class="mb-4 text-4xl leading-[88px] tracking-tight text-white md:text-5xl lg:text-6xl  font-normal">Get in the driver’s seat<br> and get paid</h1>
-                    <p class="mb-8 text-lg font-normal text-white lg:text-xl sm:px-16 lg:px-2 font-['Outfit']">Drive on the platform with the largest network of active riders.</p>
-                    <p class="mb-8 text-lg text-white lg:text-xl sm:px-16 lg:px-2 font-['Outfit'] font-extrabold">Currently we are working on the website,<br> For booking please call the the following number.</p>
+                    {{-- <h1 class="mb-4 text-4xl leading-[88px] tracking-tight text-white md:text-5xl lg:text-6xl  font-normal">Get in the driver’s seat<br> and get paid</h1> --}}
+                    {{-- <p class="mb-8 text-lg font-normal text-white lg:text-xl sm:px-16 lg:px-2 font-['Outfit']">Drive on the platform with the largest network of active riders.</p> --}}
+                    <h1 class="mb-4 text-4xl leading-[88px] tracking-tight text-white md:text-5xl lg:text-6xl  font-normal">Currently we are working on the website.</h1>
+                    <p class="mb-8 text-lg font-normal text-white lg:text-xl sm:px-16 lg:px-2 font-['Outfit']">For booking please call the the following number.</p>
                     <div class="flex flex-col space-y-4 sm:flex-row sm:justify-start sm:space-y-0">
                         <a href="tel:01325521640" class="inline-flex items-center justify-center px-5 py-3 text-base  font-['Outfit'] font-medium text-center text-black bg-white rounded-lg hover:bg-black hover:border-white border hover:text-white focus:ring-4 focus:ring-blue-300 ">
                             Call Now 01325 521640
