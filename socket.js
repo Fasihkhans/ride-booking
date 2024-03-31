@@ -50,6 +50,7 @@ io.on('connection', (Server) => {
             let jsonData = JSON.parse(message);
             let bookingData = jsonData.data.data;
             Server.emit('booking.'+parts[1], { bookingData });
+
         }
 
         if(parts[0]=='dartscars_database_private-driver-booking'){

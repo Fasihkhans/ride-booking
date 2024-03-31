@@ -94,7 +94,7 @@ class PlacesAutocomplete extends Component
             'stop' => $stop,
             'latitude' => $lat,
             'longitude' => $lng,
-            'sequenceNo' => $sequenceNo,
+            'sequence_no' => $sequenceNo,
             'type'=>$this->type,
         ];
         Session::put($this->type, $data);

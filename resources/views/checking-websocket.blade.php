@@ -15,10 +15,22 @@
     {!! Vite::content('resources/js/app.js') !!}
 </script>
 <script>
-    console.log(Echo.channel('booking.{{ $bookingId }}'));
-    window.Echo.channel('booking.{{$bookingId}}').listen('BookingStatus', (e) => {
-        console.log("testing", e);
-    });
+    document.addEventListener('DOMContentLoaded', function () {
+        console.log(Echo.channel('dartscars_database_booking.{{ $bookingId }}')); // this echo is working
+        window.Echo.channel('booking.{{ $bookingId }}')
+            .listen('.BookingStatus', (event) => {
+                console.log(event,'adsf=='); // this not
+            });
+
+            window.Echo.channel('booking.{{ $bookingId }}')
+                .listen('.App\\Events\\BookingStatus', (event) => {
+                    console.log(event, 'Event received');
+                });
+
+        });
+    // window.Echo.channel('booking.{{$bookingId}}').listen('BookingStatus', (e) => {
+    //     console.log("testing", e);
+    // });
 </script>
 </body>
 </html>

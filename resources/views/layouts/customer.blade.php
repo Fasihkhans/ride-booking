@@ -11,6 +11,7 @@
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=outfit:400,500,600&display=swap" rel="stylesheet" />
         <script src="https://kit.fontawesome.com/7f4db50383.js" crossorigin="anonymous"></script>
+        <script src="{{ asset('assets/js/jQuery.js') }}"></script>
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])

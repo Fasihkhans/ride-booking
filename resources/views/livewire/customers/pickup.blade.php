@@ -4,6 +4,7 @@ use function Livewire\Volt\{state};
 use Livewire\Attributes\Layout;
 use Livewire\Volt\Component;
 use Livewire\Attributes\Url;
+use App\Repositories\BookingRepository;
 use Illuminate\Support\Facades\Session;
 
 new #[Layout('layouts.customer')] class extends Component
@@ -11,6 +12,12 @@ new #[Layout('layouts.customer')] class extends Component
     public $origin = '';
     #[Url]
     public $booking;
+
+    public function mount(){
+        if(BookingRepository::findCustomerActiveBookings(Auth::user()->id)){
+            $this->redirect(route('current-booking'),navigate: true);
+        }
+    }
     public function pickUp()
     {
         // Crypt::decrypt($this->booking[0]);

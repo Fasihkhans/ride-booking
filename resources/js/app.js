@@ -1,4 +1,4 @@
-// import './bootstrap';
+import './bootstrap';
 // import './map';
 
     // Show loading spinner on DOMContentLoaded

@@ -1,4 +1,4 @@
-    <script src="{{ asset('assets/js/jQuery.js') }}"></script>
+
 <?php
 
 use Livewire\Attributes\Layout;
@@ -13,6 +13,7 @@ use TeamPickr\DistanceMatrix\Licenses\StandardLicense;
 use Carbon\Carbon;
 use Livewire\WithPagination;
 use Livewire\Attributes\On;
+use App\Repositories\BookingRepository;
 
 use function Livewire\Volt\{state,with,usesPagination,layout,mount};
 
@@ -36,14 +37,25 @@ new #[Layout('layouts.customer')] class extends Component
     #[On('confirm')]
     public function confirm($paymentMethodId)
     {
-        dd($paymentMethodId,$this->totalCost);
+
+        Session::put("paymentMethodId", $paymentMethodId);
+        Session::put("preCalculatedFare", $this->totalCost);
+        $this->redirect(route('finding-driver',['booking'=>$this->booking,
+                                                'paymentMethodId'=>Crypt::encrypt($paymentMethodId),
+                                                'preCalculatedFare'=>Crypt::encrypt($this->totalCost)
+                                                ]),
+                        navigate: true);
+
     }
 
     function mount()
     {
+        if(BookingRepository::findCustomerActiveBookings(Auth::user()->id)){
+            $this->redirect(route('current-booking'),navigate: true);
+        }
         $this->paymentMethods = CustomerPaymentMethods::Where('user_id',Auth::user()->id)->get();
-        $dropOff = Crypt::decrypt($this->booking[0]);
-        $pickUp = Crypt::decrypt($this->booking[1]);
+        $dropOff = $this->booking?Crypt::decrypt($this->booking[0]):Session::get('dropOff');
+        $pickUp = $this->booking?Crypt::decrypt($this->booking[1]):Session::get('pickUp');
         $this->destination = (object) ['latitude' => $dropOff['latitude'],'longitude' => $dropOff['longitude']];
         $this->origin = (object) ['latitude' => $pickUp['latitude'],'longitude' => $pickUp['longitude']];
         $bookingTime = Carbon::now();
@@ -118,7 +130,9 @@ new #[Layout('layouts.customer')] class extends Component
                                             <p class="items-center float-right">xxxx-xxxx-xxxx-{{ json_decode($paymentMethods[0]->stripe_card_reference)->token->card->last4 }}</p>
                                         @endif
                                     </option>
+
                                 @endforeach
+                                <option value="add_card" class="content-center" data-image="{{ asset('assets/svg/Add.svg') }}" ><a href="{{ route('addcard') }}"><img src="{{ asset('assets/svg/Add.svg') }}" />Add card</a></option>
                             </select>
                         </div>
                     </div>
@@ -144,6 +158,10 @@ new #[Layout('layouts.customer')] class extends Component
                 }
             }).on('select2:select', function (e) {
                 var data = e.params.data;
+                if (data.id === 'add_card') {
+                    window.location.href = '{{ route('addcard') }}'; // Navigate to the add card URL
+                    return; // Prevent further execution
+                }
                 var imageUrl = $(data.element).data('image');
                 var $selectedOption = $('#paymentMethodSelect').next().find('.select2-selection__rendered');
                 var $selectedImage = $('<img src="' + imageUrl + '" class="inline w-5 h-5 mr-2"/>');
@@ -157,6 +175,10 @@ new #[Layout('layouts.customer')] class extends Component
         function formatOption(option) {
             if (!option.id) {
                 return option.text;
+            }
+            // Check if the option is "Add card" by value or text
+            if (option.id === 'add_card' || option.text === 'Add card') {
+                return $('<span class="flex w-full justify-content"><img src="' + $(option.element).data('image') + '" class="w-5 h-5 mr-2 img-option" /> <p class="items-center float-right">' + option.text + '</span>');
             }
             var $option = $(
                 '<span class="flex items-center"><img src="' + $(option.element).data('image') + '" class="w-5 h-5 mr-2 img-option" /> <p class="items-center float-right">' + option.text + '</p></span>'

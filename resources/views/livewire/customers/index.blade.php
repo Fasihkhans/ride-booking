@@ -4,6 +4,8 @@ use function Livewire\Volt\{state};
 use Livewire\Attributes\Layout;
 use Livewire\Volt\Component;
 use Illuminate\Support\Facades\Session;
+use App\Repositories\BookingRepository;
+use Illuminate\Support\Facades\Auth;
 
 new #[Layout('layouts.customer')] class extends Component
 {
@@ -11,6 +13,10 @@ new #[Layout('layouts.customer')] class extends Component
     public $dropOff;
     public function mount(){
         $this->dropOff = Session::get('dropOff');
+
+        if(BookingRepository::findCustomerActiveBookings(Auth::user()->id)){
+            $this->redirect(route('current-booking'),navigate: true);
+        }
     }
 
     public function destinations()

@@ -14,8 +14,6 @@ class PaymentController extends Controller
 {
     public function __construct(private ICustomerPaymentMethodsRepository $iCustomerPaymentMethodsRepository){}
     public function index(){
-        // $user = User::find(auth()->user()->id);
-        // $method = $user->customerPaymentMethods();
         dd('asd');
         return view('payment-details', [
             'intent' => 'ride charge'
@@ -25,36 +23,14 @@ class PaymentController extends Controller
 
     public function store(Request $request)
     {
-
-        // dd(json_decode($request->stripeToken, true));
-
-        //    Auth::user()->id
-
            $method = $this->iCustomerPaymentMethodsRepository::create([
             'user_id'=>Auth::user()->id,
             'name' => "card",
-            'stripe_card_reference' => json_encode(['token'=>json_decode($request->stripeToken)]),
+            'stripe_card_reference' => json_encode(['token'=>['id'=>$request->stripeToken,'card'=>$request->cardDetails]]),
             'is_default'=>false,
             'status' => Constants::ACTIVE
         ]);
 
-        dd($method);
-
-            // Stripe::setApiKey(env('STRIPE_SECRET'));
-
-
-        // $paymentMethod = PaymentMethod::create([
-        //     'type' => 'card',
-        //     'card' => [
-        //         'token' => $request->stripeToken,
-        //     ],
-        // ]);
-        // dd($paymentMethod);
-        // $user = Auth::user();
-
-        // $card = $user->customerPaymentMethods->updateCard($request->stripeToken);
-
-        // dd($card);
-        // You can add additional logic here, such as redirecting the user or displaying a success message.
+        return redirect(route('payment'));
     }
 }

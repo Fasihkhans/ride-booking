@@ -16,6 +16,10 @@ class StripeCard extends Component
         //
     }
 
+
+    public function save(){
+        dd('asd');
+    }
     /**
      * Get the view / contents that represent the component.
      */
