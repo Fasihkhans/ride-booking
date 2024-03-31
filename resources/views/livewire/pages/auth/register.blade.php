@@ -9,6 +9,7 @@ use Illuminate\Validation\Rules;
 use Livewire\Attributes\Layout;
 use Livewire\Volt\Component;
 use App\Helpers\Configuration;
+use Spatie\Permission\Models\Role;
 use App\Repositories\VerificationCodeRepository;
 
 new #[Layout('layouts.guest')] class extends Component
@@ -40,7 +41,7 @@ new #[Layout('layouts.guest')] class extends Component
         event(new Registered($user = User::create($validated)));
 
         // Auth::login($user);
-        // $user->assignRole('user');
+        $user->assignRole(Role::findById($user->role_id, 'api'));
         $verificationCodeRepository = new VerificationCodeRepository();
         $verificationCodeRepository->generate($user->id, Configuration::VerificationPurpose('Account Verification'));
 

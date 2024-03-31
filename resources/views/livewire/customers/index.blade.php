@@ -43,7 +43,7 @@ new #[Layout('layouts.customer')] class extends Component
     <x-booking-card>
 
             <p class="text-xl font-extrabold">Where to</p>
-            <div class="inline-flex items-center mt-2 border border-gray-300 rounded-md focus:border-blue-50">
+            <div class="flex items-center mt-2 border border-gray-300 rounded-md focus:border-blue-50">
                 <!-- Where to input field -->
                 <div class="flex-1 ">
                     <div class="relative">
@@ -60,12 +60,12 @@ new #[Layout('layouts.customer')] class extends Component
                 </div>
 
                 <!-- Dropdown for Now or Later -->
-                <div>
+                {{-- <div>
                     <select class="px-2 py-2 pr-6 text-sm focus:outline-none focus:border-blue-500">
                         <option value="now">Now</option>
                         <option value="later">Later</option>
                     </select>
-                </div>
+                </div> --}}
             </div>
             {{-- <livewire:customers.components.latest-stops> --}}
             <div class="flex items-center justify-center mt-4">

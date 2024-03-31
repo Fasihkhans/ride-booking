@@ -1,4 +1,3 @@
-{{-- <script src="{{ asset('assets/js/jQuery.js') }}"></script> --}}
 <?php
 
 use Livewire\Attributes\Layout;
@@ -16,9 +15,9 @@ use Livewire\Attributes\On;
 use App\Repositories\BookingRepository;
 use Illuminate\Support\Facades\Auth;
 
-use function Livewire\Volt\{state,with,usesPagination,layout,mount};
-
-new #[Layout('layouts.customer')] class extends Component
+new
+#[Layout('layouts.customer')]
+class extends Component
 {
     use WithPagination;
 
@@ -34,18 +33,19 @@ new #[Layout('layouts.customer')] class extends Component
 
     public $paymentMethods;
 
-    public $statusMessage = 'Waiting for rider approval';
+    public string $statusMessage;
 
-    #[On('confirm')]
-    public function confirm($paymentMethodId)
+    public $count = 0;
+
+    // function state(['statusMessage'])
+
+    public function updateStatus($status)
     {
-
-
-    }
-
-    public function updateStatus()
-    {
-        switch ($this->booking->status) {
+        // $this->mount();
+        switch ($status) {
+            case 'waiting':
+                $this->statusMessage = 'Waiting for rider approval';
+            break;
             case 'accepted':
                 $this->statusMessage = 'Your rider is on the way';
             break;
@@ -54,17 +54,16 @@ new #[Layout('layouts.customer')] class extends Component
                 $this->statusMessage = 'Your ride has start';
             break;
 
-
             case 'completed':
                 $this->statusMessage = 'Ride complete';
             break;
 
             default:
                 $this->statusMessage = 'Your rider is on the way';
-            break;
         }
         // $this->statusMessage = 'Your rider is on the way';
         // dd($data);
+        // $this->render();
 
     }
 
@@ -75,29 +74,36 @@ new #[Layout('layouts.customer')] class extends Component
         $this->redirect(route('customer-home'),navigate: true);
     }
 
+    public function rate()
+    {
+        $this->redirect(route('customer-home'),navigate: true);
+    }
+
+    public function getListeners()
+    {
+        return [
+            "booking.".$this->booking->id => 'updateStatus',
+        ];
+    }
+
     function mount()
     {
         // $this->paymentMethods = CustomerPaymentMethods::Where('user_id',Auth::user()->id)->get();
         $this->booking = BookingRepository::findCustomerActiveBookings(Auth::user()->id);
         if(!$this->booking){
             $this->redirect(route('customer-home'),navigate: true);
-        }
-        $this->listeners['echo:booking.'.$this->booking->id.',BookingStatus'] = 'updateStatus';
-        foreach($this->booking->bookingStops as $bookingStop)
-        {
-            if($bookingStop->type == 'pickUp'){
-                $this->origin = (object) ['latitude' => $bookingStop->latitude,'longitude' => $bookingStop->longitude,'stop'=>$bookingStop->stop];
-            }elseif ($bookingStop->type == 'dropOff') {
-                $this->destination = (object) ['latitude' => $bookingStop->latitude,'longitude' => $bookingStop->longitude,'stop'=>$bookingStop->stop];
+        }else{
+            foreach($this->booking->bookingStops as $bookingStop)
+            {
+                if($bookingStop->type == 'pickUp'){
+                    $this->origin = (object) ['latitude' => $bookingStop->latitude,'longitude' => $bookingStop->longitude,'stop'=>$bookingStop->stop];
+                }elseif ($bookingStop->type == 'dropOff') {
+                    $this->destination = (object) ['latitude' => $bookingStop->latitude,'longitude' => $bookingStop->longitude,'stop'=>$bookingStop->stop];
+                }
             }
+            $this->updateStatus($this->booking->status);
         }
-        $this->hydrate();
-    }
 
-    function hydrate()
-    {
-        $this->booking = BookingRepository::findCustomerActiveBookings(Auth::user()->id);
-        $this->updateStatus();
     }
 
 }
@@ -113,11 +119,11 @@ new #[Layout('layouts.customer')] class extends Component
         {{-- {{ dd(json_decode($paymentMethods[0]->stripe_card_reference)->token->card->last4) }} --}}
 
             <x-gmap class="w-screen min-h-screen" :origin="$origin" :destination="$destination"></x-gmap>
-        <x-booking-card>
+            <x-booking-card>
+            {{-- <input type="text" wire:model='count'> --}}
             <x-back-button :url="route('customer-home')"></x-back-button>
             <div class="flex justify-center w-full p-2 bg-black rounded-lg">
-                {{-- <div class="text-lg font-bold text-white">Your rider is on the way</div> --}}
-                <div class="text-lg font-bold text-white">{{$statusMessage}}</div>
+                <p class="text-lg font-bold text-white status-message" >{{ $statusMessage }}</p>
             </div>
             <div class="flex items-center mt-4">
               <img class="mr-4 rounded-full h-14 w-14" src="{{ asset('assets/svg/user-avatar.svg') }}" alt="Rider Avatar">
@@ -165,72 +171,74 @@ new #[Layout('layouts.customer')] class extends Component
                 </div>
               <!-- ... other address items ... -->
             </div>
-            @livewireScripts
-            <div class="flex justify-between w-full gap-1 mt-4">
+            <div class="flex justify-between w-full gap-1 mt-4 booking-action">
               <button wire:click='cancelRide' id="cancel" class="px-4 py-2 text-black bg-white border border-black rounded-lg">Cancel</button>
               <a href="tel:{{ $booking->driver->user->phone_number }}" class="w-full">
                 <button class="w-full px-4 py-2 text-center text-white bg-black border rounded-lg">Call</button>
                 </a>
             </div>
 
-        </x-booking-card>
+            <div class="flex justify-between w-full gap-1 mt-4 rate-action">
+                <a href="{{route('rating',['booking'=>Crypt::encrypt($booking->id)])}}" class="w-full">
+                  <button wire:click='rate' class="w-full px-4 py-2 text-center text-white bg-black border rounded-lg">Rate</button>
+                  </a>
+            </div>
 
+        </x-booking-card>
+        {{-- @script --}}
+        <script src="https://cdn.socket.io/4.7.5/socket.io.min.js" integrity="sha384-2huaZvOR9iDzHqslqwpR87isEmrfxqyWOF7hr7BY6KG0+hVKLoEXMPUJw3ynWuhO" crossorigin="anonymous"></script>
+        {{-- @endscript --}}
     @script
     <script>
         $(document).ready(function() {
             $('#cancel').click(function() {
                 $wire.dispatch('cancelRide');
             });
-            $('#paymentMethodSelect').select2({
-                templateResult: formatOption,
-                escapeMarkup: function(markup) {
-                    return markup;
-                }
-            }).on('select2:select', function (e) {
-                var data = e.params.data;
-                if (data.id === 'add_card') {
-                    window.location.href = '{{ route('addcard') }}'; // Navigate to the add card URL
-                    return; // Prevent further execution
-                }
-                var imageUrl = $(data.element).data('image');
-                var $selectedOption = $('#paymentMethodSelect').next().find('.select2-selection__rendered');
-                var $selectedImage = $('<img src="' + imageUrl + '" class="inline w-5 h-5 mr-2"/>');
-                $selectedOption.prepend($selectedImage);
-            }).on('select2:unselect', function (e) {
-                var $selectedOption = $('#paymentMethodSelect').next().find('.select2-selection__rendered');
-                $selectedOption.find('img').remove();
-            });
+            $('.rate-action').css('display', 'none');
         });
 
-        function formatOption(option) {
-            if (!option.id) {
-                return option.text;
-            }
-            // Check if the option is "Add card" by value or text
-            if (option.id === 'add_card' || option.text === 'Add card') {
-                return $('<span class="flex w-full justify-content"><img src="' + $(option.element).data('image') + '" class="w-5 h-5 mr-2 img-option" /> <p class="items-center float-right">' + option.text + '</span>');
-            }
-            var $option = $(
-                '<span class="flex items-center"><img src="' + $(option.element).data('image') + '" class="w-5 h-5 mr-2 img-option" /> <p class="items-center float-right">' + option.text + '</p></span>'
-            );
-
-            return $option;
-        }
-
-        // Assuming your rating is a value from 1 to 5
-
-        const rating = {{ $booking->driver->user->aggregate_rating }}; // Set the rating value here
+        const rating = {{ $booking->driver->user->aggregate_rating }};
         const stars = document.querySelectorAll('.star .star-fill');
 
         stars.forEach((star, index) => {
             if (index < rating) {
-            star.setAttribute('fill', 'yellow'); // Use 'currentColor' to inherit the color from the parent element or directly set a color
+            star.setAttribute('fill', 'yellow');
             } else {
             star.setAttribute('fill', 'none');
             }
         });
-        window.Echo.channel('booking.{{$booking->id}}').listen('.BookingStatus', (e) => {
-         console.log("testing", e);
+        const bookingId = "{{ $booking->id }}";
+        const socket = io('http://127.0.0.1:6001');
+        const statusMessage = document.querySelector('.status-message');
+        socket.on(`booking.${bookingId}`, function(data) {
+            console.log('listening',data);
+            $wire.dispatch(`booking.${bookingId}`,{status: data.bookingData.status});
+            switch (data.bookingData.status) {
+                case 'waiting':
+                    statusMessage.innerHTML = 'Waiting for rider approval';
+                break;
+                case 'accepted':
+                    statusMessage.innerHTML = 'Your rider is on the way';
+                break;
+
+                case 'inProgress':
+                    statusMessage.innerHTML = 'Your ride has start';
+                break;
+
+                case 'completed':
+                    statusMessage.innerHTML = 'Ride complete';
+                    document.querySelectorAll('.rate-action').forEach(function(element) {
+                        element.style.display = 'block';
+                    });
+                    document.querySelectorAll('.booking-action').forEach(function(element) {
+                        element.style.display = 'none';
+                    });
+                break;
+
+                default:
+                    statusMessage.innerHTML = 'Your rider is on the way';
+            }
+
         });
     </script>
     @endscript

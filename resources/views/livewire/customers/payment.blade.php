@@ -96,13 +96,11 @@ new #[Layout('layouts.customer')] class extends Component
 ?>
 
 
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
 
 
     <div>
-        {{-- {{ dd(json_decode($paymentMethods[0]->stripe_card_reference)->token->card->last4) }} --}}
+        {{-- {{ dd(json_decode($paymentMethods[1]->stripe_card_reference)->token->card->brand) }} --}}
 
             <x-gmap class="w-screen min-h-screen" :origin="$origin" :destination="$destination"></x-gmap>
         <x-booking-card>
@@ -119,15 +117,15 @@ new #[Layout('layouts.customer')] class extends Component
                             <select id="paymentMethodSelect" class="w-full px-4 py-2 text-sm focus:outline-none focus:border-blue-500">
                                 @foreach ($paymentMethods as $paymentMethod)
                                     <option value="{{ $paymentMethod->id }}"
-                                        data-image="{{ asset($paymentMethod->name == 'cash' ? 'assets/svg/cash-icon.svg' : 'assets/svg/'.json_decode($paymentMethods[0]->stripe_card_reference)->token->card->brand.'-icon.svg') }}"
+                                        data-image="{{ asset($paymentMethod->name == 'cash' ? 'assets/svg/cash-icon.svg' : 'assets/svg/'.json_decode($paymentMethod->stripe_card_reference)->token->card->brand.'-icon.svg') }}"
                                         class="inline-flex justify-between">
                                         @if ($paymentMethod->name == 'cash' || $paymentMethod->name == 'card')
-                                            <img src="{{ asset($paymentMethod->name == 'cash' ? 'assets/svg/cash-icon.svg' : 'assets/svg/'.json_decode($paymentMethods[0]->stripe_card_reference)->token->card->brand.'-icon.svg') }}" />
+                                            <img src="{{ asset($paymentMethod->name == 'cash' ? 'assets/svg/cash-icon.svg' : 'assets/svg/'.json_decode($paymentMethod->stripe_card_reference)->token->card->brand.'-icon.svg') }}" />
                                         @endif
                                         @if ($paymentMethod->name == 'cash')
                                             <p class="float-right">{{ $paymentMethod->name }}</p>
                                         @elseif ($paymentMethod->name == 'card')
-                                            <p class="items-center float-right">xxxx-xxxx-xxxx-{{ json_decode($paymentMethods[0]->stripe_card_reference)->token->card->last4 }}</p>
+                                            <p class="items-center float-right">xxxx-xxxx-xxxx-{{ json_decode($paymentMethod->stripe_card_reference)->token->card->last4 }}</p>
                                         @endif
                                     </option>
 

@@ -66,51 +66,51 @@
                     placeMarker($data[0].location, map);
 
                 });
-//=============================make
+                    //=============================make
                 $wire.on('make-direction', (data) => {
                     console.log(data[0]);
 
-                // const directionsService = new maps.DirectionsService();
-                // const directionsRenderer = new maps.DirectionsRenderer({
-                //     suppressMarkers: true,
-                //     polylineOptions: {
-                //         strokeColor: '#FFB800',
-                //     },
-                // });
+                    // const directionsService = new maps.DirectionsService();
+                    // const directionsRenderer = new maps.DirectionsRenderer({
+                    //     suppressMarkers: true,
+                    //     polylineOptions: {
+                    //         strokeColor: '#FFB800',
+                    //     },
+                    // });
 
-                // // Set up the origin and destination for directions
-                // const origin = [data.origin.latitude, data.origin.longitude].toString();
-                // const destination = [data.destination.latitude, data.destination.longitude].toString();
+                    // // Set up the origin and destination for directions
+                    // const origin = [data.origin.latitude, data.origin.longitude].toString();
+                    // const destination = [data.destination.latitude, data.destination.longitude].toString();
 
-                // const originMarker = new maps.Marker({
-                //     position: { lat: data.origin.latitude, lng: data.origin.longitude },
-                //     map: map,
-                //     title: 'Origin',
-                //     icon: @json(asset('assets/svg/origin-pointer.svg')).toString(),
-                // });
+                    // const originMarker = new maps.Marker({
+                    //     position: { lat: data.origin.latitude, lng: data.origin.longitude },
+                    //     map: map,
+                    //     title: 'Origin',
+                    //     icon: @json(asset('assets/svg/origin-pointer.svg')).toString(),
+                    // });
 
-                // const destinationMarker = new maps.Marker({
-                //     position: { lat: data.destination.latitude, lng: data.destination.longitude },
-                //     map: map,
-                //     title: 'Destination',
-                //     icon: @json(asset('assets/svg/destination-pointer.svg')).toString(),
-                // });
+                    // const destinationMarker = new maps.Marker({
+                    //     position: { lat: data.destination.latitude, lng: data.destination.longitude },
+                    //     map: map,
+                    //     title: 'Destination',
+                    //     icon: @json(asset('assets/svg/destination-pointer.svg')).toString(),
+                    // });
 
-                // // Request directions from the DirectionsService
-                // directionsService.route({
-                //     origin: origin,
-                //     destination: destination,
-                //     travelMode: 'DRIVING',
-                // }, (response, status) => {
-                //     if (status === 'OK') {
-                //         // Display the directions on the map using DirectionsRenderer
-                //         directionsRenderer.setDirections(response);
-                //         directionsRenderer.setMap(map);
-                //     } else {
-                //         console.error('Directions request failed:', status);
-                //     }
-                // });
-            });
+                    // // Request directions from the DirectionsService
+                    // directionsService.route({
+                    //     origin: origin,
+                    //     destination: destination,
+                    //     travelMode: 'DRIVING',
+                    // }, (response, status) => {
+                    //     if (status === 'OK') {
+                    //         // Display the directions on the map using DirectionsRenderer
+                    //         directionsRenderer.setDirections(response);
+                    //         directionsRenderer.setMap(map);
+                    //     } else {
+                    //         console.error('Directions request failed:', status);
+                    //     }
+                    // });
+                });
 
             }
             const apiKey = "AIzaSyAK7e1i54SmdDqdhLDsK4PvkgveKuYW6k0";

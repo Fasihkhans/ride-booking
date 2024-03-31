@@ -26,7 +26,7 @@ class PaymentController extends Controller
            $method = $this->iCustomerPaymentMethodsRepository::create([
             'user_id'=>Auth::user()->id,
             'name' => "card",
-            'stripe_card_reference' => json_encode(['token'=>['id'=>$request->stripeToken,'card'=>$request->cardDetails]]),
+            'stripe_card_reference' => json_encode(['token'=>['id'=>$request->stripeToken,'card'=>json_decode($request->cardDetails)]]),
             'is_default'=>false,
             'status' => Constants::ACTIVE
         ]);

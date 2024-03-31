@@ -30,6 +30,7 @@ new #[Layout('layouts.guest')] class extends Component
         }
         if(Auth::user()->role->name == 'user'){
             // dd(Auth::user()->role->name);
+
             $this->redirect(
                 session('url.intended', route('customer-home')),
                 navigate: true
