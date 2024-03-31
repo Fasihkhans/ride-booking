@@ -90,8 +90,8 @@ new #[Layout('layouts.customer')] class extends Component
             }elseif ($bookingStop->type == 'dropOff') {
                 $this->destination = (object) ['latitude' => $bookingStop->latitude,'longitude' => $bookingStop->longitude,'stop'=>$bookingStop->stop];
             }
-            $this->updateStatus();
         }
+        $this->hydrate();
     }
 
     function hydrate()
