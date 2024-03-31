@@ -40,6 +40,7 @@ new #[Layout('layouts.guest')] class extends Component
         event(new Registered($user = User::create($validated)));
 
         // Auth::login($user);
+        // $user->assignRole('user');
         $verificationCodeRepository = new VerificationCodeRepository();
         $verificationCodeRepository->generate($user->id, Configuration::VerificationPurpose('Account Verification'));
 
