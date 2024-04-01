@@ -27,7 +27,7 @@
             <div class="flex flex-wrap items-center justify-between max-w-screen-xl p-4 mx-auto">
                 {{-- <a href="/" class="flex items-center space-x-2 rtl:space-x-reverse"> --}}
                 <a href="/" class="flex items-center justify-center w-full space-x-2 text-center md:w-auto md:justify-start md:rtl:space-x-reverse">
-                    <img src="{{ asset('assets/svg/dart-logo.svg') }}" class="h-8" alt="Flowbite Logo">
+                    <img src="{{ asset('assets/svg/dart-logo.svg') }}" class="h-10" alt="Flowbite Logo">
                 </a>
                 {{-- <div class="flex space-x-3 md:order-2 md:space-x-0 rtl:space-x-reverse"> --}}
                 <div class="flex-wrap items-center justify-center w-full sm:inline-flex md:w-auto md:flex md:order-2 md:space-x-0 md:rtl:space-x-reverse">
@@ -37,7 +37,7 @@
                     </a>
                 {{-- <div class="inline-flex justify-center w-full md:flex"> --}}
 {{-- <div> --}}
-
+                        <a href="/help" class="hidden float-left px-4 py-2 text-sm font-medium text-center text-white rounded-lg md:flex hover:bg-black hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 ">Help</a>
                          @auth
                             <a href="{{ route('logout') }}"><button type="button" class="hidden px-4 py-2 mx-2 text-sm font-medium text-center text-white bg-black border border-white rounded-lg md:flex hover:bg-black hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300">LogOut</button></a>
                         @endauth
@@ -61,6 +61,7 @@
                     </div>
                     <div class="items-center justify-between w-full md:flex md:w-auto md:order-1 " id="navbar-sticky" hidden>
 
+                        <a href="/help" class="px-4 py-2 mx-2 text-sm font-medium text-center text-white border-white rounded-lg md:hidden hover:bg-black hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 ">help</a>
                         @auth
                             <a href="{{ route('logout') }}"><button type="button" class="px-4 py-2 mx-2 text-sm font-medium text-center text-white bg-black border border-white rounded-lg md:hidden hover:bg-black hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 ">LogOut</button></a>
                         @endauth
@@ -71,17 +72,18 @@
                          <a href="{{ route('register') }}"><button type="button" class="px-4 py-2 mx-2 text-sm font-medium text-center text-black bg-white border border-white rounded-lg md:hidden hover:bg-black hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300">SignUp</button></a>
 
                         @endguest
-                        <ul class="flex flex-col p-4 mt-4 font-medium border border-gray-100 rounded-lg md:p-0 bg-dark md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-black ">
-                            <li>
+
+                        {{-- <ul class="flex flex-col p-4 mt-4 font-medium border border-gray-100 rounded-lg md:p-0 bg-dark md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-black "> --}}
+                            {{-- <li>
                                 <a href="#" class="block px-3 py-2 text-white bg-transparent rounded md:text-white-700 md:p-0 " aria-current="page">Company</a>
                             </li>
                             <li>
                                 <a href="#" class="block px-3 py-2 text-white bg-transparent rounded hover:bg-gray-100 md:hover:text-blue-700 md:p-0 ">Safety</a>
-                            </li>
-                            <li>
-                                <a href="/help" class="block px-3 py-2 text-white rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 ">Help</a>
-                            </li>
-                        </ul>
+                            </li> --}}
+                            {{-- <li> --}}
+                                {{-- <a href="/help" class="block px-3 py-2 text-white rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 ">Help</a> --}}
+                            {{-- </li> --}}
+                        {{-- </ul> --}}
                     </div>
                 </div>
             {{-- </div> --}}
@@ -150,13 +152,22 @@
                 <div class="items-center justify-between w-full md:flex md:w-auto md:order-1" id="navbar-sticky">
                     <ul class="flex flex-col p-4 mt-4 font-medium border border-gray-100 rounded-lg md:p-0 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-black ">
                         <li>
-                            <a href="#" class="block px-3 py-2 text-white rounded md:bg-transparent md:text-white-700 md:p-0 " aria-current="page">Company</a>
+                            {{-- <a href="#" class="block px-3 py-2 text-white rounded md:bg-transparent md:text-white-700 md:p-0 " aria-current="page">Company</a> --}}
+
+
+                            <a href="https://apps.apple.com/pk/app/darts-cars/id6474194239">
+                                <img src="{{ asset('assets/jpg/app-store.jpg') }}" alt="app-store" class="h-10 w-30">
+                            </a>
                         </li>
                         <li>
-                            <a href="#" class="block px-3 py-2 text-white rounded md:hover:bg-transparent md:hover:text-blue-700 md:p-0 ">Safety</a>
+                            {{-- <a href="#" class="block px-3 py-2 text-white rounded md:hover:bg-transparent md:hover:text-blue-700 md:p-0 ">Safety</a> --}}
+
+                            <a href="https://play.google.com/store/apps/details?id=com.dartscars">
+                                <img src="{{ asset('assets/png/play-store.png') }}" alt="play-store" class="h-10 w-30">
+                            </a>
                         </li>
                         <li>
-                            <a href="#" class="block px-3 py-2 text-white rounded md:hover:bg-transparent md:hover:text-blue-700 md:p-0 ">Help</a>
+                            {{-- <a href="#" class="block px-3 py-2 text-white rounded md:hover:bg-transparent md:hover:text-blue-700 md:p-0 ">Help</a> --}}
                         </li>
                     </ul>
                 </div>
@@ -166,7 +177,7 @@
             <span class="text-sm text-gray-500 sm:text-center ">© 2023 <a href="/" class="hover:underline">Dartcars Technologies Inc.</a>. All Rights Reserved.
             </span>
             <ul class="flex flex-wrap items-center mt-3 text-sm font-medium text-gray-500 sm:mt-0">
-                <li>
+                {{-- <li>
                     <a href="/privacy-policy" class="hover:underline me-4 md:me-6">Privacy</a>
                 </li>
                 <li>
@@ -174,7 +185,7 @@
                 </li>
                 <li>
                     <a href="#" class="hover:underline me-4 md:me-6">Terms</a>
-                </li>
+                </li> --}}
             </ul>
             </div>
         </footer>

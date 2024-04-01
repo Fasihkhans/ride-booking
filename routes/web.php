@@ -89,5 +89,6 @@ Route::middleware(['auth','role:user'])->prefix('user')->group( function () {
     Volt::route('/finding-driver', 'customers.finding-driver')->name('finding-driver');
     Volt::route('/booking', 'customers.booking')->name('current-booking');
     Volt::route('/rating', 'customers.rating')->name('rating');
+    Route::view('/profile', 'user-profile')->name('user-profile');
 
 });
