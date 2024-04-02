@@ -84,7 +84,7 @@ class EstimatedBookingFareResource extends JsonResource
             'holidayRate' => $holidayRate,
             'totalMinutes' => $totalMinutes,
             'totalMiles' => $totalMiles,
-            'totalFare' => $booking->pre_calculated_fare,
+            'totalFare' => (int) $booking->pre_calculated_fare,
         ];
     }
 }
