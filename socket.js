@@ -99,7 +99,7 @@ httpServer.listen(6001, () => {
   console.log('Socket.IO server running on port 6001');
 });
 
-httpsServer.listen(443, () => {
+httpsServer.listen(8443, () => {
     console.log('HTTPS server running on port 6002');
 });
 
