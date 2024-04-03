@@ -50,7 +50,7 @@ import io from 'socket.io-client';
 // // and have used Vite's import.meta.env to access them in your frontend code
 const options = {
     broadcaster: 'socket.io',
-    host: 'https://dartscars.com:6001',//`${import.meta.env.VITE_SOCKET_IO_HOST}:${import.meta.env.VITE_SOCKET_IO_PORT}`, // Example: 'http://localhost:6001'
+    host: 'https://dartscars.com:443',//`${import.meta.env.VITE_SOCKET_IO_HOST}:${import.meta.env.VITE_SOCKET_IO_PORT}`, // Example: 'http://localhost:6001'
     client: io
 };
 
