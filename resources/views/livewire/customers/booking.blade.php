@@ -208,7 +208,7 @@ class extends Component
             }
         });
         const bookingId = "{{ $booking->id }}";
-        const socket = io('http://127.0.0.1:6001');
+        const socket = io('https://dartscars.com:8443');
         const statusMessage = document.querySelector('.status-message');
         socket.on(`booking.${bookingId}`, function(data) {
             console.log('listening',data);
