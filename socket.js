@@ -1,42 +1,19 @@
 import express from 'express';
 import http from 'http';
-import https from 'https';
-import { readFileSync } from 'fs';
 import { Server } from 'socket.io';
 import Redis from 'ioredis';
 import cors from 'cors';
 
 
-
-const privateKey = readFileSync('/etc/letsencrypt/live/dartscars.com/privkey.pem', 'utf8');
-const certificate = readFileSync('/etc/letsencrypt/live/dartscars.com/fullchain.pem', 'utf8');
-const credentials = { key: privateKey, cert: certificate };
-
 const app = express();
-const httpServer = http.createServer(app);
-const httpsServer = https.createServer(credentials, app);
-
-const io = new Server();
-// const io = new Server(server, {
-//     cors: {
-//         origin: process.env.CORS_ORIGIN || "*", // Use environment variable or allow all origins
-//         methods: ["GET", "POST"]
-//     },
-//     pingTimeout: 30000,
-//     pingInterval: 30000
-// });
-
-io.attach(httpServer, {
+const server = http.createServer(app);
+const io = new Server(server, {
     cors: {
         origin: process.env.CORS_ORIGIN || "*", // Use environment variable or allow all origins
         methods: ["GET", "POST"]
-    }
-});
-io.attach(httpsServer, {
-    cors: {
-        origin: process.env.CORS_ORIGIN || "*", // Use environment variable or allow all origins
-        methods: ["GET", "POST"]
-    }
+    },
+    pingTimeout: 30000,
+    pingInterval: 30000
 });
 app.use(cors());
 
@@ -95,13 +72,10 @@ redis.on('connect', () => {
   console.log('Connected to Redis');
 });
 
-httpServer.listen(6001, () => {
+server.listen(6001, () => {
   console.log('Socket.IO server running on port 6001');
 });
 
-httpsServer.listen(443, () => {
-    console.log('HTTPS server running on port 6002');
-});
 
 
 
