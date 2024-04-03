@@ -100,7 +100,7 @@ httpServer.listen(6001, () => {
 });
 
 httpsServer.listen(8443, () => {
-    console.log('HTTPS server running on port 6002');
+    console.log('HTTPS server running on port 8443');
 });
 
 
