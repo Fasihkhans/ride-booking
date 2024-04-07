@@ -261,7 +261,10 @@
 
                 script.onload = () => {
                     // Once the script is loaded, call the initMap function
-                    initMap();
+                    setTimeout(() => {
+
+                            initMap();
+                        }, 100);
                 };
 
                 script.onerror = () => {
@@ -272,7 +275,10 @@
                 document.head.appendChild(script);
             } else {
                 // If the Google Maps API is already loaded, directly call the initMap function
-                initMap();
+                setTimeout(() => {
+
+                    initMap();
+                }, 100);
             }
            // Check if the Google Maps API script has already been loaded
         })();
