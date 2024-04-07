@@ -28,6 +28,8 @@ class Constants
 
     const BOOKING_CANCEL_BY_USER = 6;
 
+    const BOOKING_AUTO_CANCEL = 7;
+
     const BOOKING_TYPE_ON_DEMAND = 'OnDemand';
 
     const BOOKING_STOP_STATUS_ACTIVE = 1;
@@ -47,4 +49,6 @@ class Constants
     const BOOKING_PAYMENT_METHOD_CASH = 'cash';
 
     const BOOKING_PAYMENT_METHOD_CARD = 'card';
+
+
 }

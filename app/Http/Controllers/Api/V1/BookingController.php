@@ -16,6 +16,7 @@ use App\Http\Resources\BookingWithStopsResource;
 use App\Http\Resources\PaginateResource;
 use App\Interfaces\IBookingPaymentsRepository;
 use App\Interfaces\IBookingRepository;
+use App\Interfaces\IBookingStatusRepository;
 use App\Interfaces\IBookingStopsRepository;
 use App\Jobs\SendFcmNotification;
 use App\Repositories\BookingRepository;
@@ -33,7 +34,8 @@ class BookingController extends Controller
     public function __construct(
             private IBookingRepository $bookingRepository,
             private IBookingStopsRepository $bookingStopsRepository,
-            private IBookingPaymentsRepository $BookingPaymentsRepository
+            private IBookingPaymentsRepository $BookingPaymentsRepository,
+            private IBookingStatusRepository $bookingStatusRepository
             ){}
 
     /**
@@ -205,6 +207,8 @@ class BookingController extends Controller
             $bookingUpdated = $this->bookingRepository::updateBookingStatus($request->status, $request->bookingId);
             if (!$bookingUpdated)
                 return APIResponse::NotFound('No result found');
+
+            $this->bookingStatusRepository::create(['booking_id'=>$request->bookingId,'status'=>$request->status,'user_id'=>Auth::user()->id]);
 
             $notificationMessage = '';
             $notificationTitle = '';

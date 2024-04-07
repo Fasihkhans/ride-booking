@@ -47,6 +47,11 @@ class Booking extends Model
         return $this->hasMany(BookingStops::class);
     }
 
+    public function bookingStatus()
+    {
+        return $this->hasMany(BookingStatus::class);
+    }
+
     public function rating()
     {
         return $this->hasMany(UserRating::class);

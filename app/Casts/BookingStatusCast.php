@@ -23,6 +23,7 @@ class BookingStatusCast implements CastsAttributes
             Constants::BOOKING_IN_PROGRESS => 'inProgress',
             Constants::BOOKING_NO_DRIVER_FOUND => 'noDriverFound',
             Constants::BOOKING_CANCEL_BY_USER => 'cancelByUser',
+            Constants::BOOKING_AUTO_CANCEL => 'autoCancel',
             default => 'unknownStatus',
         };
     }
@@ -43,6 +44,7 @@ class BookingStatusCast implements CastsAttributes
             'inProgress' => Constants::BOOKING_IN_PROGRESS,
             'noDriverFound' => Constants::BOOKING_NO_DRIVER_FOUND,
             'cancelByUser' => Constants::BOOKING_CANCEL_BY_USER,
+            'autoCancel' => Constants::BOOKING_AUTO_CANCEL,
             default => 9, // Assuming you have a constant for 'unknownStatus'
         };
     }

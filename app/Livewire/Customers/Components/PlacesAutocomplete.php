@@ -83,19 +83,27 @@ class PlacesAutocomplete extends Component
 
     public function createStop($stop,$lat,$lng)
     {
-        // dd($this->type);
+        $locationObj = (object) [];
         if($this->type == 'dropOff'){
             $sequenceNo = 2;
+            $locationObj = ['destinationLoc'=>['latitude'=>$lat,
+                                                'longitude'=>$lng],
+                            'destinationPlace'=> $stop];
         }
         if($this->type == 'pickUp'){
             $sequenceNo = 1;
+            $locationObj = ['pickupLoc'=>['latitude'=>$lat,
+                                                'longitude'=>$lng],
+                            'destinationPlace'=> $stop];
         }
+
         $data = [
             'stop' => $stop,
             'latitude' => $lat,
             'longitude' => $lng,
             'sequence_no' => $sequenceNo,
             'type'=>$this->type,
+            'location_obj' => $locationObj
         ];
         Session::put($this->type, $data);
 

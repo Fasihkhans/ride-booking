@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Interfaces\IBookingPaymentsRepository;
 use App\Interfaces\IBookingRepository;
+use App\Interfaces\IBookingStatusRepository;
 use App\Interfaces\IBookingStopsRepository;
 use App\Interfaces\ICustomerPaymentMethodsRepository;
 use App\Interfaces\IDriverRepository;
@@ -15,6 +16,7 @@ use App\Models\CustomerPaymentMethods;
 use App\Models\VerificationCode;
 use App\Repositories\BookingPaymentsRepository;
 use App\Repositories\BookingRepository;
+use App\Repositories\BookingStatusRepository;
 use App\Repositories\BookingStopsRepository;
 use App\Repositories\CustomerPaymentMethodsRepository;
 use App\Repositories\DriverRepository;
@@ -43,6 +45,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(IBookingPaymentsRepository::class, BookingPaymentsRepository::class);
         $this->app->bind(\Illuminate\Contracts\Debug\ExceptionHandler::class,\App\Exceptions\ApiExceptionHandler::class);
         $this->app->bind(IUserRatingRepository::class,UserRatingRepository::class);
+        $this->app->bind(IBookingStatusRepository::class,BookingStatusRepository::class);
     }
 
     /**

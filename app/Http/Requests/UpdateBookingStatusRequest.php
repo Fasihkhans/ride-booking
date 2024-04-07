@@ -29,14 +29,16 @@ class UpdateBookingStatusRequest extends FormRequest
     {
         if(Auth::user()->roles->first()->name == 'user'){
 
-            return ['status' => ['required','string',Rule::in('cancelByUser')]];
+            return ['status' => ['required','string',Rule::in('cancelByUser',
+                                                                      'autoCanel'
+                                                                      )]];
         }
         if(in_array($this->status,['inProgress','completed'])){
             return [
                 'status' => ['required','string',
                                 Rule::in(
                                     'completed',
-                                    'inProgress',
+                                        'inProgress',
                                 )],
                 'driver_latitude' => ['required','numeric'],
                 'driver_longitude' => ['required','numeric'],
@@ -46,7 +48,8 @@ class UpdateBookingStatusRequest extends FormRequest
             'status' => ['required','string',
                             Rule::in(
                                 'accepted',
-                                'declined',
+                                        'declined',
+                                        'autoCanel'
                             )]
         ];
     }
