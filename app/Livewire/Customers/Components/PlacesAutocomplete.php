@@ -103,7 +103,7 @@ class PlacesAutocomplete extends Component
             'longitude' => $lng,
             'sequence_no' => $sequenceNo,
             'type'=>$this->type,
-            'location_obj' => $locationObj
+            'location_obj' => json_encode($locationObj)
         ];
         Session::put($this->type, $data);
 
