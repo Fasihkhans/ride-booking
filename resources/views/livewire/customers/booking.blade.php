@@ -208,11 +208,13 @@ class extends Component
             }
         });
         const bookingId = "{{ $booking->id }}";
-    // document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function() {
         const socket = io('https://dartscars.com:8443');
         const statusMessage = document.querySelector('.status-message');
 
-        console.log('testing log',
+
+        socket.on('connect', () => {
+             console.log('Socket connected successfully');
 
         socket.on(`booking.${bookingId}`, function(data) {
             console.log('listening', data);
@@ -242,8 +244,10 @@ class extends Component
                 default:
                     statusMessage.innerHTML = 'Your rider is on the way';
             }
-        }));
-    // });
+        });
+
+    });
+    });
 
     </script>
     {{-- @endscript --}}
