@@ -255,16 +255,16 @@
             if (typeof google === 'undefined' || typeof google.maps === 'undefined') {
                 // Load the Google Maps API script dynamically
                 const script = document.createElement('script');
-                script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&callback=initMap&libraries=places`;
+                script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}`;//&callback=initMap&libraries=places`;
                 script.defer = true;
                 script.async = true;
 
                 script.onload = () => {
                     // Once the script is loaded, call the initMap function
-                    setTimeout(() => {
 
                             initMap();
-                        }, 100);
+
+
                 };
 
                 script.onerror = () => {
@@ -275,10 +275,8 @@
                 document.head.appendChild(script);
             } else {
                 // If the Google Maps API is already loaded, directly call the initMap function
-                setTimeout(() => {
 
                     initMap();
-                }, 100);
             }
            // Check if the Google Maps API script has already been loaded
         })();
