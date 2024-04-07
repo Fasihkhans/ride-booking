@@ -241,24 +241,6 @@ class extends Component
                     statusMessage.innerHTML = 'Your rider is on the way';
             }
         });
-
-        // setTimeout(() => {
-        //     let  action = '{{ $status }}'
-        //     switch(action){
-        //         case 'noDriverFound':
-        //             status.textContent = "Opss! No driver available right now. Please try again or contact the admin.";
-        //             setTimeout(() => {
-        //                 $wire.dispatch('next',{routeName: 'customer-home'});
-        //             }, 1000);
-        //         break;
-        //         case 'waiting':
-        //                 $wire.dispatch('next',{routeName: 'current-booking'});
-        //         break;
-        //         default:
-        //             $wire.dispatch('next',{routeName: 'customer-home'});
-        //     }
-
-        // }, 30000);
     });
 
     </script>
