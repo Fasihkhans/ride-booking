@@ -94,7 +94,7 @@ class PlacesAutocomplete extends Component
             $sequenceNo = 1;
             $locationObj = ['pickupLoc'=>['latitude'=>$lat,
                                                 'longitude'=>$lng],
-                            'destinationPlace'=> $stop];
+                            'pickupPlace'=> $stop];
         }
 
         $data = [
