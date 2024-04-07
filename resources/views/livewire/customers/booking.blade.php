@@ -208,9 +208,10 @@ class extends Component
             }
         });
         const bookingId = "{{ $booking->id }}";
-        document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function() {
         const socket = io('https://dartscars.com:8443');
         const statusMessage = document.querySelector('.status-message');
+        console.log('testing log');
         socket.on(`booking.${bookingId}`, function(data) {
             console.log('listening', data);
             $wire.dispatch(`booking.${bookingId}`, {status: data.bookingData.status});
@@ -240,6 +241,24 @@ class extends Component
                     statusMessage.innerHTML = 'Your rider is on the way';
             }
         });
+
+        setTimeout(() => {
+            let  action = '{{ $status }}'
+            switch(action){
+                case 'noDriverFound':
+                    status.textContent = "Opss! No driver available right now. Please try again or contact the admin.";
+                    setTimeout(() => {
+                        $wire.dispatch('next',{routeName: 'customer-home'});
+                    }, 1000);
+                break;
+                case 'waiting':
+                        $wire.dispatch('next',{routeName: 'current-booking'});
+                break;
+                default:
+                    $wire.dispatch('next',{routeName: 'customer-home'});
+            }
+
+        }, 30000);
     });
 
     </script>
