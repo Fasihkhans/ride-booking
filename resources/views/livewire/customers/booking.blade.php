@@ -188,7 +188,7 @@ class extends Component
         {{-- @script --}}
         <script src="https://cdn.socket.io/4.7.5/socket.io.min.js" integrity="sha384-2huaZvOR9iDzHqslqwpR87isEmrfxqyWOF7hr7BY6KG0+hVKLoEXMPUJw3ynWuhO" crossorigin="anonymous"></script>
         {{-- @endscript --}}
-    @script
+    {{-- @script --}}
     <script>
         $(document).ready(function() {
             $('#cancel').click(function() {
@@ -218,7 +218,7 @@ class extends Component
 
         socket.on(`booking.${bookingId}`, function(data) {
             console.log('listening', data);
-            $wire.dispatch(`booking.${bookingId}`, {status: data.bookingData.status});
+            // $wire.dispatch(`booking.${bookingId}`, {status: data.bookingData.status});
             switch (data.bookingData.status) {
                 case 'waiting':
                     statusMessage.innerHTML = 'Waiting for rider approval';
@@ -250,7 +250,7 @@ class extends Component
     });
 
     </script>
-    @endscript
+    {{-- @endscript --}}
     @style
     <style>
         .star .star-fill {
