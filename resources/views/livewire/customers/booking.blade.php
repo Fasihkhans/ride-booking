@@ -208,11 +208,12 @@ class extends Component
             }
         });
         const bookingId = "{{ $booking->id }}";
+        document.addEventListener('DOMContentLoaded', function() {
         const socket = io('https://dartscars.com:8443');
         const statusMessage = document.querySelector('.status-message');
         socket.on(`booking.${bookingId}`, function(data) {
-            console.log('listening',data);
-            $wire.dispatch(`booking.${bookingId}`,{status: data.bookingData.status});
+            console.log('listening', data);
+            $wire.dispatch(`booking.${bookingId}`, {status: data.bookingData.status});
             switch (data.bookingData.status) {
                 case 'waiting':
                     statusMessage.innerHTML = 'Waiting for rider approval';
@@ -238,8 +239,9 @@ class extends Component
                 default:
                     statusMessage.innerHTML = 'Your rider is on the way';
             }
-
         });
+    });
+
     </script>
     @endscript
     @style
