@@ -30,7 +30,7 @@ class UpdateBookingStatusRequest extends FormRequest
         if(Auth::user()->roles->first()->name == 'user'){
 
             return ['status' => ['required','string',Rule::in('cancelByUser',
-                                                                      'autoCanel'
+                                                                      'autoCancel'
                                                                       )]];
         }
         if(in_array($this->status,['inProgress','completed'])){
