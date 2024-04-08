@@ -49,7 +49,7 @@ class UpdateBookingStatusRequest extends FormRequest
                             Rule::in(
                                 'accepted',
                                         'declined',
-                                        'autoCanel'
+                                        'autoCancel'
                             )]
         ];
     }
