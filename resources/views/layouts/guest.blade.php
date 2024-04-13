@@ -14,6 +14,24 @@
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
+        <!-- Google tag (gtag.js) -->
+
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-113HWQKT6N"></script>
+
+        <script>
+
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag(){dataLayer.push(arguments);}
+
+        gtag('js', new Date());
+
+
+
+        gtag('config', 'G-113HWQKT6N');
+
+        </script>
+        <!-- Scripts -->
     <body class="font-sans antialiased text-gray-900">
         <div class="flex flex-col items-start min-h-screen pt-6 bg-gray-100 bg-center bg-no-repeat bg-cover sm:justify-center sm:pt-0 " style="background-image: url('{{ asset('assets/svg/loginBg.svg') }}');">
 

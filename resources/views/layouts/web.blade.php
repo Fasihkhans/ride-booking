@@ -21,6 +21,24 @@
                 'resources/js/app.js'
             ])
     </head>
+     <!-- Google tag (gtag.js) -->
+
+     <script async src="https://www.googletagmanager.com/gtag/js?id=G-113HWQKT6N"></script>
+
+     <script>
+
+     window.dataLayer = window.dataLayer || [];
+
+     function gtag(){dataLayer.push(arguments);}
+
+     gtag('js', new Date());
+
+
+
+     gtag('config', 'G-113HWQKT6N');
+
+     </script>
+     <!-- Scripts -->
     <body class="w-full overflow-x-hidden antialiased g-sidenav-show g-sidenav-pinned font-['Outfit']">
         <nav class="fixed top-0 z-50 w-full bg-black border-b border-gray-200 start-0 ">
             {{-- <div class="flex flex-wrap items-center justify-between max-w-screen-xl p-4 mx-auto sm:w-screen"> --}}

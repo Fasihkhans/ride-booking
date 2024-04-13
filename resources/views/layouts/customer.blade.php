@@ -41,6 +41,24 @@
 
         </style>
     </head>
+    <!-- Google tag (gtag.js) -->
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-113HWQKT6N"></script>
+
+    <script>
+
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag(){dataLayer.push(arguments);}
+
+    gtag('js', new Date());
+
+
+
+    gtag('config', 'G-113HWQKT6N');
+
+    </script>
+    <!-- Scripts -->
     <body class="h-screen overflow-hidden font-sans antialiased text-gray-900">
 
         <div class="absolute top-0 left-0 z-50 flex justify-between w-full p-2 bg-black h-14">

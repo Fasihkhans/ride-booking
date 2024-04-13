@@ -4,7 +4,7 @@
                 <div class="max-w-screen-xl px-4 py-24 mx-auto text-left lg:py-56">
                     {{-- <h1 class="mb-4 text-4xl leading-[88px] tracking-tight text-white md:text-5xl lg:text-6xl  font-normal">Get in the driver’s seat<br> and get paid</h1> --}}
                     {{-- <p class="mb-8 text-lg font-normal text-white lg:text-xl sm:px-16 lg:px-2 font-['Outfit']">Drive on the platform with the largest network of active riders.</p> --}}
-                    <h1 class="mt-10 mb-4 text-xl font-normal leading-10 tracking-tight text-white md:leading-[88px] lg:leading-[88px] md:text-5xl lg:text-6xl">Currently we are working on the website. <br>For booking please call on the following number. </h1>
+                    <h1 class="mt-7 mb-4 text-xl font-normal leading-10 tracking-tight text-white md:leading-[88px] lg:leading-[88px] md:text-5xl lg:text-6xl">For booking, call on the given number.</h1>
                     <div class="flex w-full space-y-4 sm:flex-row sm:justify-start sm:space-y-0">
                         <a href="tel:01325521640" class="inline-flex md:w-1/2 w-full items-center justify-center px-5 py-3 text-base  font-['Outfit'] font-medium text-center text-black bg-white rounded-lg hover:bg-black hover:border-white border hover:text-white focus:ring-4 focus:ring-blue-300 ">
                             Call Now 01325 521640
@@ -13,12 +13,12 @@
                     <ul class="flex justify-start gap-5 mt-10">
                         <li>
                             <a href="https://apps.apple.com/pk/app/darts-cars/id6474194239">
-                                <img src="{{ asset('assets/jpg/app-store.jpg') }}" alt="app-store" class="h-20 border border-white w-60 rounded-xl">
+                                <img src="{{ asset('assets/jpg/app-store.jpg') }}" alt="app-store" class="w-64 h-20 border border-white rounded-xl">
                             </a>
                         </li>
                         <li>
                             <a href="https://play.google.com/store/apps/details?id=com.dartscars">
-                                <img src="{{ asset('assets/png/play-store.png') }}" alt="play-store" class="h-20 border border-white w-60 rounded-xl">
+                                <img src="{{ asset('assets/png/play-store.png') }}" alt="play-store" class="w-64 h-20 border border-white rounded-xl">
                             </a>
                         </li>
                     </ul>
@@ -137,4 +137,5 @@
                 </div>
             </section> --}}
     </div>
+
 </x-web-layout>

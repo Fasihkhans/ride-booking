@@ -20,6 +20,24 @@
                 'resources/js/app.js'
             ])
     </head>
+    <!-- Google tag (gtag.js) -->
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-113HWQKT6N"></script>
+
+    <script>
+
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag(){dataLayer.push(arguments);}
+
+    gtag('js', new Date());
+
+
+
+    gtag('config', 'G-113HWQKT6N');
+
+    </script>
+    <!-- Scripts -->
     <body class="antialiased g-sidenav-show g-sidenav-pinned">
 
             <div id="loading">
