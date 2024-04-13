@@ -23,7 +23,7 @@ $save = function(){
     $validated = $this->validate([
         'first_name' => ['required', 'regex:/^[\pL\s]+$/u', 'string', 'min:2', 'max:50'],
         'last_name' => ['required', 'regex:/^[\pL\s]+$/u', 'string', 'min:2', 'max:50'],
-        'licenseImgUrl' => ['required', 'image','mimes:jpeg,png,jpg','max:10000'],
+        'licenseImgUrl' => ['required', 'image','mimes:jpeg,png,jpg'],
         'email' => ['required', 'string', 'email', 'unique:users', 'max:255'],
         'phone_number' => ['required', 'unique:users', 'regex:/^(((\+44\s?\d{4}|\(?0\d{4}\)?)\s?\d{3}\s?\d{3})|((\+44\s?\d{3}|\(?0\d{3}\)?)\s?\d{3}\s?\d{4})|((\+44\s?\d{2}|\(?0\d{2}\)?)\s?\d{4}\s?\d{4}))(\s?\#(\d{4}|\d{3}))?$/'],
         'license_no' => ['required', 'unique:drivers', 'regex:/^[A-Za-z0-9]+$/'],
@@ -80,7 +80,7 @@ $save = function(){
             <div class="mt-4 form-row">
                 <div class="mb-3 col-md-6">
                     <div class="form-group">
-                        <input type="file" class="form-control" placeholder="License number" wire:model="licenseImgUrl">
+                        <input type="file" class="form-control" placeholder="License number" wire:model="licenseImgUrl" accept=".png, .jpg, .jpeg">
                         <x-input-error :messages="$errors->get('licenseImgUrl')" class="mt-2" />
                     </div>
                 </div>

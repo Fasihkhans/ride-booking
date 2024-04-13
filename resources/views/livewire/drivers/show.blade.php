@@ -41,7 +41,7 @@ $save = function(){
         'first_name' => ['required', 'regex:/^[\pL\s]+$/u', 'string', 'min:2', 'max:50'],
         'last_name' => ['required', 'regex:/^[\pL\s]+$/u', 'string', 'min:2', 'max:50'],
         'email' => ['required', 'string', 'email', 'max:255'],
-        'licenseImgUrl' => ['nullable', 'image','mimes:jpeg,png,jpg','max:10000'],
+        'licenseImgUrl' => ['nullable', 'image','mimes:jpeg,png,jpg'],
         'phone_number' => ['required', 'regex:/^(((\+44\s?\d{4}|\(?0\d{4}\)?)\s?\d{3}\s?\d{3})|((\+44\s?\d{3}|\(?0\d{3}\)?)\s?\d{3}\s?\d{4})|((\+44\s?\d{2}|\(?0\d{2}\)?)\s?\d{4}\s?\d{4}))(\s?\#(\d{4}|\d{3}))?$/'],
         'license_no' => ['required', 'unique:drivers,license_no,'.$this->driver->id, 'regex:/^[A-Za-z0-9]+$/'],
         'license_expiry' => ['required', 'date'],
@@ -106,7 +106,7 @@ $save = function(){
                 <div class="mb-3 col-md-6">
                     <div class="form-group">
                         <div class="custom-file">
-                            <input type="file" class="custom-file-input" id="customFileLang" lang="en" wire:model="licenseImgUrl">
+                            <input type="file" class="custom-file-input" id="customFileLang" lang="en" wire:model="licenseImgUrl" accept=".png, .jpg, .jpeg">
                             <label class="custom-file-label" for="customFileLang"> Registration Information</label>
                             <x-input-error :messages="$errors->get('licenseImgUrl')" class="mt-2" />
                           </div>
