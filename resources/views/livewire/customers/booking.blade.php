@@ -208,46 +208,56 @@ class extends Component
             }
         });
         const bookingId = "{{ $booking->id }}";
-    document.addEventListener('DOMContentLoaded', function() {
-        const socket = io('https://dartscars.com:8443');
-        const statusMessage = document.querySelector('.status-message');
+        document.addEventListener('DOMContentLoaded', function() {
+            const tryConnectSocket = function(attempts) {
+                if (attempts <= 0) {
+                    console.error('Failed to connect to the socket after several attempts.');
+                    return;
+                }
+                const socket = io('https://dartscars.com:8443');
 
+                socket.on('connect', () => {
+                    console.log('Socket connected successfully');
+                    setupBookingChannel(socket);
+                });
 
-        socket.on('connect', () => {
-             console.log('Socket connected successfully');
+                socket.on('connect_error', (error) => {
+                    console.error('Connection failed, retrying...', error);
+                    setTimeout(() => tryConnectSocket(attempts - 1), 5000); // Retry after 5 seconds
+                });
+            };
 
-        socket.on(`booking.${bookingId}`, function(data) {
-            console.log('listening', data);
-            // $wire.dispatch(`booking.${bookingId}`, {status: data.bookingData.status});
-            switch (data.bookingData.status) {
-                case 'waiting':
-                    statusMessage.innerHTML = 'Waiting for rider approval';
-                break;
-                case 'accepted':
-                    statusMessage.innerHTML = 'Your rider is on the way';
-                break;
+            const setupBookingChannel = function(socket) {
+                socket.on(`booking.${bookingId}`, function(data) {
+                    console.log('listening', data);
+                    updateStatus(data.bookingData.status);
+                });
+            };
 
-                case 'inProgress':
-                    statusMessage.innerHTML = 'Your ride has start';
-                break;
+            const updateStatus = function(status) {
+                const statusMessage = document.querySelector('.status-message');
+                switch(status) {
+                    case 'waiting':
+                        statusMessage.innerHTML = 'Waiting for rider approval';
+                        break;
+                    case 'accepted':
+                        statusMessage.innerHTML = 'Your rider is on the way';
+                        break;
+                    case 'inProgress':
+                        statusMessage.innerHTML = 'Your ride has start';
+                        break;
+                    case 'completed':
+                        statusMessage.innerHTML = 'Ride complete';
+                        document.querySelectorAll('.rate-action').forEach(element => element.style.display = 'block');
+                        document.querySelectorAll('.booking-action').forEach(element => element.style.display = 'none');
+                        break;
+                    default:
+                        statusMessage.innerHTML = 'Your rider is on the way';
+                }
+            };
 
-                case 'completed':
-                    statusMessage.innerHTML = 'Ride complete';
-                    document.querySelectorAll('.rate-action').forEach(function(element) {
-                        element.style.display = 'block';
-                    });
-                    document.querySelectorAll('.booking-action').forEach(function(element) {
-                        element.style.display = 'none';
-                    });
-                break;
-
-                default:
-                    statusMessage.innerHTML = 'Your rider is on the way';
-            }
+            tryConnectSocket(5); // Try to connect up to 5 times
         });
-
-    });
-    });
 
     </script>
     {{-- @endscript --}}

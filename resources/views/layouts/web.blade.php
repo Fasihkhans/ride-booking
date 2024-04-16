@@ -58,6 +58,8 @@
                         <a href="/help" class="hidden float-left px-4 py-2 text-sm font-medium text-center text-white rounded-lg md:flex hover:bg-black hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 ">Help</a>
                          @auth
                             <a href="{{ route('logout') }}"><button type="button" class="hidden px-4 py-2 mx-2 text-sm font-medium text-center text-white bg-black border border-white rounded-lg md:flex hover:bg-black hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300">LogOut</button></a>
+
+                            <a href="{{ route('customer-home') }}"><button type="button" class="hidden float-left px-4 py-2 text-sm font-medium text-center text-black bg-white rounded-lg md:flex hover:bg-black hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 ">Dasboard</button></a>
                         @endauth
 
 
