@@ -219,16 +219,17 @@ class extends Component
       </style>
     @endstyle
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        // document.addEventListener('DOMContentLoaded', function() {
 
 
-            // Load the Socket.IO script dynamically and then try to connect
-            // Load the Socket.IO script dynamically and then try to connect
-            // loadSocketIoScript(() => setTimeout(() => tryConnectSocket(5), 1000)); // Wait 1 second before trying to connect
+        //     // Load the Socket.IO script dynamically and then try to connect
+        //     // Load the Socket.IO script dynamically and then try to connect
+        //     // loadSocketIoScript(() => setTimeout(() => tryConnectSocket(5), 1000)); // Wait 1 second before trying to connect
 
-        });
+        // });
 
-        window.onload = function() {
+        // window.onload = function() {
+            console.log('log runn');
             var bookingId = "{{ $booking->id }}";
 
             // Function to dynamically load Socket.IO
@@ -301,7 +302,7 @@ class extends Component
                 loadSocketIoScript(() => setTimeout(() => tryConnectSocket(5), 1000)); // Wait 1 second before trying to connect
 
             }, 3000);
-        };
+        // };
     </script>
 
     </div>
