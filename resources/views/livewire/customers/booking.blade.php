@@ -196,7 +196,6 @@ class extends Component
             });
             $('.rate-action').css('display', 'none');
         });
-
         const rating = {{ $booking->driver->user->aggregate_rating }};
         const stars = document.querySelectorAll('.star .star-fill');
 
@@ -207,6 +206,9 @@ class extends Component
             star.setAttribute('fill', 'none');
             }
         });
+        </script>
+        @endscript
+        <script>
         const bookingId = "{{ $booking->id }}";
         document.addEventListener('DOMContentLoaded', function() {
             const tryConnectSocket = function(attempts) {
@@ -260,7 +262,7 @@ class extends Component
         });
 
     </script>
-    @endscript
+
     @style
     <style>
         .star .star-fill {
