@@ -206,14 +206,14 @@ class extends Component
         </script>
         @endscript
         <script>
-        const bookingId = "{{ $booking->id }}";
+        var bookingId = "{{ $booking->id }}";
         document.addEventListener('DOMContentLoaded', function() {
-            const tryConnectSocket = function(attempts) {
+            var tryConnectSocket = function(attempts) {
                 if (attempts <= 0) {
                     console.error('Failed to connect to the socket after several attempts.');
                     return;
                 }
-                const socket = io('https://dartscars.com:8443');
+                var socket = io('https://dartscars.com:8443');
 
                 socket.on('connect', () => {
                     console.log('Socket connected successfully');
@@ -226,15 +226,15 @@ class extends Component
                 });
             };
 
-            const setupBookingChannel = function(socket) {
+            var setupBookingChannel = function(socket) {
                 socket.on(`booking.${bookingId}`, function(data) {
                     console.log('listening', data);
                     updateStatus(data.bookingData.status);
                 });
             };
 
-            const updateStatus = function(status) {
-                const statusMessage = document.querySelector('.status-message');
+            var updateStatus = function(status) {
+                var statusMessage = document.querySelector('.status-message');
                 switch(status) {
                     case 'waiting':
                         statusMessage.innerHTML = 'Waiting for rider approval';
