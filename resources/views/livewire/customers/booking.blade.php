@@ -205,9 +205,36 @@ class extends Component
         });
         </script>
         @endscript
-        <script>
-        var bookingId = "{{ $booking->id }}";
+
+
+    @style
+    <style>
+        .star .star-fill {
+          stroke: #303030;
+          stroke-width: 1.5; /* You can adjust the stroke-width as needed */
+        }
+        .filled {
+          fill: yellow; /* This color will be applied when the star is filled */
+        }
+      </style>
+    @endstyle
+    <script>
         document.addEventListener('DOMContentLoaded', function() {
+            var bookingId = "{{ $booking->id }}";
+
+            // Function to dynamically load Socket.IO
+            function loadSocketIoScript(callback) {
+                var script = document.createElement('script');
+                script.src = "https://cdn.socket.io/4.7.5/socket.io.min.js";
+                script.integrity = "sha384-2huaZvOR9iDzHqslqwpR87isEmrfxqyWOF7hr7BY6KG0+hVKLoEXMPUJw3ynWuhO";
+                script.crossOrigin = "anonymous";
+                script.onload = callback; // Callback after script is loaded
+                script.onerror = function() {
+                    console.error("The script could not be loaded.");
+                };
+                document.head.appendChild(script);
+            }
+
             var tryConnectSocket = function(attempts) {
                 if (attempts <= 0) {
                     console.error('Failed to connect to the socket after several attempts.');
@@ -243,7 +270,7 @@ class extends Component
                         statusMessage.innerHTML = 'Your rider is on the way';
                         break;
                     case 'inProgress':
-                        statusMessage.innerHTML = 'Your ride has start';
+                        statusMessage.innerHTML = 'Your ride has started';
                         break;
                     case 'completed':
                         statusMessage.innerHTML = 'Ride complete';
@@ -255,20 +282,11 @@ class extends Component
                 }
             };
 
-            tryConnectSocket(5); // Try to connect up to 5 times
-        });
+            // Load the Socket.IO script dynamically and then try to connect
+            // Load the Socket.IO script dynamically and then try to connect
+            loadSocketIoScript(() => setTimeout(() => tryConnectSocket(5), 1000)); // Wait 1 second before trying to connect
 
+        });
     </script>
 
-    @style
-    <style>
-        .star .star-fill {
-          stroke: #303030;
-          stroke-width: 1.5; /* You can adjust the stroke-width as needed */
-        }
-        .filled {
-          fill: yellow; /* This color will be applied when the star is filled */
-        }
-      </style>
-    @endstyle
     </div>
