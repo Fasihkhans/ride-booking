@@ -13,12 +13,12 @@
                     <ul class="flex justify-start gap-5 mt-10">
                         <li>
                             <a href="https://apps.apple.com/pk/app/darts-cars/id6474194239">
-                                <img src="{{ asset('assets/jpg/app-store.jpg') }}" alt="app-store" class="w-64 h-20 border border-white rounded-xl">
+                                <img src="{{ asset('assets/jpg/app-store.jpg') }}" alt="app-store" class="w-64 h-12 border border-white md:h-20 rounded-xl">
                             </a>
                         </li>
                         <li>
                             <a href="https://play.google.com/store/apps/details?id=com.dartscars">
-                                <img src="{{ asset('assets/png/play-store.png') }}" alt="play-store" class="w-64 h-20 border border-white rounded-xl">
+                                <img src="{{ asset('assets/png/play-store.png') }}" alt="play-store" class="w-64 h-12 border border-white md:h-20 rounded-xl">
                             </a>
                         </li>
                     </ul>
