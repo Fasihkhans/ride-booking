@@ -220,6 +220,15 @@ class extends Component
     @endstyle
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+
+
+            // Load the Socket.IO script dynamically and then try to connect
+            // Load the Socket.IO script dynamically and then try to connect
+            // loadSocketIoScript(() => setTimeout(() => tryConnectSocket(5), 1000)); // Wait 1 second before trying to connect
+
+        });
+
+        window.onload = function() {
             var bookingId = "{{ $booking->id }}";
 
             // Function to dynamically load Socket.IO
@@ -228,7 +237,13 @@ class extends Component
                 script.src = "https://cdn.socket.io/4.7.5/socket.io.min.js";
                 script.integrity = "sha384-2huaZvOR9iDzHqslqwpR87isEmrfxqyWOF7hr7BY6KG0+hVKLoEXMPUJw3ynWuhO";
                 script.crossOrigin = "anonymous";
-                script.onload = callback; // Callback after script is loaded
+                script.onload = function() {
+                    if (document.readyState === 'complete') {
+                        callback();
+                    } else {
+                        window.onload = callback;
+                    }
+                };
                 script.onerror = function() {
                     console.error("The script could not be loaded.");
                 };
@@ -281,12 +296,12 @@ class extends Component
                         statusMessage.innerHTML = 'Your rider is on the way';
                 }
             };
+            // Ensure the socket connection is reattempted when everything is fully loaded
+            setTimeout(() => {
+                loadSocketIoScript(() => setTimeout(() => tryConnectSocket(5), 1000)); // Wait 1 second before trying to connect
 
-            // Load the Socket.IO script dynamically and then try to connect
-            // Load the Socket.IO script dynamically and then try to connect
-            loadSocketIoScript(() => setTimeout(() => tryConnectSocket(5), 1000)); // Wait 1 second before trying to connect
-
-        });
+            }, 3000);
+        };
     </script>
 
     </div>
